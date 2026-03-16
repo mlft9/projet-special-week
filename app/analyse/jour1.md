@@ -61,7 +61,7 @@ Projet-cap/
 │   │   │   ├── Play.tsx        ← "Jouer"
 │   │   │   └── Dashboard.tsx
 │   │   ├── components/
-│   │   │   ├── Navbar.tsx
+│   │   │   ├── BurgerMenu.tsx
 │   │   │   ├── QuizCard.tsx
 │   │   │   ├── ExampleCard.tsx
 │   │   │   └── ScoreBadge.tsx
@@ -101,7 +101,7 @@ npm install react-chartjs-2
 - [ ] Maquettes Figma Web + Mobile partagées avec l'équipe
 - [x] `react-router` installé
 - [ ] Routing en place, toutes les routes accessibles
-- [ ] Navbar fonctionnelle avec liens vers chaque page
+- [ ] Menu burger fonctionnel avec liens vers chaque page (drawer latéral ou overlay)
 - [ ] `quiz.json` rempli avec 10 questions
 - [ ] `examples.json` rempli avec 5 exemples fictifs
 - [ ] Chaque page affiche au moins un titre
