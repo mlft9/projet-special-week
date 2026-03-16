@@ -1,4 +1,4 @@
-# Jour 1 — Les Bases
+# Jour 1 - Les Bases
 
 ## Stack technique confirmée
 
@@ -10,7 +10,7 @@
 
 ---
 
-## Matin — UX & Architecture (3h)
+## Matin - UX & Architecture (3h)
 
 **Persona principal : le collégien/lycéen (13-18 ans)**
 - Attention courte : contenus courts, visuels, gamifiés
@@ -40,7 +40,7 @@ Créer des maquettes rapides (pas besoin d'être parfait) pour **Web** et **Mobi
 
 ---
 
-## Après-midi — Setup Technique (3h)
+## Après-midi - Setup Technique (3h)
 
 ### 3. Structure du projet cible
 
@@ -85,7 +85,7 @@ npm install react-chartjs-2
 |----------|-------|------------|
 | Simon (B1) |  Mise en place du figma | Finition du figma |
 | Adam (B1) | Aide Figma + Veille technologique | Validation du figma + Choix des palettes, etc... |
-| Ridwan (B2) | Rédaction quiz.json (10 questions) | Intégration quiz.json dans QuizCard |
+| Ridwan (B2) | Rédaction quiz.json (10 questions) | Intégration quiz.json x |
 | Maxime (B2) | Mise en place de la structure de l'application | Création des premières pages. |
 
 ---
@@ -94,18 +94,18 @@ npm install react-chartjs-2
 
 - [ ] Maquettes Figma Web + Mobile partagées avec l'équipe
 - [ ] `react-router` installé
-- [ ] Routing en place, toutes les routes accessibles (même vides)
+- [ ] Routing en place, toutes les routes accessibles
 - [ ] Navbar fonctionnelle avec liens vers chaque page
 - [ ] `quiz.json` rempli avec 10 questions
 - [ ] `examples.json` rempli avec 5 exemples fictifs
-- [ ] Chaque page affiche au moins un titre (pas de page blanche)
+- [ ] Chaque page affiche au moins un titre
 - [ ] `npm run dev` tourne sans erreur
 
 ---
 
 ## Pièges à éviter
 
-- Ne pas passer trop de temps sur le CSS Jour 1 — le style vient Jour 2
-- Ne pas commencer le backend Jour 1 — on n'en a pas encore besoin
-- Ne pas chercher de vraies images pour les exemples — créer des placeholders fictifs avec du texte
-- Garder les exemples **100% neutres et non sensibles** (sujet impose de ne pas utiliser de vrais événements)
+- Ne pas passer trop de temps sur le CSS Jour 1 - le style vient Jour 2
+- Ne pas commencer le backend Jour 1 - on n'en a pas encore besoin
+- Ne pas chercher de vraies images pour les exemples - créer des placeholders fictifs avec du texte
+- Garder les exemples **100% neutres et non sensibles**
