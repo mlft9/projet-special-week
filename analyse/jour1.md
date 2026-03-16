@@ -31,6 +31,12 @@ Accueil --> Quiz rapide --> Mini-jeu tactile --> Règles d'or
 
 Créer des maquettes rapides (pas besoin d'être parfait) pour **Web** et **Mobile**.
 
+**Direction artistique (DA confirmée) :**
+- Primaire : `#FFF0CC` (crème) — fond général
+- Secondaire : `#933600` (brun-rouge) — CTA, accents, titres forts
+- Fonts : **Playfair Display** (titres) + **Poppins** (corps/UI)
+- Détail complet → `analyse/design.md`
+
 **Pages à maquetter (Web) :**
 - Page d'accueil (hero visuel, navigation claire vers les 3 modules)
 - Page "Découvrir" (layout pédagogique avec sections)
