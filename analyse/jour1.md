@@ -99,7 +99,7 @@ npm install react-chartjs-2
 ## Objectifs de fin de Jour 1
 
 - [ ] Maquettes Figma Web + Mobile partagées avec l'équipe
-- [ ] `react-router` installé
+- [x] `react-router` installé
 - [ ] Routing en place, toutes les routes accessibles
 - [ ] Navbar fonctionnelle avec liens vers chaque page
 - [ ] `quiz.json` rempli avec 10 questions
