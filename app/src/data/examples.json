@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "type": "post",
+    "title": "Post réseau social — Santé",
+    "content": "URGENT 🚨 Le gouvernement cache que le Wi-Fi 5G provoque des migraines chroniques ! Une étude de l'Université de Genève (2024) le prouve. Partagez avant que ça soit supprimé ! #5G #Santé #VéritéCachée",
+    "clues": [
+      "Aucun lien vers l'étude citée",
+      "Langage alarmiste (URGENT, cachée, supprimé)",
+      "L'université citée n'a pas publié cette étude",
+      "Les émojis d'alarme créent un sentiment d'urgence artificiel"
+    ],
+    "explanation": "Ce post utilise plusieurs techniques classiques de désinformation : fausse urgence, source invérifiable, appel à la peur et complot (\"le gouvernement cache\"). L'étude citée n'existe pas.",
+    "isFake": true
+  },
+  {
+    "id": 2,
+    "type": "text",
+    "title": "Article de presse — Science",
+    "content": "Des chercheurs de l'INRAE ont publié ce mardi dans la revue Nature une étude montrant que la consommation régulière de légumineuses (lentilles, pois chiches) réduit de 12% le risque de maladies cardiovasculaires chez les adultes de plus de 50 ans. L'étude a porté sur 14 000 participants sur 8 ans.",
+    "clues": [
+      "Source identifiée (INRAE, revue Nature)",
+      "Chiffres précis et vérifiables",
+      "Pas de langage alarmiste",
+      "Résultat modéré et nuancé (12%, pas \"guérit tout\")"
+    ],
+    "explanation": "Cet article présente les caractéristiques d'une information fiable : source précise et vérifiable, chiffres concrets, langage neutre et résultat nuancé. On peut retrouver l'étude originale.",
+    "isFake": false
+  },
+  {
+    "id": 3,
+    "type": "post",
+    "title": "Fausse citation — Personnalité publique",
+    "content": "\"L'intelligence artificielle remplacera tous les enseignants d'ici 2027. Les écoles telles qu'on les connaît n'existeront plus.\" — Professeur Marc Dupont, Directeur de l'IA à l'École Polytechnique de Paris",
+    "clues": [
+      "Aucune date ni contexte de la citation",
+      "Prédiction très précise et absolue (\"tous\", \"d'ici 2027\")",
+      "Ce directeur et ce poste n'existent pas à Polytechnique",
+      "Aucune source vers l'interview ou le discours original"
+    ],
+    "explanation": "Cette citation a été générée par une IA. La personne citée n'existe pas sous ce nom et ce titre. Les fausses citations de \"professeurs\" ou \"experts\" sont fréquentes car elles semblent crédibles.",
+    "isFake": true
+  },
+  {
+    "id": 4,
+    "type": "image",
+    "title": "Photo hors contexte — Événement",
+    "content": "Photo d'une foule immense dans une rue, partagée avec le texte : \"Manifestation monstre hier à Lyon contre la réforme scolaire — 200 000 personnes selon les organisateurs\"",
+    "clues": [
+      "La photo date en réalité d'une fête nationale en 2019",
+      "Aucune indication de l'auteur de la photo",
+      "Le nombre \"200 000\" n'est pas sourcé",
+      "Recherche d'image inversée révèle le vrai contexte"
+    ],
+    "explanation": "C'est une photo réelle mais utilisée dans un mauvais contexte. Technique courante : recycler une vraie photo impressionnante pour illustrer un faux événement. La recherche d'image inversée permet de détecter ça.",
+    "isFake": true
+  },
+  {
+    "id": 5,
+    "type": "text",
+    "title": "Communiqué officiel — Institution",
+    "content": "Le ministère de l'Éducation nationale a annoncé ce jeudi l'extension du programme Pix à tous les niveaux du collège à partir de la rentrée 2025. Ce programme d'évaluation des compétences numériques, déjà obligatoire en 4e et 2de, sera progressivement déployé en 5e et 3e.",
+    "clues": [
+      "Source officielle identifiable (ministère)",
+      "Information vérifiable sur education.gouv.fr",
+      "Langage administratif neutre",
+      "Cohérent avec la politique numérique existante"
+    ],
+    "explanation": "Ce communiqué présente toutes les caractéristiques d'une information institutionnelle fiable. On peut vérifier sur le site officiel du ministère. Le contexte (extension de Pix) est cohérent avec les annonces réelles.",
+    "isFake": false
+  }
+]
