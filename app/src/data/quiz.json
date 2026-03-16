@@ -84,8 +84,8 @@
     "correct": 1,
     "explanation": "C'était vicieux, hein ? L'IA est une artiste, pas une mathématicienne. Elle sait qu'une piscine doit refléter le bâtiment, mais elle oublie souvent de 'copier' chaque détail. Si tu regardes bien les fenêtres dans le reflet de l'Image B, il en manque une par rapport à la réalité. C'est le bug de la symétrie : l'IA dessine ce qui est beau, pas ce qui est logiquement vrai !",
     "images": {
-      "a": "/src/assets/quiz/q8-villaa.jpg",
-      "b": "/src/assets/quiz/q8-villab.png",
+      "a": "/assets/quiz/q8-villaa.jpg",
+      "b": "/assets/quiz/q8-villab.png",
       "labelA": "Villa A",
       "labelB": "Villa B"
     }
@@ -100,8 +100,8 @@
     "correct": 1,
     "explanation": "La perfection trahit la machine ! Une vraie pâtisserie a toujours de petites bulles, des craquelures irrégulières, des imperfections qui la rendent unique. L'IA génère ce qui semble 'parfait' visuellement, mais cette perfection est justement le signe qu'aucune main humaine n'est passée par là.",
     "images": {
-      "a": "/src/assets/quiz/q9-donnuta.png",
-      "b": "/src/assets/quiz/q9-donnutb.png",
+      "a": "/assets/quiz/q9-donnuta.png",
+      "b": "/assets/quiz/q9-donnutb.png",
       "labelA": "Donut A",
       "labelB": "Donut B"
     }
@@ -116,8 +116,8 @@
     "correct": 0,
     "explanation": "T'as eu besoin d'un collyre pour voir clair ? L'IA est devenue une pro des visages, mais elle galère encore sur les détails 'sales' de la réalité. Sur l'image A, l'œil est parfait, presque divin. Si c'est trop parfait pour être vrai, c'est que c'est une machine !",
     "images": {
-      "a": "/src/assets/quiz/q10-oeila.png",
-      "b": "/src/assets/quiz/q10-oeilb.jpg",
+      "a": "/assets/quiz/q10-oeila.png",
+      "b": "/assets/quiz/q10-oeilb.jpg",
       "labelA": "Œil A",
       "labelB": "Œil B"
     }
