@@ -5,6 +5,7 @@ import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import BurgerMenu from '../components/BurgerMenu'
 import UserJourney from '../components/UserJourney'
+import Footer from '../components/Footer.tsx'
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
 
@@ -98,7 +99,7 @@ export default function Home() {
 
   return (
     <main ref={containerRef} className="font-sans">
-      <section className="hero-section relative isolate min-h-screen flex flex-col items-center justify-center bg-[#933600] text-white">
+      <section className="hero-section relative isolate min-h-screen flex flex-col items-center justify-center bg-[#7C3218] text-[#FFF5E8]">
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
           <div className="blob absolute -right-24 -top-24 h-[520px] w-[520px] rounded-full bg-[#FF9A3C]/30 blur-[100px]" />
           <div className="blob absolute -bottom-24 -left-24 h-[460px] w-[460px] rounded-full bg-[#FFE0B0]/25 blur-[120px]" />
@@ -113,12 +114,12 @@ export default function Home() {
             CAPGEMINI x SUP DE VINCI 2026
           </div>
 
-          <h1 className="animate-in mt-8 mb-4 max-w-2xl text-center text-6xl font-black leading-[1.1] text-white">
+          <h1 className="animate-in mt-8 mb-4 max-w-2xl text-center text-6xl font-display font-bold leading-[1.05] text-[#FFF8EF]">
             T&apos;as le niveau pour détecter le{' '}
             <span className="font-serif italic font-medium text-amber-100">fake</span> ?
           </h1>
 
-          <p className="animate-in max-w-md text-center text-sm leading-relaxed text-white/70">
+          <p className="animate-in max-w-md text-center text-sm leading-relaxed text-[#F7DFC2]/90">
             Le portail de sensibilisation à la désinformation par l&apos;IA
           </p>
 
@@ -143,7 +144,7 @@ export default function Home() {
             <button
               type="button"
               onClick={() => navigate('/jouer')}
-              className="animate-in bg-[#FDF6E3] text-[#933600] px-10 py-4 rounded-full font-bold flex items-center gap-3"
+              className="animate-in bg-[#FFF2DA] text-[#7C3218] px-10 py-4 rounded-full font-bold flex items-center gap-3"
             >
               <svg
                 aria-hidden="true"
@@ -175,7 +176,7 @@ export default function Home() {
         </div>
 
         <div
-          className="hero-wave pointer-events-none absolute bottom-0 left-0 w-full overflow-hidden leading-[0] text-[#FDF6E3]"
+          className="hero-wave pointer-events-none absolute bottom-0 left-0 w-full overflow-hidden leading-[0] text-[#FCF4E4]"
           aria-hidden="true"
         >
           <svg
@@ -192,9 +193,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="content-section bg-[#FDF6E3] py-20">
+      <section className="content-section bg-[#FCF4E4] py-20">
         <div className="mx-auto max-w-6xl px-4 text-center">
-          <h2 className="content-animate mb-4 text-4xl font-black text-[#2a1a0e]">
+          <h2 className="content-animate mb-4 text-4xl font-display font-bold text-[#2A1A0F]">
             Comment ça marche ?
           </h2>
 
@@ -207,7 +208,7 @@ export default function Home() {
           {cards.map((card) => (
             <article
               key={card.step}
-              className="step-card bg-white rounded-[2.5rem] p-10 shadow-sm border border-black/5 flex flex-col items-start text-left transition-transform duration-300 hover:-translate-y-2"
+              className="step-card bg-[#FFFDFA] rounded-[2.5rem] p-10 shadow-sm border border-[#5a2d16]/10 flex flex-col items-start text-left transition-transform duration-300 hover:-translate-y-2"
             >
               <div className="mb-6 text-[11px] font-bold uppercase tracking-[0.2em] text-[#C17E61]">
                 {card.step}
@@ -252,23 +253,24 @@ export default function Home() {
                 )}
               </div>
 
-              <h3 className="mb-3 text-2xl font-bold text-[#2a1a0e]">{card.title}</h3>
+              <h3 className="mb-3 text-2xl font-display font-bold text-[#2A1A0F]">{card.title}</h3>
 
               <p className="mb-8 text-gray-600 leading-relaxed">{card.description}</p>
 
-              <Link
-                to={card.link}
-                className="mt-auto inline-flex items-center gap-2 text-sm font-extrabold text-[#933600]"
+              <button
+                type="button"
+                className="mt-auto inline-flex items-center gap-2 text-sm font-extrabold text-[#7C3218]"
               >
                 {card.cta}
                 <span className="font-bold">→</span>
-              </Link>
+              </button>
             </article>
           ))}
         </div>
       </section>
 
       <UserJourney />
+      <Footer />
     </main>
   )
 }

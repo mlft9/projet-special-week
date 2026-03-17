@@ -49,9 +49,9 @@ export default function UserJourney() {
   )
 
   return (
-    <section ref={sectionRef} className="bg-[#FDF6E3] px-4 pb-24">
+    <section ref={sectionRef} className="bg-[#FCF4E4] px-4 pb-24">
       <div className="mx-auto w-[97%] max-w-none">
-        <div className="journey-shell relative min-h-[600px] overflow-hidden rounded-[3rem] bg-[#933600] p-12 text-white" style={{ backgroundColor: '#933600' }}>
+        <div className="journey-shell relative min-h-[600px] overflow-hidden rounded-[3rem] bg-[#6A62E4] p-12 text-white">
           <img
             src={stars}
             alt=""
@@ -67,7 +67,7 @@ export default function UserJourney() {
           />
 
           <div className="relative z-10 max-w-sm">
-            <h2 className="text-3xl font-bold mb-8 ml-8 text-amber-50">Ton parcours en 3 étapes</h2>
+            <h2 className="mb-8 ml-8 text-3xl font-display font-bold text-[#F8F3FF]">Ton parcours en 3 étapes</h2>
           </div>
 
           <div className="relative z-10 mt-8 min-h-[440px]">
