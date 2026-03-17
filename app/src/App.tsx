@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import BurgerMenu from './components/BurgerMenu'
 import Home from './pages/Home'
 import Learn from './pages/Learn'
@@ -7,11 +7,16 @@ import Classement from './pages/Classement'
 import './App.css'
 
 export default function App() {
+  const location = useLocation()
+  const showHeader = location.pathname !== '/'
+
   return (
     <>
-      <header className="app-header">
-        <BurgerMenu />
-      </header>
+      {showHeader && (
+        <header className="app-header">
+          <BurgerMenu />
+        </header>
+      )}
 
       <Routes>
         <Route path="/"           element={<Home />} />
