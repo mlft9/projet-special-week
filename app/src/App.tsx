@@ -4,6 +4,8 @@ import Home from './pages/Home.tsx'
 import Learn from './pages/Learn'
 import Play from './pages/Play'
 import Classement from './pages/Classement'
+import MentionsLegales from './pages/MentionsLegales'
+import PolitiqueConfidentialite from './pages/PolitiqueConfidentialite'
 import './App.css'
 
 export default function App() {
@@ -23,6 +25,8 @@ export default function App() {
         <Route path="/comprendre" element={<Learn />} />
         <Route path="/jouer"      element={<Play />} />
         <Route path="/classement" element={<Classement />} />
+        <Route path="/mentions-legales" element={<MentionsLegales />} />
+        <Route path="/politique-confidentialite" element={<PolitiqueConfidentialite />} />
       </Routes>
     </>
   )
