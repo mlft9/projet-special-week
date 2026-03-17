@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import quizData from '../data/quiz.json'
 import type { QuizQuestion, LeaderboardEntry } from '../types'
 import QuizCard from '../components/QuizCard'
+import ScoreBadge from '../components/ScoreBadge'
 import './Play.css'
 
 const questions = quizData as QuizQuestion[]
@@ -28,7 +29,7 @@ export default function Play() {
   const [name,     setName]     = useState('')
 
   const question = questions[current]
-  const progress = (current / questions.length) * 100
+  const progress = questions.length > 0 ? (current / questions.length) * 100 : 0
 
   function handleAnswer(index: number) {
     setAnswered(index)
@@ -74,10 +75,7 @@ export default function Play() {
     return (
       <main>
         <div className="results-hero">
-          <div className="results-badge">🏆 Quiz terminé !</div>
-          <div className="results-score">
-            {score} <span>/ {questions.length}</span>
-          </div>
+          <ScoreBadge score={score} total={questions.length} />
           <p className="results-sub">{getResultMessage(score, questions.length)}</p>
         </div>
 

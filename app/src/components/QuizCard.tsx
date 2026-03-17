@@ -25,11 +25,19 @@ export default function QuizCard({ question, questionIndex, total, answered, onA
       {question.images && (
         <div className="quiz-images">
           <figure className="quiz-image-figure">
-            <img src={question.images.a} alt={question.images.labelA ?? 'Image A'} />
+            <img
+              src={question.images.a}
+              alt={question.images.labelA ?? 'Image A'}
+              onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
+            />
             <figcaption>{question.images.labelA ?? 'Image A'}</figcaption>
           </figure>
           <figure className="quiz-image-figure">
-            <img src={question.images.b} alt={question.images.labelB ?? 'Image B'} />
+            <img
+              src={question.images.b}
+              alt={question.images.labelB ?? 'Image B'}
+              onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
+            />
             <figcaption>{question.images.labelB ?? 'Image B'}</figcaption>
           </figure>
         </div>

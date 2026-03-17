@@ -29,12 +29,6 @@ export interface Example {
   }
 }
 
-export interface Score {
-  sessionId: string
-  score: number
-  total: number
-  date: string
-}
 
 export interface LeaderboardEntry {
   name: string
