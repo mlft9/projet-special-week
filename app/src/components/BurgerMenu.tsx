@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 
 const links = [
@@ -10,6 +10,13 @@ const links = [
 
 export default function BurgerMenu() {
   const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    if (!open) return
+    const close = () => setOpen(false)
+    window.addEventListener('scroll', close, { passive: true })
+    return () => window.removeEventListener('scroll', close)
+  }, [open])
 
   return (
     <>
