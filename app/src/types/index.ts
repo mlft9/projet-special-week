@@ -14,12 +14,19 @@ export interface QuizQuestion {
 
 export interface Example {
   id: number
-  type: 'text' | 'image' | 'post'
+  type: 'text' | 'image' | 'post' | 'comparison'
   title: string
+  objective?: string
   content: string
   clues: string[]
   explanation: string
   isFake: boolean
+  images?: {
+    real: string
+    ai: string
+    cluesReal?: string[]
+    cluesAi?: string[]
+  }
 }
 
 export interface Score {
