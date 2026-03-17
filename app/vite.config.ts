@@ -10,5 +10,11 @@ export default defineConfig({
   ],
   server: {
     allowedHosts: ['dev.e-alerte.com', 'localhost', '127.0.0.1', '[::1]', 'e-alerte.com'],
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3001',
+        changeOrigin: true,
+      },
+    },
   },
 })

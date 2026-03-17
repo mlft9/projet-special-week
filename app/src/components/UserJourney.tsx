@@ -2,7 +2,6 @@ import { useRef } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import ruban from '../assets/ruban.png'
 import stars from '../assets/stars.png'
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
@@ -59,12 +58,24 @@ export default function UserJourney() {
             className="journey-stars pointer-events-none absolute left-10 top-1/2 z-10 w-[420px] max-w-none -translate-y-1/2 opacity-100"
           />
 
-          <img
-            src={ruban}
-            alt=""
+          <svg
             aria-hidden="true"
-            className="journey-ribbon pointer-events-none absolute left-1/2 top-1/2 z-0 w-[115%] max-w-none -translate-x-1/2 -translate-y-1/2 opacity-95"
-          />
+            className="journey-ribbon pointer-events-none absolute left-1/2 top-1/2 z-[1] w-[115%] max-w-none -translate-x-1/2 -translate-y-1/2"
+            viewBox="0 0 1440 320"
+            preserveAspectRatio="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M0,160 C200,80 400,240 600,160 C800,80 1000,240 1200,160 C1320,120 1390,140 1440,150 L1440,210 C1390,200 1320,180 1200,220 C1000,300 800,140 600,220 C400,300 200,140 0,220 Z"
+              fill="white"
+              fillOpacity="0.07"
+            />
+            <path
+              d="M0,140 C200,60 400,220 600,140 C800,60 1000,220 1200,140 C1320,100 1390,120 1440,130 L1440,160 C1390,150 1320,130 1200,170 C1000,250 800,90 600,170 C400,250 200,90 0,170 Z"
+              fill="white"
+              fillOpacity="0.05"
+            />
+          </svg>
 
           <div className="relative z-10 max-w-sm">
             <h2 className="mb-8 ml-8 text-3xl font-display font-bold text-[#F8F3FF]">Ton parcours en 3 étapes</h2>

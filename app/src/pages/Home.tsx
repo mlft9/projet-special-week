@@ -259,6 +259,7 @@ export default function Home() {
 
               <button
                 type="button"
+                onClick={() => navigate(card.link)}
                 className="mt-auto inline-flex items-center gap-2 text-sm font-extrabold text-[#7C3218]"
               >
                 {card.cta}

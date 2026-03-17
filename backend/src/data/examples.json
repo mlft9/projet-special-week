@@ -1,0 +1,159 @@
+[
+  {
+    "id": 1,
+    "type": "post",
+    "title": "Post réseau social — Santé",
+    "content": "URGENT 🚨 Le gouvernement cache que le Wi-Fi 5G provoque des migraines chroniques ! Une étude de l'Université de Genève (2024) le prouve. Partagez avant que ça soit supprimé ! #5G #Santé #VéritéCachée",
+    "clues": [
+      "Aucun lien vers l'étude citée",
+      "Langage alarmiste (URGENT, cachée, supprimé)",
+      "L'université citée n'a pas publié cette étude",
+      "Les émojis d'alarme créent un sentiment d'urgence artificiel"
+    ],
+    "explanation": "Ce post utilise plusieurs techniques classiques de désinformation : fausse urgence, source invérifiable, appel à la peur et complot. L'étude citée n'existe pas.",
+    "isFake": true
+  },
+  {
+    "id": 2,
+    "type": "text",
+    "title": "Article de presse — Science",
+    "content": "Des chercheurs de l'INRAE ont publié ce mardi dans la revue Nature une étude montrant que la consommation régulière de légumineuses (lentilles, pois chiches) réduit de 12% le risque de maladies cardiovasculaires chez les adultes de plus de 50 ans. L'étude a porté sur 14 000 participants sur 8 ans.",
+    "clues": [
+      "Source identifiée (INRAE, revue Nature)",
+      "Chiffres précis et vérifiables",
+      "Pas de langage alarmiste",
+      "Résultat modéré et nuancé (12%, pas \"guérit tout\")"
+    ],
+    "explanation": "Cet article présente les caractéristiques d'une information fiable : source précise, chiffres concrets, langage neutre et résultat nuancé.",
+    "isFake": false
+  },
+  {
+    "id": 3,
+    "type": "post",
+    "title": "Fausse citation — Personnalité publique",
+    "content": "\"L'intelligence artificielle remplacera tous les enseignants d'ici 2027. Les écoles telles qu'on les connaît n'existeront plus.\" — Professeur Marc Dupont, Directeur de l'IA à l'École Polytechnique de Paris",
+    "clues": [
+      "Aucune date ni contexte de la citation",
+      "Prédiction très précise et absolue (\"tous\", \"d'ici 2027\")",
+      "Ce directeur et ce poste n'existent pas à Polytechnique",
+      "Aucune source vers l'interview ou le discours original"
+    ],
+    "explanation": "Cette citation a été générée par une IA. La personne citée n'existe pas sous ce nom et ce titre. Les fausses citations de \"professeurs\" ou \"experts\" sont fréquentes car elles semblent crédibles.",
+    "isFake": true
+  },
+  {
+    "id": 4,
+    "type": "post",
+    "title": "Photo hors contexte — Événement",
+    "content": "Photo d'une foule immense dans une rue, partagée avec le texte : \"Manifestation monstre hier à Lyon contre la réforme scolaire — 200 000 personnes selon les organisateurs\"",
+    "clues": [
+      "La photo date en réalité d'une fête nationale en 2019",
+      "Aucune indication de l'auteur de la photo",
+      "Le nombre \"200 000\" n'est pas sourcé",
+      "La recherche d'image inversée révèle le vrai contexte"
+    ],
+    "explanation": "C'est une photo réelle mais utilisée dans un mauvais contexte. Technique courante : recycler une vraie photo impressionnante pour illustrer un faux événement.",
+    "isFake": true
+  },
+  {
+    "id": 5,
+    "type": "text",
+    "title": "Communiqué officiel — Institution",
+    "content": "Le ministère de l'Éducation nationale a annoncé ce jeudi l'extension du programme Pix à tous les niveaux du collège à partir de la rentrée 2025. Ce programme d'évaluation des compétences numériques, déjà obligatoire en 4e et 2de, sera progressivement déployé en 5e et 3e.",
+    "clues": [
+      "Source officielle identifiable (ministère)",
+      "Information vérifiable sur education.gouv.fr",
+      "Langage administratif neutre",
+      "Cohérent avec la politique numérique existante"
+    ],
+    "explanation": "Ce communiqué présente toutes les caractéristiques d'une information institutionnelle fiable. On peut vérifier sur le site officiel du ministère.",
+    "isFake": false
+  },
+  {
+    "id": 6,
+    "type": "comparison",
+    "title": "Le Duel de la Tech — Objet connecté",
+    "objective": "Ne pas se laisser impressionner par la qualité globale d'une image et chercher l'erreur de logique.",
+    "content": "Deux photos d'une montre connectée. L'une est réelle, l'autre a été générée par une IA. Regarde les détails de l'écran.",
+    "clues": [
+      "L'écran de l'IA contient des symboles mathématiques sans sens ($Σ, ≈, ∫, μ$)",
+      "L'objet généré par l'IA est \"trop propre\", sans usure ni micro-poussières",
+      "Le texte sur l'image réelle est lisible et cohérent (\"feb. 2020\", jours de la semaine corrects)",
+      "L'IA \"remplit\" les zones difficiles avec du gribouillage numérique"
+    ],
+    "explanation": "L'IA ne comprend pas la logique d'un calendrier ou d'un écran. Elle génère des pixels qui ressemblent à du texte sans en comprendre le sens. Si tu vois des symboles illisibles ou incohérents sur un écran, c'est un signe fort de génération par IA.",
+    "isFake": true,
+    "images": {
+      "real": "/assets/examples/ex6-reel.jpg",
+      "ai": "/assets/examples/ex6-ia.png",
+      "cluesReal": [
+        "Calendrier logique : \"feb. 2020\" avec les bons jours de semaine",
+        "Texte clair et stable (L M X J V S D)",
+        "Micro-poussières et légère usure sur le cadran en métal"
+      ],
+      "cluesAi": [
+        "Bas de l'écran rempli de symboles sans sens (Σ, ≈, ∫, μ, ℵ)",
+        "L'heure \"10:09\" en haut semble correcte mais le reste est incohérent",
+        "Objet trop propre, sans aucune imperfection"
+      ]
+    }
+  },
+  {
+    "id": 7,
+    "type": "comparison",
+    "title": "Le Duel des Sommets — Paysage de montagne",
+    "objective": "Ne pas se laisser tromper par les couleurs \"Wow\" et vérifier la cohérence des éléments naturels.",
+    "content": "Deux photos d'un lac de montagne au coucher du soleil. L'une est réelle, l'autre a été générée par une IA. Observe les reflets dans l'eau.",
+    "clues": [
+      "Le reflet dans le lac de l'image IA est trop net malgré les vagues en surface",
+      "Les nuages orange vifs de l'image IA ne sont pas reflétés avec la même intensité dans le lac",
+      "Sur l'image réelle, les teintes du ciel se retrouvent exactement dans le miroir de l'eau",
+      "La brume de l'image réelle cache naturellement les détails en profondeur"
+    ],
+    "explanation": "L'IA est une artiste, pas une physicienne. Elle sait qu'un lac doit refléter le paysage, mais elle oublie les lois de l'optique : les reflets doivent être brisés par les vagues et les nuages doivent apparaître au bon endroit dans l'eau.",
+    "isFake": true,
+    "images": {
+      "real": "/assets/examples/ex7-reel.jpg",
+      "ai": "/assets/examples/ex7-ia.png",
+      "cluesReal": [
+        "Les teintes orangées du ciel sont exactement aux mêmes endroits dans le reflet",
+        "Les arbres sur l'île sont des silhouettes distinctes avec de la profondeur",
+        "La brume cache naturellement les détails en arrière-plan"
+      ],
+      "cluesAi": [
+        "Le reflet du mont Cervin est trop net par rapport aux vagues en surface",
+        "Les nuages orange à droite du sommet ne sont pas reflétés avec la même intensité",
+        "Les couleurs sont trop saturées, effet \"filtre Instagram\" exagéré"
+      ]
+    }
+  },
+  {
+    "id": 8,
+    "type": "comparison",
+    "title": "Le Miroir de l'Identité — Portrait",
+    "objective": "Repérer les artéfacts de l'IA sur les portraits, là où la machine essaie d'imiter la vie.",
+    "content": "Deux portraits d'une personne. L'un est réel, l'autre a été généré par une IA. Regarde les détails du visage et des accessoires.",
+    "clues": [
+      "L'image IA présente des boucles d'oreilles asymétriques (une oreille a un anneau + une étoile, l'autre juste un anneau)",
+      "La peau de l'image IA est trop lisse, comme retouchée par un filtre de magazine",
+      "Les taches de rousseur de l'image IA semblent posées de façon trop régulière",
+      "Sur l'image réelle, les lunettes sont parfaitement symétriques et suivent la courbe du visage"
+    ],
+    "explanation": "L'IA oublie souvent la symétrie des accessoires. Un humain a deux boucles d'oreilles identiques, deux manches pareilles... L'IA génère chaque côté indépendamment et oublie de les faire correspondre. C'est un artéfact de fusion classique.",
+    "isFake": true,
+    "images": {
+      "real": "/assets/examples/ex8-reel.jpg",
+      "ai": "/assets/examples/ex8-ia.png",
+      "cluesReal": [
+        "Les lunettes sont parfaitement symétriques et suivent la courbe du visage",
+        "Pores réels visibles, petites ombres sous les yeux naturelles",
+        "Variations de couleurs dues à l'éclairage, pas trop uniformes"
+      ],
+      "cluesAi": [
+        "Boucle d'oreille gauche : anneau simple. Droite : anneau + étoile — asymétrie",
+        "Peau trop lisse, taches de rousseur placées de façon trop régulière",
+        "Aspect \"trop parfait\", filtre de magazine invisible"
+      ]
+    }
+  }
+]

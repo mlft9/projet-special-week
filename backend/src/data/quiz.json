@@ -1,0 +1,177 @@
+[
+  {
+    "id": 1,
+    "question": "L'intelligence artificielle comprend réellement le sens des phrases qu'elle écrit, exactement comme toi.",
+    "options": [
+      "Vrai",
+      "Faux"
+    ],
+    "correct": 1,
+    "explanation": "Désolé de casser le mythe, mais l'IA ne « comprend » rien ! C'est juste une championne des stats. Elle prédit le mot suivant en fonction de milliards d'exemples qu'elle a absorbés, un peu comme l'auto-complétion de ton clavier qui finit tes phrases, mais en version ultra-boostée."
+  },
+  {
+    "id": 2,
+    "question": "On te montre une photo super réaliste d'un influenceur en train de manger un burger. Tout a l'air parfait, mais un détail te met la puce à l'oreille. Où est l'erreur la plus courante générée par l'IA sur ce genre d'image ?",
+    "options": [
+      "Le burger n'a pas de steak.",
+      "L'influenceur a 6 doigts sur la main qui tient le burger.",
+      "Le ciel en arrière-plan est trop bleu."
+    ],
+    "correct": 1,
+    "explanation": "Bien vu l'expert ! Les mains sont la bête noire des IA. Comme elles ne comprennent pas l'anatomie humaine et qu'elles ne font que « recopier » des pixels, elles s'emmêlent souvent les pinceaux. Si tu vois trop de doigts ou des articulations bizarres, c'est du 100 % généré par ordinateur !"
+  },
+  {
+    "id": 3,
+    "question": "Tu demandes à une IA de te citer le nom du premier chat à être allé sur la Lune en 1965. Elle te répond avec assurance : « Il s'agissait du chat français nommé Astro-Minou. » Que s'est-il passé ?",
+    "options": [
+      "C'est vrai, l'IA a une culture générale incroyable.",
+      "L'IA a « halluciné » : elle a inventé un fait qui a l'air vrai pour te faire plaisir.",
+      "Le dossier est top secret, seule l'IA y a accès."
+    ],
+    "correct": 1,
+    "explanation": "Gros mytho ! En réalité, aucun chat n'est jamais allé sur la Lune. L'IA déteste dire « je ne sais pas ». Du coup, elle combine des mots crédibles (France + Espace + Chat) pour fabriquer une réponse qui sonne bien. C'est ce qu'on appelle une hallucination. Ne crois jamais une info sans vérifier la source !"
+  },
+  {
+    "id": 4,
+    "question": "L'IA veut toujours te donner une réponse, même si elle ne sait pas. Quel prompt est un piège qui va l'obliger à inventer une fausse information ?",
+    "options": [
+      "« Explique-moi comment Thomas Edison a inventé l'ampoule électrique en 1879. »",
+      "« Décris-moi le Scanner de Pensées qu'Apple a ajouté à l'iPhone 15 fin 2023. »",
+      "« Raconte-moi comment Steve Jobs a présenté le tout premier iPhone en 2007. »"
+    ],
+    "correct": 1,
+    "explanation": "Bien joué ! Apple n'a jamais inventé de scanner de pensées (heureusement pour nous !). Mais comme le prompt cite une marque connue et une date précise, l'IA ne veut pas passer pour une ignorante. Elle va te décrire la fonctionnalité comme si elle était réelle. C'est le piège de la « Fausse Précision »."
+  },
+  {
+    "id": 5,
+    "question": "Il existe aujourd'hui des logiciels miracles capables de détecter si un texte ou une image a été créé par une IA.",
+    "options": [
+      "Vrai",
+      "Faux"
+    ],
+    "correct": 1,
+    "explanation": "Et non, le détecteur parfait n'existe pas ! Même les outils les plus poussés se trompent souvent et peuvent accuser un humain d'être une machine (ou l'inverse). C'est une véritable course à l'armement entre ceux qui créent les IA et ceux qui essaient de les repérer. Ton meilleur outil de détection, ça reste ton propre esprit critique !"
+  },
+  {
+    "id": 6,
+    "question": "Tu analyses le portrait d'un chercheur devant une bibliothèque. Tout semble réel. Quel détail « microscopique » est un véritable indice de génération par IA ?",
+    "options": [
+      "Le chercheur porte une blouse blanche parfaitement propre.",
+      "Les livres en arrière-plan ont des titres écrits en anglais.",
+      "Les branches de ses lunettes ne sont pas alignées ou l'une d'elles disparaît derrière l'oreille de façon illogique.",
+      "La lumière vient du haut, créant une ombre sous le nez."
+    ],
+    "correct": 2,
+    "explanation": "C'est le détail qui tue ! L'IA « dessine » des objets mais ne comprend pas qu'une branche de lunettes est un objet solide qui doit suivre une ligne droite. Elle fait souvent fusionner les lunettes avec la peau ou les cheveux. C'est ce qu'on appelle un artefact de fusion. Si tu vois un accessoire qui « fond » dans le décor, c'est signé IA !"
+  },
+  {
+    "id": 7,
+    "question": "Une IA est capable d'analyser tous les messages postés par une personne sur les réseaux sociaux pour apprendre sa façon de parler et écrire un nouveau texte à sa place sans que personne ne s'en rende compte.",
+    "options": [
+      "Vrai",
+      "Faux"
+    ],
+    "correct": 0,
+    "explanation": "C'est la force de l'imitation ! L'IA ne comprend pas qui tu es, mais elle est une championne du « copier-coller » de style. Si elle a assez d'exemples, elle peut devenir ton double numérique. C'est pour ça qu'il faut se méfier : ce n'est pas parce que « ça ressemble à du Maxime » que c'est forcément Maxime qui écrit !"
+  },
+  {
+    "id": 8,
+    "question": "Ces deux villas de luxe semblent sortir d'un magazine. Pourtant, l'une d'elles n'existe que dans les calculs d'une IA. Regardez bien les reflets dans la piscine. Laquelle est générée par IA ?",
+    "options": [
+      "L'Image A est l'IA.",
+      "L'Image B est l'IA."
+    ],
+    "correct": 1,
+    "explanation": "C'était vicieux, hein ? L'IA est une artiste, pas une mathématicienne. Elle sait qu'une piscine doit refléter le bâtiment, mais elle oublie souvent de « copier » chaque détail. Si tu regardes bien les fenêtres dans le reflet de l'Image B, il en manque une par rapport à la réalité. C'est le bug de la symétrie : l'IA dessine ce qui est beau, pas ce qui est logiquement vrai !",
+    "images": {
+      "a": "/assets/quiz/q8-villaa.jpg",
+      "b": "/assets/quiz/q8-villab.png",
+      "labelA": "Villa A",
+      "labelB": "Villa B"
+    }
+  },
+  {
+    "id": 9,
+    "question": "Ces deux donuts semblent appétissants. L'un a un glaçage avec de légères imperfections naturelles, l'autre est lisse comme du verre poli. Lequel est généré par IA ?",
+    "options": [
+      "L'Image A est l'IA.",
+      "L'Image B est l'IA."
+    ],
+    "correct": 1,
+    "explanation": "La perfection trahit la machine ! Une vraie pâtisserie a toujours de petites bulles, des craquelures irrégulières, des imperfections qui la rendent unique. L'IA génère ce qui semble « parfait » visuellement, mais cette perfection est justement le signe qu'aucune main humaine n'est passée par là.",
+    "images": {
+      "a": "/assets/quiz/q9-donnuta.png",
+      "b": "/assets/quiz/q9-donnutb.png",
+      "labelA": "Donut A",
+      "labelB": "Donut B"
+    }
+  },
+  {
+    "id": 10,
+    "question": "On dit que les yeux sont le miroir de l'âme... mais sont-ils aussi le miroir du code ? L'un de ces regards appartient à un humain, l'autre n'est qu'un amas de pixels calculés. Lequel est le faux ?",
+    "options": [
+      "L'Image A est le faux (IA).",
+      "L'Image B est le faux (IA)."
+    ],
+    "correct": 0,
+    "explanation": "T'as eu besoin d'un collyre pour voir clair ? L'IA est devenue une pro des visages, mais elle galère encore sur les détails « sales » de la réalité. Sur l'image A, l'œil est parfait, presque divin. Si c'est trop parfait pour être vrai, c'est que c'est une machine !",
+    "images": {
+      "a": "/assets/quiz/q10-oeila.png",
+      "b": "/assets/quiz/q10-oeilb.jpg",
+      "labelA": "Œil A",
+      "labelB": "Œil B"
+    }
+  },
+  {
+    "id": 11,
+    "question": "Tu te demandes comment prendre soin de ton animal de compagnie. Que fais-tu ?",
+    "options": [
+      "Tu fais tes propres recherches auprès d'un vétérinaire ou de sources fiables.",
+      "Tu demandes à l'IA."
+    ],
+    "correct": 0,
+    "explanation": "L'IA peut donner des conseils généraux, mais elle ne « ressent » rien et ne connaît pas ton animal. La majorité des informations doivent être prises avec des pincettes, car les erreurs ou informations incomplètes peuvent être dangereuses. Pour la santé d'un animal, mieux vaut toujours consulter un professionnel."
+  },
+  {
+    "id": 12,
+    "question": "Ces deux plages semblent être des destinations de rêve. Mais l'une d'entre elles a été créée par une IA. Laquelle est-ce ?",
+    "options": [
+      "L'Image A est l'IA.",
+      "L'Image B est l'IA."
+    ],
+    "correct": 1,
+    "explanation": "Pas facile, hein ? L'IA a tendance à en faire trop. La deuxième semble bien plus idyllique que la première : couleurs trop saturées, eau trop turquoise, sable trop parfait. L'IA aime exagérer la beauté, c'est pourquoi il faut toujours se méfier quand une image paraît trop parfaite pour être vraie.",
+    "images": {
+      "a": "/assets/quiz/q12-PlageA.jpg",
+      "b": "/assets/quiz/q12-PlageB.png",
+      "labelA": "Plage A",
+      "labelB": "Plage B"
+    }
+  },
+  {
+    "id": 13,
+    "question": "Tu veux faire un gâteau pour l'anniversaire de ton ami. Que fais-tu ?",
+    "options": [
+      "Tu fais le gâteau toi-même ou tu consultes une recette fiable.",
+      "Tu demandes à l'IA de te faire une recette."
+    ],
+    "correct": 0,
+    "explanation": "L'IA peut te suggérer une recette, mais il faut rester vigilant : elle peut proposer des quantités incorrectes, des associations d'ingrédients hasardeuses, voire des préparations potentiellement dangereuses. Pour la cuisine, privilégie toujours des sources vérifiées ou l'avis d'un professionnel."
+  },
+  {
+    "id": 14,
+    "question": "Tu scrolles sur un réseau social et tu tombes sur 2 photos. Tu sais que l'une d'elles a été créée par une IA, mais tu ne sais pas laquelle. Sauras-tu trouver la fausse ?",
+    "options": [
+      "Première image.",
+      "Deuxième image."
+    ],
+    "correct": 0,
+    "explanation": "Comme tu peux le voir, les images générées par IA ont tendance à avoir des couleurs trop saturées ou des détails surexagérés (par exemple, un brillant excessif sur un capot de voiture). Ces petits « extras » peuvent être utilisés pour reconnaître une vraie image d'une fausse.",
+    "images": {
+      "a": "/assets/quiz/q14-burgerA.jpg",
+      "b": "/assets/quiz/q14-burgerB.png",
+      "labelA": "Burger A",
+      "labelB": "Burger B"
+    }
+  }
+]

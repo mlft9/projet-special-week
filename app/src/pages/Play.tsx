@@ -1,13 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import quizData from '../data/quiz.json'
 import type { QuizQuestion, LeaderboardEntry } from '../types'
 import QuizCard from '../components/QuizCard'
 import ScoreBadge from '../components/ScoreBadge'
 import './Play.css'
 import Footer from '../components/Footer'
-
-const questions = quizData as QuizQuestion[]
 
 type Phase = 'intro' | 'quiz' | 'results'
 
@@ -23,11 +20,20 @@ function getResultMessage(score: number, total: number): string {
 export default function Play() {
   const navigate = useNavigate()
 
-  const [current,  setCurrent]  = useState(0)
-  const [score,    setScore]    = useState(0)
-  const [answered, setAnswered] = useState<number | null>(null)
-  const [phase,    setPhase]    = useState<Phase>('intro')
-  const [name,     setName]     = useState('')
+  const [questions,  setQuestions]  = useState<QuizQuestion[]>([])
+  const [dataReady,  setDataReady]  = useState(false)
+  const [current,    setCurrent]    = useState(0)
+  const [score,      setScore]      = useState(0)
+  const [answered,   setAnswered]   = useState<number | null>(null)
+  const [phase,      setPhase]      = useState<Phase>('intro')
+  const [name,       setName]       = useState('')
+
+  useEffect(() => {
+    fetch('/api/quiz')
+      .then(r => r.json())
+      .then((data: QuizQuestion[]) => { setQuestions(data); setDataReady(true) })
+      .catch(() => setDataReady(true))
+  }, [])
 
   const question = questions[current]
   const progress = questions.length > 0 ? (current / questions.length) * 100 : 0
@@ -104,8 +110,8 @@ export default function Play() {
             ))}
           </ul>
 
-          <button className="results-save-btn" onClick={() => setPhase('quiz')}>
-            C'est parti →
+          <button className="results-save-btn" onClick={() => setPhase('quiz')} disabled={!dataReady || questions.length === 0}>
+            {dataReady ? "C'est parti →" : 'Chargement…'}
           </button>
         </div>
 
