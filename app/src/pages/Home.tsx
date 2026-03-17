@@ -109,7 +109,7 @@ export default function Home() {
           <BurgerMenu />
         </div>
 
-        <div className="relative z-10 flex w-full max-w-5xl flex-col items-center justify-center px-4 text-center">
+        <div className="relative z-10 flex w-full max-w-5xl flex-col items-center justify-center px-4 pb-36 text-center">
           <div className="animate-in bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-1 text-[10px] tracking-widest uppercase">
             CAPGEMINI x SUP DE VINCI 2026
           </div>
