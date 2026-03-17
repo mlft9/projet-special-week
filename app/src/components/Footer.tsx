@@ -55,7 +55,7 @@ export default function Footer() {
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-6 py-5 text-xs text-[#F7EAD8]/65 sm:flex-row sm:items-center sm:justify-between">
           <span>© 2026 E-Alertés — Capgemini x Sup de Vinci</span>
-          <span>Conçu pour apprendre à détecter la désinformation</span>
+          <span>Conçu pour apprendre à détecter la désinformation - Réalisé par Adam, Ridwan et Maxime</span>
         </div>
       </div>
     </footer>
