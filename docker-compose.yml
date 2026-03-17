@@ -1,0 +1,7 @@
+services:
+  app:
+    build: .
+    container_name: truthsense
+    restart: unless-stopped
+    ports:
+      - "80:80"
