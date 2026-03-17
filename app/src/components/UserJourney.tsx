@@ -51,7 +51,7 @@ export default function UserJourney() {
   return (
     <section ref={sectionRef} className="bg-[#FDF6E3] px-4 pb-24">
       <div className="mx-auto w-[97%] max-w-none">
-        <div className="journey-shell relative min-h-[600px] overflow-hidden rounded-[3rem] bg-[#7B7BFF] p-12 text-white">
+        <div className="journey-shell relative min-h-[600px] overflow-hidden rounded-[3rem] bg-[#933600] p-12 text-white" style={{ backgroundColor: '#933600' }}>
           <img
             src={stars}
             alt=""
