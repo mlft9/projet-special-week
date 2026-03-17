@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import type { QuizQuestion } from '../types'
 
 const LETTERS = ['A', 'B', 'C', 'D']
@@ -13,9 +14,24 @@ interface Props {
 
 export default function QuizCard({ question, questionIndex, total, answered, onAnswer, onNext }: Props) {
   const isCorrect = answered !== null && answered === question.correct
+  const [modalSrc, setModalSrc] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (!modalSrc) return
+    const close = (e: KeyboardEvent) => { if (e.key === 'Escape') setModalSrc(null) }
+    window.addEventListener('keydown', close)
+    return () => window.removeEventListener('keydown', close)
+  }, [modalSrc])
 
   return (
     <div className="quiz-card">
+      {modalSrc && (
+        <div className="quiz-modal-overlay" onClick={() => setModalSrc(null)}>
+          <img src={modalSrc} alt="Agrandissement" className="quiz-modal-img" />
+          <button className="quiz-modal-close" aria-label="Fermer">✕</button>
+        </div>
+      )}
+
       <p className="quiz-qnum">
         Question {String(questionIndex + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
       </p>
@@ -28,6 +44,8 @@ export default function QuizCard({ question, questionIndex, total, answered, onA
             <img
               src={question.images.a}
               alt={question.images.labelA ?? 'Image A'}
+              className="quiz-image-clickable"
+              onClick={() => setModalSrc(question.images!.a)}
               onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
             />
             <figcaption>{question.images.labelA ?? 'Image A'}</figcaption>
@@ -36,6 +54,8 @@ export default function QuizCard({ question, questionIndex, total, answered, onA
             <img
               src={question.images.b}
               alt={question.images.labelB ?? 'Image B'}
+              className="quiz-image-clickable"
+              onClick={() => setModalSrc(question.images!.b)}
               onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
             />
             <figcaption>{question.images.labelB ?? 'Image B'}</figcaption>
