@@ -114,7 +114,7 @@ export default function Home() {
             CAPGEMINI x SUP DE VINCI 2026
           </div>
 
-          <h1 className="animate-in mt-8 mb-4 max-w-2xl text-center text-6xl font-display font-bold leading-[1.05] text-[#FFF8EF]">
+          <h1 className="animate-in mt-8 mb-4 max-w-2xl text-center text-[clamp(2.2rem,8vw,3.75rem)] font-display font-bold leading-[1.05] text-[#FFF8EF]">
             T&apos;as le niveau pour détecter le{' '}
             <span className="font-serif italic font-medium text-amber-100">fake</span> ?
           </h1>
@@ -123,9 +123,9 @@ export default function Home() {
             Le portail de sensibilisation à la désinformation par l&apos;IA
           </p>
 
-          <div className="animate-in my-10 flex items-center gap-12">
+          <div className="animate-in my-10 flex items-center gap-6 sm:gap-12">
             {stats.map((stat, index) => (
-              <div key={stat.label} className="flex items-center gap-12">
+              <div key={stat.label} className="flex items-center gap-6 sm:gap-12">
                 <div className="flex flex-col items-center">
                   <span className="text-2xl font-bold">{stat.value}</span>
                   <span className="text-[10px] uppercase tracking-tighter opacity-60">

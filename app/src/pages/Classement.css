@@ -226,6 +226,8 @@
    RESPONSIVE
 ═══════════════════════════════════ */
 @media (max-width: 640px) {
+  .classement-hero { padding: 48px 20px 32px; }
   .classement-body { padding: 20px 16px 40px; }
   .podium { grid-template-columns: 1fr; }
+  .classement-stat .val { font-size: 1.4rem; }
 }
