@@ -2,11 +2,10 @@ import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
 const links = [
-  { to: '/',           label: 'Accueil' },
-  { to: '/apprendre', label: 'Comprendre' },
-  { to: '/galerie',   label: 'Galerie' },
-  { to: '/jouer',     label: 'Jouer' },
-  { to: '/dashboard', label: 'Mon score' },
+  { to: '/',            label: 'Accueil' },
+  { to: '/comprendre',  label: 'Comprendre' },
+  { to: '/jouer',       label: 'Jouer' },
+  { to: '/classement',  label: 'Classement' },
 ]
 
 export default function BurgerMenu() {

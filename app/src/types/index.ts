@@ -28,3 +28,10 @@ export interface Score {
   total: number
   date: string
 }
+
+export interface LeaderboardEntry {
+  name: string
+  score: number
+  total: number
+  date: string
+}
