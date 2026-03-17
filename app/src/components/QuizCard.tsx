@@ -1,14 +1,25 @@
 import type { QuizQuestion } from '../types'
 
+const LETTERS = ['A', 'B', 'C', 'D']
+
 interface Props {
   question: QuizQuestion
-  onAnswer: (index: number) => void
+  questionIndex: number
+  total: number
   answered: number | null
+  onAnswer: (index: number) => void
+  onNext: () => void
 }
 
-export default function QuizCard({ question, onAnswer, answered }: Props) {
+export default function QuizCard({ question, questionIndex, total, answered, onAnswer, onNext }: Props) {
+  const isCorrect = answered !== null && answered === question.correct
+
   return (
     <div className="quiz-card">
+      <p className="quiz-qnum">
+        Question {String(questionIndex + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
+      </p>
+
       <p className="quiz-question">{question.question}</p>
 
       {question.images && (
@@ -35,6 +46,7 @@ export default function QuizCard({ question, onAnswer, answered }: Props) {
             <li key={i}>
               <button
                 className={`quiz-option ${state}`}
+                data-letter={LETTERS[i]}
                 onClick={() => answered === null && onAnswer(i)}
                 disabled={answered !== null}
               >
@@ -46,7 +58,15 @@ export default function QuizCard({ question, onAnswer, answered }: Props) {
       </ul>
 
       {answered !== null && (
-        <p className="quiz-explanation">{question.explanation}</p>
+        <>
+          <div className="quiz-explanation">
+            🔍 <strong>{isCorrect ? 'Bien joué !' : 'Pas tout à fait...'}</strong>{' '}
+            {question.explanation}
+          </div>
+          <button className="quiz-next" onClick={onNext}>
+            {questionIndex + 1 < total ? 'Question suivante →' : 'Voir mon score →'}
+          </button>
+        </>
       )}
     </div>
   )

@@ -58,6 +58,9 @@
 - BurgerMenu : animation d'ouverture, overlay, fermeture au clic extérieur
 - Responsive mobile sur la homepage
 
+### Simon (B1)
+- Journée : Rédaction de nouvelles questions
+
 ---
 
 ## Direction artistique (rappel)
