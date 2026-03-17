@@ -22,8 +22,7 @@ export default function BurgerMenu() {
         <span /><span /><span />
       </button>
 
-      {open && (
-        <div className="burger-overlay" onClick={() => setOpen(false)}>
+      <div className={`burger-overlay${open ? ' is-open' : ''}`} onClick={() => setOpen(false)}>
           <nav
             className="burger-drawer"
             role="dialog"
@@ -52,8 +51,7 @@ export default function BurgerMenu() {
               ))}
             </ul>
           </nav>
-        </div>
-      )}
+      </div>
     </>
   )
 }
