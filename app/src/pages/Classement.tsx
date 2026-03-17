@@ -9,6 +9,7 @@ import {
 } from 'chart.js'
 import type { LeaderboardEntry } from '../types'
 import './Classement.css'
+import Footer from '../components/Footer'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip)
 
@@ -156,6 +157,7 @@ export default function Classement() {
           </>
         )}
       </div>
+      <Footer />
     </main>
   )
 }

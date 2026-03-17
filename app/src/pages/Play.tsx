@@ -5,6 +5,7 @@ import type { QuizQuestion, LeaderboardEntry } from '../types'
 import QuizCard from '../components/QuizCard'
 import ScoreBadge from '../components/ScoreBadge'
 import './Play.css'
+import Footer from '../components/Footer'
 
 const questions = quizData as QuizQuestion[]
 
@@ -127,6 +128,8 @@ export default function Play() {
           onNext={handleNext}
         />
       </div>
+      
+      <Footer />
     </main>
   )
 }

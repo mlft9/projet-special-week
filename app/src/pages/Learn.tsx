@@ -5,6 +5,7 @@ import { useGSAP } from '@gsap/react'
 import examples from '../data/examples.json'
 import ExampleCard from '../components/ExampleCard'
 import type { Example } from '../types'
+import Footer from '../components/Footer'
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
 
@@ -175,6 +176,8 @@ export default function Learn() {
           />
         </svg>
       </div>
+      
+      <Footer />
     </main>
   )
 }
