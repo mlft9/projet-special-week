@@ -17,31 +17,82 @@ const sections = [
   {
     id: 'ia',
     title: "Qu'est-ce qu'une IA ?",
+    tag: '#Calcul',
     content:
-      "L'intelligence artificielle désigne des systèmes capables d'effectuer des tâches qui nécessitent habituellement l'intelligence humaine : reconnaître des images, générer du texte ou prendre des décisions. Les modèles actuels, comme les grands modèles de langage (LLM), apprennent à partir de quantités massives de données pour produire des réponses statistiquement probables — sans réellement comprendre ce qu'ils écrivent.",
+      "Un algorithme qui prédit la suite, comme le correcteur de ton téléphone, mais en beaucoup plus puissant. Elle ne comprend pas, elle calcule !",
   },
   {
     id: 'hallucinations',
     title: 'Les hallucinations',
+    tag: '#Fake',
     content:
-      "Une hallucination, en IA, c'est quand un modèle génère une information fausse avec une assurance totale. Il peut inventer des citations, des études scientifiques ou des faits historiques qui n'existent pas. Cela se produit parce que l'IA prédit le mot suivant le plus probable, sans vérifier la véracité de ce qu'elle produit. C'est pourquoi il est crucial de toujours recouper les informations générées par une IA.",
+      "L'IA déteste dire \"je ne sais pas\". Alors, elle invente avec une assurance totale. Toujours vérifier ses sources !",
   },
   {
     id: 'deepfakes',
     title: 'Les deepfakes',
+    tag: '#Arnaque',
     content:
-      "Les deepfakes sont des contenus visuels ou audio générés ou modifiés par l'IA pour imiter de vraies personnes. Ils peuvent reproduire le visage, la voix ou les gestes de quelqu'un de manière très convaincante. Utilisés à des fins de désinformation, ils représentent un défi majeur pour l'esprit critique. Apprendre à repérer les artefacts — asymétries, textures trop lisses, incohérences de lumière — est devenu une compétence essentielle.",
+      "Des trucages ultra-réalistes créés par l'IA. Ton meilleur outil ? Ton \u0153il de détective pour repérer les petits bugs visuels.",
   },
 ]
 
 export default function Learn() {
   const [revealedIds, setRevealedIds] = useState<Set<number>>(new Set())
   const galleryRef = useRef<HTMLDivElement | null>(null)
+  const heroRef = useRef<HTMLDivElement | null>(null)
 
   const handleReveal = (id: number) => {
     setRevealedIds(prev => new Set(prev).add(id))
   }
 
+  /* ── Animations premier écran ── */
+  useGSAP(
+    () => {
+      /* Blobs : mouvement lent aléatoire */
+      document.querySelectorAll('.learn-blob').forEach((blob, i) => {
+        gsap.to(blob, {
+          x: (i % 2 === 0) ? 60 : -50,
+          y: (i % 2 === 0) ? -30 : 40,
+          scale: 1.15,
+          duration: 12 + i * 3,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut',
+          delay: i * 2,
+        })
+      })
+
+      /* Floating elements */
+      document.querySelectorAll('.float-el').forEach((el, i) => {
+        gsap.to(el, {
+          y: -10 + (i * 4),
+          x: 6 - (i * 3),
+          rotation: 8 - (i * 5),
+          duration: 4 + i * 1.5,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut',
+          delay: i * 0.8,
+        })
+      })
+
+      /* Theory cards float */
+      document.querySelectorAll('.theory-card').forEach((card, i) => {
+        gsap.to(card, {
+          y: -4,
+          duration: 2.5 + i * 0.3,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut',
+          delay: i * 0.4,
+        })
+      })
+    },
+    { scope: heroRef },
+  )
+
+  /* ── Animations galerie ── */
   useGSAP(
     () => {
       document.querySelectorAll('.example-card-anim').forEach(card => {
@@ -58,64 +109,115 @@ export default function Learn() {
   )
 
   return (
-    <main className="relative min-h-screen bg-[var(--color-primary)]">
-      {/* ── Hero ── */}
-      <section className="mx-auto max-w-3xl px-6 pt-16 pb-6 text-center">
-        <span
-          className="inline-block rounded-full px-4 py-1.5 text-[11px] font-semibold uppercase tracking-widest text-[var(--color-secondary)] mb-5"
-          style={{ background: 'rgba(255, 255, 255, 0.5)' }}
-        >
-          Module 1 — Théorie
-        </span>
-        <h1 className="font-[var(--font-display)] text-[clamp(2.2rem,5vw,3.2rem)] font-bold leading-[1.1] text-[#2a1a0e]">
-          Comprendre pour mieux
-          <br />
-          <span className="italic font-medium text-[var(--color-secondary)]">décrypter</span>
-        </h1>
-        {/* Ligne décorative */}
-        <div className="mx-auto mt-5 h-[2px] w-16 rounded-full" style={{ background: 'rgba(147, 54, 0, 0.2)' }} />
-        <p className="mx-auto mt-5 max-w-lg text-[15px] leading-relaxed text-[#6b5c44]">
-          Avant de jouer, il faut savoir contre quoi on joue. Découvre comment l'IA
-          génère du contenu et apprends à repérer les signaux d'alerte.
-        </p>
-      </section>
+    <main className="bg-[var(--color-primary)]">
+      {/* ══ Premier écran : Hero + Théorie ══ */}
+      <div ref={heroRef} className="relative flex flex-col md:h-screen md:max-h-screen overflow-hidden">
 
-      {/* ── Sections pédagogiques ── */}
-      <section className="mx-auto max-w-5xl px-6 pt-4 pb-16">
-        <div className="grid gap-6 md:grid-cols-3">
-          {sections.map((section, i) => (
-            <article
-              key={section.id}
-              className="rounded-3xl backdrop-blur-sm p-8 flex flex-col gap-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-              style={{
-                background: 'rgba(255, 255, 255, 0.4)',
-                border: '1px solid rgba(255, 255, 255, 0.5)',
-                animation: `fadeSlideUp 0.6s ${i * 0.12}s both ease-out`,
-              }}
-            >
-              <h2 className="font-[var(--font-display)] text-[1.3rem] font-bold text-[var(--color-secondary)]">
-                {section.title}
-              </h2>
-              <div className="h-[2px] w-10 rounded-full" style={{ background: 'rgba(147, 54, 0, 0.15)' }} />
-              <p className="text-[14px] leading-[1.75] text-[var(--color-text)]">
-                {section.content}
-              </p>
-            </article>
-          ))}
-        </div>
-      </section>
+        {/* ── Dotted grid overlay ── */}
+        <div
+          className="pointer-events-none absolute inset-0 z-0"
+          style={{
+            backgroundImage: 'radial-gradient(circle, rgba(147, 54, 0, 0.07) 1px, transparent 1px)',
+            backgroundSize: '24px 24px',
+          }}
+        />
 
-      {/* ── Vague SVG séparatrice ── */}
-      <div className="w-full overflow-hidden leading-[0]">
-        <svg viewBox="0 0 1440 100" preserveAspectRatio="none" className="block w-full h-[50px] md:h-[70px]">
-          <path
-            d="M0,60 C360,100 720,20 1080,60 C1260,80 1380,40 1440,50 L1440,100 L0,100Z"
-            fill="#f5e6c8"
-          />
+        {/* ── Blobs dynamiques ── */}
+        <div
+          className="learn-blob pointer-events-none absolute -top-24 -right-20 z-0 h-[500px] w-[500px] rounded-full blur-[130px]"
+          style={{ background: 'radial-gradient(circle, rgba(147, 54, 0, 0.12), rgba(230, 212, 168, 0.08))' }}
+        />
+        <div
+          className="learn-blob pointer-events-none absolute -bottom-16 -left-24 z-0 h-[450px] w-[450px] rounded-full blur-[120px]"
+          style={{ background: 'radial-gradient(circle, rgba(230, 212, 168, 0.2), rgba(147, 54, 0, 0.06))' }}
+        />
+        <div
+          className="learn-blob pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 z-0 h-[350px] w-[350px] rounded-full blur-[100px]"
+          style={{ background: 'radial-gradient(circle, rgba(147, 54, 0, 0.05), transparent)' }}
+        />
+
+        {/* ── Floating SVG elements ── */}
+        <svg className="float-el pointer-events-none absolute top-[15%] left-[8%] z-0" width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <circle cx="20" cy="20" r="16" stroke="var(--color-secondary)" strokeWidth="1.5" opacity="0.12" />
         </svg>
+        <svg className="float-el pointer-events-none absolute top-[60%] right-[10%] z-0" width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="24" r="20" stroke="var(--color-secondary)" strokeWidth="1" opacity="0.1" />
+          <circle cx="24" cy="24" r="8" stroke="var(--color-secondary)" strokeWidth="1" opacity="0.1" />
+        </svg>
+        <svg className="float-el pointer-events-none absolute top-[25%] right-[15%] z-0" width="36" height="36" viewBox="0 0 36 36" fill="none">
+          <line x1="0" y1="18" x2="36" y2="18" stroke="var(--color-secondary)" strokeWidth="1" opacity="0.1" />
+          <line x1="18" y1="0" x2="18" y2="36" stroke="var(--color-secondary)" strokeWidth="1" opacity="0.1" />
+        </svg>
+        <svg className="float-el pointer-events-none absolute bottom-[30%] left-[12%] z-0" width="44" height="28" viewBox="0 0 44 28" fill="none">
+          <text x="0" y="22" fontSize="22" fontFamily="monospace" fill="var(--color-secondary)" opacity="0.1">{'{ }'}</text>
+        </svg>
+
+        {/* ── Hero ── */}
+        <section className="relative z-10 shrink-0 mx-auto max-w-3xl px-6 pt-28 md:pt-32 pb-2 text-center">
+          <span
+            className="inline-block rounded-full px-4 py-1.5 text-[12px] font-medium tracking-wide text-[var(--color-secondary)] mb-4"
+            style={{
+              background: 'rgba(147, 54, 0, 0.06)',
+              border: '1px solid rgba(147, 54, 0, 0.12)',
+            }}
+          >
+            Devenir un détective du numérique
+          </span>
+          <h1 className="font-[var(--font-display)] text-[clamp(1.8rem,4vw,2.8rem)] font-bold leading-[1.1] text-[#2a1a0e]">
+            Comprendre pour mieux
+            <br />
+            <span className="italic font-medium text-[var(--color-secondary)]">décrypter</span>
+          </h1>
+          <div className="mx-auto mt-3 h-[2px] w-16 rounded-full" style={{ background: 'rgba(147, 54, 0, 0.2)' }} />
+          <p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-[#6b5c44]">
+            Avant de jouer, il faut savoir contre quoi on joue. Découvre comment l'IA
+            génère du contenu et apprends à repérer les signaux d'alerte.
+          </p>
+        </section>
+
+        {/* ── Sections pédagogiques ── */}
+        <section className="relative z-10 flex-1 min-h-0 mx-auto w-full max-w-5xl px-6 py-4 md:py-0 md:flex md:items-start md:pt-8">
+          <div className="grid gap-5 md:grid-cols-3 w-full">
+            {sections.map((section, i) => (
+              <article
+                key={section.id}
+                className="theory-card relative rounded-3xl backdrop-blur-md p-5 flex flex-col gap-2.5 shadow-sm ring-1 ring-white/20 transition-shadow duration-300 hover:shadow-lg overflow-hidden"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.35)',
+                  border: '1px solid rgba(255, 255, 255, 0.45)',
+                  animation: `fadeSlideUp 0.6s ${i * 0.12}s both ease-out`,
+                }}
+              >
+                {/* Glow interne haut-gauche */}
+                <div
+                  className="pointer-events-none absolute -top-8 -left-8 h-24 w-24 rounded-full"
+                  style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.5), transparent)' }}
+                />
+                <h2 className="relative font-[var(--font-display)] text-[1.1rem] md:text-[1.15rem] font-bold text-[var(--color-secondary)]">
+                  {section.title}
+                </h2>
+                <div className="h-[2px] w-10 rounded-full" style={{ background: 'rgba(147, 54, 0, 0.15)' }} />
+                <p className="relative text-[13px] leading-[1.65] text-[var(--color-text)]">
+                  <span className="font-bold text-[var(--color-secondary)]">{section.tag} </span>
+                  {section.content}
+                </p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* ── Vague SVG ── */}
+        <div className="relative z-10 shrink-0 w-full overflow-hidden leading-[0]">
+          <svg viewBox="0 0 1440 100" preserveAspectRatio="none" className="block w-full h-[40px] md:h-[50px]">
+            <path
+              d="M0,60 C360,100 720,20 1080,60 C1260,80 1380,40 1440,50 L1440,100 L0,100Z"
+              fill="#f5e6c8"
+            />
+          </svg>
+        </div>
       </div>
 
-      {/* ── Galerie d'exemples ── */}
+      {/* ══ Deuxième section : Galerie ══ */}
       <section ref={galleryRef} className="pb-20" style={{ background: '#f5e6c8' }}>
         <div className="mx-auto max-w-4xl px-6">
           <div className="mb-14 text-center">
@@ -125,15 +227,13 @@ export default function Learn() {
             <h2 className="font-[var(--font-display)] text-[clamp(1.8rem,4vw,2.6rem)] font-bold text-[#2a1a0e]">
               Galerie d'exemples
             </h2>
-            {/* Ligne décorative */}
             <div className="mx-auto mt-4 h-[2px] w-16 rounded-full" style={{ background: 'rgba(147, 54, 0, 0.2)' }} />
             <p className="mx-auto mt-4 max-w-md text-[15px] leading-relaxed text-[#6b5c44]">
               Entraîne-toi à repérer le vrai du faux. Clique pour révéler les indices.
             </p>
           </div>
 
-          {/* Grille hybride : textes sur 2 colonnes, dernier impair = pleine largeur */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
+          <div className="grid grid-cols-1 md:grid-cols-2 items-start gap-7">
             {textExamples.map((example, i) => {
               const isLast = i === textExamples.length - 1
               return (
@@ -151,7 +251,6 @@ export default function Learn() {
             })}
           </div>
 
-          {/* Duels d'images : pleine largeur */}
           <div className="mt-10 flex flex-col gap-10">
             {comparisonExamples.map(example => (
               <div key={example.id} className="example-card-anim">
