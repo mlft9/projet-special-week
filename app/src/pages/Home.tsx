@@ -102,7 +102,7 @@ export default function Home() {
 
   return (
     <main ref={containerRef} className="font-sans">
-      <section className="hero-section relative isolate min-h-screen flex flex-col items-center justify-center bg-[#943D15] text-white">
+      <section className="hero-section relative isolate min-h-screen flex flex-col items-center justify-center bg-[#933600] text-white">
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
           <div className="blob absolute -right-24 -top-24 h-[520px] w-[520px] rounded-full bg-[#FF9A3C]/30 blur-[100px]" />
           <div className="blob absolute -bottom-24 -left-24 h-[460px] w-[460px] rounded-full bg-[#FFE0B0]/25 blur-[120px]" />
@@ -147,7 +147,7 @@ export default function Home() {
             <button
               type="button"
               onClick={() => navigate('/jouer')}
-              className="animate-in bg-[#FDF6E3] text-[#943D15] px-10 py-4 rounded-full font-bold flex items-center gap-3"
+              className="animate-in bg-[#FDF6E3] text-[#933600] px-10 py-4 rounded-full font-bold flex items-center gap-3"
             >
               <svg
                 aria-hidden="true"
@@ -198,7 +198,7 @@ export default function Home() {
 
       <section className="content-section bg-[#FDF6E3] py-20">
         <div className="mx-auto max-w-6xl px-4 text-center">
-          <h2 className="content-animate mb-4 text-4xl font-black text-[#2D1B10]">
+          <h2 className="content-animate mb-4 text-4xl font-black text-[#2a1a0e]">
             Comment ça marche ?
           </h2>
 
@@ -207,7 +207,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="cards-grid mx-auto grid max-w-6xl grid-cols-3 gap-8 px-4">
+        <div className="cards-grid mx-auto grid max-w-6xl grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
           {cards.map((card) => (
             <article
               key={card.step}
@@ -224,7 +224,7 @@ export default function Home() {
                     height="48px"
                     viewBox="0 -960 960 960"
                     width="48px"
-                    fill="#943D15"
+                    fill="#933600"
                     className="h-12 w-12"
                   >
                     <path d="M323-160q-11 0-20.5-5.5T288-181l-78-139h58l40 80h92v-40h-68l-40-80H188l-57-100q-2-5-3.5-10t-1.5-10q0-4 5-20l57-100h104l40-80h68v-40h-92l-40 80h-58l78-139q5-10 14.5-15.5T323-800h97q17 0 28.5 11.5T460-760v160h-60l-40 40h100v120h-88l-40-80h-92l-40 40h108l40 80h112v200q0 17-11.5 28.5T420-160h-97Zm217 0q-17 0-28.5-11.5T500-200v-200h112l40-80h108l-40-40h-92l-40 80h-88v-120h100l-40-40h-60v-160q0-17 11.5-28.5T540-800h97q11 0 20.5 5.5T672-779l78 139h-58l-40-80h-92v40h68l40 80h104l57 100q2 5 3.5 10t1.5 10q0 4-5 20l-57 100H668l-40 80h-68v40h92l40-80h58l-78 139q-5 10-14.5 15.5T637-160h-97Z" />
@@ -235,7 +235,7 @@ export default function Home() {
                     height="48px"
                     viewBox="0 -960 960 960"
                     width="48px"
-                    fill="#943D15"
+                    fill="#933600"
                     className="h-12 w-12"
                   >
                     <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
@@ -246,7 +246,7 @@ export default function Home() {
                     height="48px"
                     viewBox="0 -960 960 960"
                     width="48px"
-                    fill="#943D15"
+                    fill="#933600"
                     className="h-12 w-12"
                   >
                     <path d="m422-232 207-248H469l29-227-185 267h139l-30 208ZM320-80l40-280H160l360-520h80l-40 320h240L400-80h-80Zm151-390Z" />
@@ -256,13 +256,13 @@ export default function Home() {
                 )}
               </div>
 
-              <h3 className="mb-3 text-2xl font-bold text-[#2D1B10]">{card.title}</h3>
+              <h3 className="mb-3 text-2xl font-bold text-[#2a1a0e]">{card.title}</h3>
 
               <p className="mb-8 text-gray-600 leading-relaxed">{card.description}</p>
 
               <button
                 type="button"
-                className="mt-auto inline-flex items-center gap-2 text-sm font-extrabold text-[#943D15]"
+                className="mt-auto inline-flex items-center gap-2 text-sm font-extrabold text-[#933600]"
               >
                 {card.cta}
                 <span className="font-bold">→</span>

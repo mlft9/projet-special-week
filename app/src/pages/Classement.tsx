@@ -45,7 +45,7 @@ export default function Classement() {
             </div>
             <div className="classement-stat">
               <span className="val">
-                {Math.round(entries.reduce((acc, e) => acc + e.score, 0) / totalPlayers * 10)}%
+                {Math.round(entries.reduce((acc, e) => acc + e.score, 0) / entries.reduce((acc, e) => acc + e.total, 0) * 100)}%
               </span>
               <span className="lbl">Réussite moy.</span>
             </div>
@@ -89,7 +89,7 @@ export default function Classement() {
                       <span className="row-rank">{i + 4}</span>
                       <div className="row-info">
                         <span className="row-name">{entry.name}</span>
-                        <span className="row-date">{entry.date}</span>
+                        <span className="row-date">{new Date(entry.date).toLocaleDateString('fr-FR')}</span>
                       </div>
                       <span className="row-score">{entry.score}/{entry.total}</span>
                     </div>

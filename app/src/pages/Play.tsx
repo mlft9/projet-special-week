@@ -50,10 +50,14 @@ export default function Play() {
       name:  name.trim(),
       score,
       total: questions.length,
-      date:  new Date().toLocaleDateString('fr-FR'),
+      date:  new Date().toISOString(),
     }
-    const existing: LeaderboardEntry[] = JSON.parse(localStorage.getItem('leaderboard') ?? '[]')
-    localStorage.setItem('leaderboard', JSON.stringify([...existing, entry]))
+    try {
+      const existing: LeaderboardEntry[] = JSON.parse(localStorage.getItem('leaderboard') ?? '[]')
+      localStorage.setItem('leaderboard', JSON.stringify([...existing, entry]))
+    } catch {
+      // localStorage indisponible ou plein — on navigue quand même
+    }
     navigate('/classement')
   }
 
