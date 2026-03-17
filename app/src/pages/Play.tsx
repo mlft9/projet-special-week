@@ -9,7 +9,7 @@ import Footer from '../components/Footer'
 
 const questions = quizData as QuizQuestion[]
 
-type Phase = 'quiz' | 'results'
+type Phase = 'intro' | 'quiz' | 'results'
 
 function getResultMessage(score: number, total: number): string {
   const pct = score / total
@@ -26,7 +26,7 @@ export default function Play() {
   const [current,  setCurrent]  = useState(0)
   const [score,    setScore]    = useState(0)
   const [answered, setAnswered] = useState<number | null>(null)
-  const [phase,    setPhase]    = useState<Phase>('quiz')
+  const [phase,    setPhase]    = useState<Phase>('intro')
   const [name,     setName]     = useState('')
 
   const question = questions[current]
@@ -67,8 +67,51 @@ export default function Play() {
     setCurrent(0)
     setScore(0)
     setAnswered(null)
-    setPhase('quiz')
+    setPhase('intro')
     setName('')
+  }
+
+  /* ── ÉCRAN INTRO ── */
+  if (phase === 'intro') {
+    return (
+      <main>
+        <div className="results-hero" style={{ paddingBottom: 64 }}>
+          <div className="score-badge">
+            <span className="score-emoji">🧠</span>
+            <span className="score-value" style={{ fontSize: 'clamp(36px,8vw,56px)' }}>
+              Quiz
+            </span>
+            <span className="score-label">Détecte la désinformation</span>
+          </div>
+        </div>
+
+        <div className="results-body">
+          <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {[
+              { icon: '❓', text: `${questions.length} questions` },
+              { icon: '🖼️', text: 'Analyse d\'images réelles vs IA' },
+              { icon: '🏆', text: 'Score enregistré dans le classement' },
+            ].map(item => (
+              <li key={item.text} style={{
+                display: 'flex', alignItems: 'center', gap: 14,
+                background: '#fff8e8', border: '1px solid #e6d4a8',
+                borderRadius: 12, padding: '14px 18px',
+                fontSize: '0.92rem', fontWeight: 500, color: '#1a1a1a',
+              }}>
+                <span style={{ fontSize: '1.2rem' }}>{item.icon}</span>
+                {item.text}
+              </li>
+            ))}
+          </ul>
+
+          <button className="results-save-btn" onClick={() => setPhase('quiz')}>
+            C'est parti →
+          </button>
+        </div>
+
+        <Footer />
+      </main>
+    )
   }
 
   /* ── ÉCRAN RÉSULTATS ── */

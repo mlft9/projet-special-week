@@ -105,7 +105,7 @@ export default function Home() {
           <div className="blob absolute -bottom-24 -left-24 h-[460px] w-[460px] rounded-full bg-[#FFE0B0]/25 blur-[120px]" />
         </div>
 
-        <div className="absolute top-3 left-5 z-10">
+        <div className="absolute top-3 left-5 z-50">
           <BurgerMenu />
         </div>
 
