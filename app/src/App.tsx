@@ -1,6 +1,6 @@
 import { Route, Routes, useLocation } from 'react-router-dom'
 import BurgerMenu from './components/BurgerMenu'
-import Home from './pages/Home'
+import Home from './pages/Home.tsx'
 import Learn from './pages/Learn'
 import Play from './pages/Play'
 import Classement from './pages/Classement'
