@@ -4,6 +4,7 @@ import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import BurgerMenu from '../components/BurgerMenu'
+import UserJourney from '../components/UserJourney'
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
 
@@ -262,6 +263,8 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      <UserJourney />
     </main>
   )
 }
