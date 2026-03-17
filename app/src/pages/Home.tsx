@@ -1,8 +1,9 @@
-    import { useRef } from 'react'
+import { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import BurgerMenu from '../components/BurgerMenu'
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
 
@@ -102,15 +103,9 @@ export default function Home() {
           <div className="blob absolute -bottom-24 -left-24 h-[460px] w-[460px] rounded-full bg-[#FFE0B0]/25 blur-[120px]" />
         </div>
 
-        <button
-          type="button"
-          aria-label="Ouvrir le menu"
-          className="absolute top-8 left-8 z-10 bg-white p-2.5 rounded-xl shadow-lg"
-        >
-          <span className="block h-0.5 w-6 rounded-full bg-[#943D15]" />
-          <span className="mt-1.5 block h-0.5 w-6 rounded-full bg-[#943D15]" />
-          <span className="mt-1.5 block h-0.5 w-6 rounded-full bg-[#943D15]" />
-        </button>
+        <div className="absolute top-3 left-5 z-10">
+          <BurgerMenu />
+        </div>
 
         <div className="relative z-10 flex w-full max-w-5xl flex-col items-center justify-center px-4 text-center">
           <div className="animate-in bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-1 text-[10px] tracking-widest uppercase">
