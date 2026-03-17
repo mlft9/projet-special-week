@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import BurgerMenu from './components/BurgerMenu'
 import Home from './pages/Home.tsx'
@@ -9,6 +10,10 @@ import './App.css'
 export default function App() {
   const location = useLocation()
   const showHeader = location.pathname !== '/'
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [location.pathname])
 
   return (
     <>
