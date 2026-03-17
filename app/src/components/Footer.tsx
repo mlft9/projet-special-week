@@ -56,9 +56,17 @@ export default function Footer() {
 
         <div className="md:col-span-1">
           <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.16em] text-[#E6BA8F]">Informations</h3>
-          <ul className="space-y-3 text-sm text-[#F7EAD8]/85">
-            <li>Mentions légales</li>
-            <li>Politique de confidentialité</li>
+          <ul className="space-y-3 text-sm">
+            <li>
+              <Link to="/mentions-legales" className="text-[#F7EAD8]/85 transition-colors hover:text-white">
+                Mentions légales
+              </Link>
+            </li>
+            <li>
+              <Link to="/politique-confidentialite" className="text-[#F7EAD8]/85 transition-colors hover:text-white">
+                Politique de confidentialité
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
