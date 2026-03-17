@@ -9,6 +9,6 @@ export default defineConfig({
     babel({ presets: [reactCompilerPreset()] })
   ],
   server: {
-    allowedHosts: ['dev.e-alerte.com'],
+    allowedHosts: ['*.e-alerte.com'],
   },
 })
