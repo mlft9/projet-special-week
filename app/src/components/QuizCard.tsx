@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import type { QuizQuestion } from '../types'
 
 const LETTERS = ['A', 'B', 'C', 'D']
@@ -25,11 +26,12 @@ export default function QuizCard({ question, questionIndex, total, answered, onA
 
   return (
     <div className="quiz-card">
-      {modalSrc && (
-        <div className="quiz-modal-overlay" onClick={() => setModalSrc(null)}>
-          <img src={modalSrc} alt="Agrandissement" className="quiz-modal-img" />
-          <button className="quiz-modal-close" aria-label="Fermer">✕</button>
-        </div>
+      {modalSrc && createPortal(
+        <div className="img-modal-overlay" onClick={() => setModalSrc(null)}>
+          <img src={modalSrc} alt="Agrandissement" className="img-modal-img" />
+          <button className="img-modal-close" aria-label="Fermer">✕</button>
+        </div>,
+        document.body
       )}
 
       <p className="quiz-qnum">
@@ -44,7 +46,7 @@ export default function QuizCard({ question, questionIndex, total, answered, onA
             <img
               src={question.images.a}
               alt={question.images.labelA ?? 'Image A'}
-              className="quiz-image-clickable"
+              className="img-zoomable"
               onClick={() => setModalSrc(question.images!.a)}
               onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
             />
@@ -54,7 +56,7 @@ export default function QuizCard({ question, questionIndex, total, answered, onA
             <img
               src={question.images.b}
               alt={question.images.labelB ?? 'Image B'}
-              className="quiz-image-clickable"
+              className="img-zoomable"
               onClick={() => setModalSrc(question.images!.b)}
               onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
             />

@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import gsap from 'gsap'
 import type { Example } from '../types'
 
@@ -73,6 +74,14 @@ function ComparisonCard({ example, revealed, onReveal }: Props) {
   const swapped = swappedRef.current
 
   const [selectedSide, setSelectedSide] = useState<'left' | 'right' | null>(null)
+  const [modalSrc, setModalSrc] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (!modalSrc) return
+    const close = (e: KeyboardEvent) => { if (e.key === 'Escape') setModalSrc(null) }
+    window.addEventListener('keydown', close)
+    return () => window.removeEventListener('keydown', close)
+  }, [modalSrc])
 
   if (!example.images) return null
 
@@ -88,6 +97,14 @@ function ComparisonCard({ example, revealed, onReveal }: Props) {
       className="rounded-3xl backdrop-blur-sm p-9 flex flex-col gap-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
       style={{ background: 'rgba(255, 255, 255, 0.4)', border: '1px solid rgba(255, 255, 255, 0.5)' }}
     >
+      {modalSrc && createPortal(
+        <div className="img-modal-overlay" onClick={() => setModalSrc(null)}>
+          <img src={modalSrc} alt="Agrandissement" className="img-modal-img" />
+          <button className="img-modal-close" aria-label="Fermer">✕</button>
+        </div>,
+        document.body
+      )}
+
       <div className="flex items-center gap-3">
         <TypeBadge type={example.type} />
         <h3 className="font-[var(--font-display)] text-xl font-bold text-[var(--color-text)]">
@@ -113,6 +130,7 @@ function ComparisonCard({ example, revealed, onReveal }: Props) {
           label="Image A"
           selected={selectedSide === 'left'}
           onClick={() => !revealed && setSelectedSide('left')}
+          onZoom={setModalSrc}
           revealed={revealed}
           isAi={leftIsAi}
           clues={leftClues}
@@ -122,6 +140,7 @@ function ComparisonCard({ example, revealed, onReveal }: Props) {
           label="Image B"
           selected={selectedSide === 'right'}
           onClick={() => !revealed && setSelectedSide('right')}
+          onZoom={setModalSrc}
           revealed={revealed}
           isAi={rightIsAi}
           clues={rightClues}
@@ -178,12 +197,13 @@ interface ImagePanelProps {
   label: string
   selected: boolean
   onClick: () => void
+  onZoom: (src: string) => void
   revealed: boolean
   isAi: boolean
   clues?: string[]
 }
 
-function ImagePanel({ src, label, selected, onClick, revealed, isAi, clues }: ImagePanelProps) {
+function ImagePanel({ src, label, selected, onClick, onZoom, revealed, isAi, clues }: ImagePanelProps) {
   const borderColor = revealed
     ? isAi ? 'rgba(239, 68, 68, 0.45)' : 'rgba(34, 197, 94, 0.45)'
     : selected
@@ -205,7 +225,8 @@ function ImagePanel({ src, label, selected, onClick, revealed, isAi, clues }: Im
         <img
           src={src}
           alt={label}
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out hover:scale-105"
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out hover:scale-105 img-zoomable"
+          onClick={e => { e.stopPropagation(); onZoom(src) }}
         />
         <span className="absolute top-3 left-3 rounded-full bg-black/50 backdrop-blur-sm px-3 py-1 text-xs font-semibold text-white">
           {label}
