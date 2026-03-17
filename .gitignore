@@ -26,8 +26,6 @@ dist-ssr
 *.sw?
 
 analyse-sujet.md
-design.md
-design-homepage.md
 solutions-existantes.md
 veille-technologique.md
 quiz.docx
