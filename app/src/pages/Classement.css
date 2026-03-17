@@ -79,6 +79,17 @@
 }
 
 /* ═══════════════════════════════════
+   GRAPHIQUE
+═══════════════════════════════════ */
+.classement-chart {
+  background: #ffffff;
+  border: 1px solid #e6d4a8;
+  border-radius: 16px;
+  padding: 20px 16px 12px;
+  margin-bottom: 28px;
+}
+
+/* ═══════════════════════════════════
    PODIUM (top 3)
 ═══════════════════════════════════ */
 .podium {

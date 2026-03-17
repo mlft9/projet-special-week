@@ -1,30 +1,72 @@
 import { Link } from 'react-router-dom'
+import { Bar } from 'react-chartjs-2'
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Tooltip,
+} from 'chart.js'
 import type { LeaderboardEntry } from '../types'
 import './Classement.css'
 
+ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip)
+
 const MEDALS = ['🥇', '🥈', '🥉']
 
-function getEntries(): LeaderboardEntry[] {
+function getAllEntries(): LeaderboardEntry[] {
   try {
     const raw = localStorage.getItem('leaderboard')
     if (!raw) return []
-    const entries: LeaderboardEntry[] = JSON.parse(raw)
-    // Trier par score décroissant, puis par date la plus récente
-    return entries
-      .sort((a, b) => b.score - a.score || new Date(b.date).getTime() - new Date(a.date).getTime())
-      .slice(0, 10)
+    return JSON.parse(raw) as LeaderboardEntry[]
   } catch {
     return []
   }
 }
 
-export default function Classement() {
-  const entries = getEntries()
-  const top3    = entries.slice(0, 3)
-  const rest    = entries.slice(3)
+function getTopEntries(all: LeaderboardEntry[]): LeaderboardEntry[] {
+  return [...all]
+    .sort((a, b) => b.score - a.score || new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, 10)
+}
 
-  const bestScore = entries[0]?.score ?? 0
-  const totalPlayers = entries.length
+export default function Classement() {
+  const all      = getAllEntries()
+  const entries  = getTopEntries(all)
+  const top3     = entries.slice(0, 3)
+  const rest     = entries.slice(3)
+
+  const bestScore    = entries[0]?.score ?? 0
+  const totalPlayers = all.length
+
+  // Distribution des scores pour le graphique (0 à 10)
+  const maxScore = all[0]?.total ?? 10
+  const distribution = Array.from({ length: maxScore + 1 }, (_, i) =>
+    all.filter(e => e.score === i).length
+  )
+
+  const chartData = {
+    labels: Array.from({ length: maxScore + 1 }, (_, i) => `${i}/${maxScore}`),
+    datasets: [{
+      data: distribution,
+      backgroundColor: distribution.map(v =>
+        v === Math.max(...distribution) ? '#933600' : 'rgba(147, 54, 0, 0.25)'
+      ),
+      borderRadius: 8,
+      borderSkipped: false,
+    }],
+  }
+
+  const chartOptions = {
+    responsive: true,
+    plugins: { legend: { display: false }, tooltip: { callbacks: {
+      label: (ctx: { raw: unknown }) => ` ${ctx.raw} joueur${Number(ctx.raw) > 1 ? 's' : ''}`,
+    }}},
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#6b5c44', font: { size: 11 } } },
+      y: { grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { color: '#6b5c44', stepSize: 1, precision: 0 } },
+    },
+  }
 
   return (
     <main>
@@ -62,6 +104,16 @@ export default function Classement() {
           </div>
         ) : (
           <>
+            {/* Distribution des scores */}
+            {all.length >= 2 && (
+              <>
+                <p className="classement-section-title">Distribution des scores</p>
+                <div className="classement-chart">
+                  <Bar data={chartData} options={chartOptions} />
+                </div>
+              </>
+            )}
+
             {/* Podium top 3 */}
             {top3.length > 0 && (
               <>
