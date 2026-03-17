@@ -98,7 +98,7 @@ export default function Home() {
 
   return (
     <main ref={containerRef} className="font-sans">
-      <section className="hero-section relative isolate min-h-screen flex flex-col items-center justify-center bg-[#933600] text-white" style={{ backgroundColor: '#933600' }}>
+      <section className="hero-section relative isolate min-h-screen flex flex-col items-center justify-center bg-[#933600] text-white">
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
           <div className="blob absolute -right-24 -top-24 h-[520px] w-[520px] rounded-full bg-[#FF9A3C]/30 blur-[100px]" />
           <div className="blob absolute -bottom-24 -left-24 h-[460px] w-[460px] rounded-full bg-[#FFE0B0]/25 blur-[120px]" />
@@ -144,7 +144,6 @@ export default function Home() {
               type="button"
               onClick={() => navigate('/jouer')}
               className="animate-in bg-[#FDF6E3] text-[#933600] px-10 py-4 rounded-full font-bold flex items-center gap-3"
-              style={{ color: '#933600' }}
             >
               <svg
                 aria-hidden="true"

@@ -56,8 +56,7 @@ export default function UserJourney() {
             src={stars}
             alt=""
             aria-hidden="true"
-            className="journey-stars pointer-events-none absolute left-10 top-1/2 z-10 w-[420px] max-w-none -translate-y-1/2"
-            style={{ opacity: 0.15, mixBlendMode: 'screen' }}
+            className="journey-stars pointer-events-none absolute left-10 top-1/2 z-10 w-[420px] max-w-none -translate-y-1/2 opacity-100"
           />
 
           <img
@@ -68,7 +67,7 @@ export default function UserJourney() {
           />
 
           <div className="relative z-10 max-w-sm">
-            <h2 className="text-3xl font-bold mb-8 ml-8 text-amber-50" style={{ color: '#FFF0CC' }}>Ton parcours en 3 étapes</h2>
+            <h2 className="text-3xl font-bold mb-8 ml-8 text-amber-50">Ton parcours en 3 étapes</h2>
           </div>
 
           <div className="relative z-10 mt-8 min-h-[440px]">
