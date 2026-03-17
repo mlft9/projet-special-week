@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -142,13 +142,8 @@ export default function Home() {
           <div className="mt-2 flex flex-col items-center gap-4 sm:flex-row">
             <button
               type="button"
-<<<<<<< HEAD
               onClick={() => navigate('/jouer')}
               className="animate-in bg-[#FDF6E3] text-[#933600] px-10 py-4 rounded-full font-bold flex items-center gap-3"
-=======
-              onClick={() => navigate('/play')}
-              className="animate-in bg-[#FDF6E3] text-[#943D15] px-10 py-4 rounded-full font-bold flex items-center gap-3"
->>>>>>> 3a6e2af9cc9c6c93476ede4f8d672ca8d0b0c43a
             >
               <svg
                 aria-hidden="true"
@@ -171,7 +166,7 @@ export default function Home() {
 
             <button
               type="button"
-              onClick={() => navigate('/learn')}
+              onClick={() => navigate('/comprendre')}
               className="animate-in border border-white/30 px-10 py-4 rounded-full font-medium"
             >
               Comprendre
@@ -260,18 +255,14 @@ export default function Home() {
               <h3 className="mb-3 text-2xl font-bold text-[#2a1a0e]">{card.title}</h3>
 
               <p className="mb-8 text-gray-600 leading-relaxed">{card.description}</p>
-<<<<<<< HEAD
 
-              <button
-                type="button"
+              <Link
+                to={card.link}
                 className="mt-auto inline-flex items-center gap-2 text-sm font-extrabold text-[#933600]"
               >
-=======
-            <a href={card.link} className="mt-auto inline-flex items-center gap-2 text-sm font-extrabold text-[#943D15]">
->>>>>>> 3a6e2af9cc9c6c93476ede4f8d672ca8d0b0c43a
                 {card.cta}
                 <span className="font-bold">→</span>
-              </a>
+              </Link>
             </article>
           ))}
         </div>
