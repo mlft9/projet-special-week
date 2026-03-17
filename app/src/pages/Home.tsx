@@ -4,6 +4,7 @@ import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import BurgerMenu from '../components/BurgerMenu'
+import UserJourney from '../components/UserJourney'
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
 
@@ -19,6 +20,7 @@ const cards = [
     icon: '🧠',
     title: 'Comprendre le contexte',
     description: 'Identifie la source, la date et l’intention du contenu avant de juger sa crédibilité.',
+    link: '/comprendre',
     cta: 'Explorer',
   },
   {
@@ -26,6 +28,7 @@ const cards = [
     icon: '🔍',
     title: 'Vérifier les indices',
     description: 'Recoupe les faits, compare plusieurs médias et repère les incohérences visuelles ou textuelles.',
+    link: '/jouer',
     cta: 'Analyser',
   },
   {
@@ -33,6 +36,7 @@ const cards = [
     icon: '⚡',
     title: 'Réagir avec méthode',
     description: 'Décide rapidement si l’information est fiable, douteuse ou manipulée puis justifie ton choix.',
+    link: '/classement',
     cta: 'Passer à l’action',
   },
 ]
@@ -51,6 +55,7 @@ export default function Home() {
         duration: 0.8,
         stagger: 0.15,
         ease: 'power4.out',
+        clearProps: 'transform,opacity',
       })
 
       gsap.to('.blob', {
@@ -68,6 +73,7 @@ export default function Home() {
         duration: 0.9,
         stagger: 0.2,
         ease: 'power3.out',
+        clearProps: 'transform,opacity',
         scrollTrigger: {
           trigger: '.content-section',
           start: 'top 80%',
@@ -80,20 +86,10 @@ export default function Home() {
         duration: 0.8,
         stagger: 0.2,
         ease: 'power3.out',
+        clearProps: 'transform,opacity',
         scrollTrigger: {
           trigger: '.cards-grid',
           start: 'top 82%',
-        },
-      })
-
-      gsap.to('.hero-wave-svg', {
-        yPercent: 18,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.hero-section',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: true,
         },
       })
     },
@@ -146,8 +142,13 @@ export default function Home() {
           <div className="mt-2 flex flex-col items-center gap-4 sm:flex-row">
             <button
               type="button"
+<<<<<<< HEAD
               onClick={() => navigate('/jouer')}
               className="animate-in bg-[#FDF6E3] text-[#933600] px-10 py-4 rounded-full font-bold flex items-center gap-3"
+=======
+              onClick={() => navigate('/play')}
+              className="animate-in bg-[#FDF6E3] text-[#943D15] px-10 py-4 rounded-full font-bold flex items-center gap-3"
+>>>>>>> 3a6e2af9cc9c6c93476ede4f8d672ca8d0b0c43a
             >
               <svg
                 aria-hidden="true"
@@ -170,7 +171,7 @@ export default function Home() {
 
             <button
               type="button"
-              onClick={() => navigate('/comprendre')}
+              onClick={() => navigate('/learn')}
               className="animate-in border border-white/30 px-10 py-4 rounded-full font-medium"
             >
               Comprendre
@@ -259,18 +260,24 @@ export default function Home() {
               <h3 className="mb-3 text-2xl font-bold text-[#2a1a0e]">{card.title}</h3>
 
               <p className="mb-8 text-gray-600 leading-relaxed">{card.description}</p>
+<<<<<<< HEAD
 
               <button
                 type="button"
                 className="mt-auto inline-flex items-center gap-2 text-sm font-extrabold text-[#933600]"
               >
+=======
+            <a href={card.link} className="mt-auto inline-flex items-center gap-2 text-sm font-extrabold text-[#943D15]">
+>>>>>>> 3a6e2af9cc9c6c93476ede4f8d672ca8d0b0c43a
                 {card.cta}
                 <span className="font-bold">→</span>
-              </button>
+              </a>
             </article>
           ))}
         </div>
       </section>
+
+      <UserJourney />
     </main>
   )
 }
