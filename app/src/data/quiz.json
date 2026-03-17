@@ -121,5 +121,59 @@
       "labelA": "Œil A",
       "labelB": "Œil B"
     }
+  },
+  {
+    "id": 11,
+    "question": "Tu te demandes comment faire pour s’occuper de son animal de compagnie, que fait-tu?",
+    "options": [
+      "Tu fais tes propres recherches.",
+      "Tu demandes a l’IA."
+    ],
+    "correct": 0,
+    "explanation": "Il ne faut pas oublier , l’IA n’est pas capable de s’occuper  d’être cicant , elle ne « ressent » rien et malgré le fait qu’elle puisse donner de vrais conseils , la majorité des informations doivent être prises avec de pincettes dû a la quantité de fausse informations"
+  },
+  {
+    "id":12,
+    "question": "Ces deux plages semblent être une destination. Mais l’une d’entre elle a été créée par IA. Laquelle est-ce?",
+    "options": [
+      "L'Image A est l'IA.",
+      "L'Image B est l'IA."
+    ],
+    "correct": 1,
+    "explanation": "Pas facile, hein ? L'IA est une artiste, mais elle a tendance à en faire trop. En effet , la deuxième semble bien plus idyllique que la première. Et oui ,l’IA aime en faire beaucoup trop , c’est pourquoi il faut toujjour être méfiant quand l’image paraît trop parfaite.",
+    "images": {
+      "a": "/assets/quiz/q12-plagea.png",
+      "b": "/assets/quiz/q12-plageb.jpg",
+      "labelA": "Plage A",
+      "labelB": "Plage B"
+    }
+  },
+  {
+    "id": 13,
+    "question": "Tu veux faire un gâteau pour l’anniversaire de ton ami, que fais-tu ?",
+    "options": [
+      "Tu fais le gâteau toi même.",
+      "Tu demandes à l’IA de te faire une recette."
+    ],
+    "correct": 0,
+    "explanation": "L’IA peut te donner une recette ,     mais elle ne peut pas faire le gâteau à ta place. De plus , il faut faire attention à ce qu’elle te donne comme recette , car elle peut te donner des recettes qui ne sont pas très bonnes ou même dangereuses. Il est donc préférable de faire le gâteau soi même ou de demander à un professionnel."
+  },
+  {
+    "id": 14,
+    "question": "Tu scroll sur un réseau social et tombe sur 2 photos , tu sais que l'une d'entre elle a été créée par IA masi tu ne sais pas laquelle , saura-tu trouver la fausse la différence ?",
+    "options": [
+      "Première image.",
+      "Deuxième image."
+    ],
+    "correct": 0,
+    "explanation": "Comme tu peux le voir,quand l'IA fait des images , elles ont tendance à avoir soit des couleur trop saturé ou bien des détail sont surexagérés (par exemple , brillance sur un capot de voiture).Ces petits extra peuvent être utilisés pour reconnaitre une vrai image d'une fausse.",
+    "images": {
+    "a": "/assets/quiz/q14-burgerA.png",
+    "b": "/assets/quiz/q14-burgerB.jpg",
+    "labelA": "Burger A",
+    "labelB": "Burger B"
+    }
   }
+
+
 ]
