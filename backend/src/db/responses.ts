@@ -100,4 +100,39 @@ export const responses: ResponseRow[] = [
     response: "Il existe plusieurs IA génératives populaires : ChatGPT d'OpenAI, Gemini de Google, Claude d'Anthropic, et Bard de Google. Chacune a ses forces et faiblesses, mais elles peuvent toutes produire du texte impressionnant... et parfois des hallucinations !",
     category: 'ia-generative',
   },
-]
+  {
+    keywords: ['harcèlement', 'cyberharcèlement', 'victime', 'protéger', 'aider', 'France'],
+    response: "Le cyberharcèlement est un problème grave. En France, il existe des ressources pour les victimes : le site officiel cyberharcelement.fr propose des conseils et un numéro d'aide (3018). N'hésite pas à en parler à quelqu'un de confiance et à chercher de l'aide si tu es victime ou témoin de harcèlement en ligne.",
+    category: 'cyberharcelement',
+  },
+  {
+    keywords: ['rgpd', 'données', 'personnelles', 'protection', 'vie privée', 'loi', 'européenne'],
+    response: "Le RGPD (Règlement Général sur la Protection des Données) est une loi européenne qui protège les données personnelles des citoyens. Il oblige les entreprises à être transparentes sur l'utilisation de tes données et te donne des droits comme le droit d'accès, de rectification, et d'effacement de tes données. C'est un outil important pour protéger ta vie privée en ligne !",
+    category: 'rgpd',
+  },
+  {
+    keywords: ['but', 'mission', 'objectif', 'pourquoi', 'raison', 'intention'],
+    response: "La mission de TruthSense, c'est de t'aider à comprendre et à combattre la désinformation à l'ère de l'IA. On veut te donner les clés pour repérer les fake news, les deepfakes, et les hallucinations d'IA, afin que tu puisses naviguer sur internet en toute confiance !",
+    category: 'navigation',
+  },
+  {
+    keywords: ['contact', 'support', 'aide', 'problème', 'question', 'équipe'],
+    response: "Si tu as des questions, des suggestions, ou besoin d'aide, n'hésite pas à nous contacter ! Tu peux nous envoyer un email à contact@truthsense.fr",
+    category: 'navigation',
+  },
+  {
+    keywords: ['deepfake','victime','voix','audio','faux','truqué','montage'],
+    response: "Un deepfake audio, c'est quand la voix d'une personne est imitée de manière très réaliste grâce à l'IA. Ça peut être utilisé pour faire dire à quelqu'un des choses qu'il n'a jamais dites, ou pour créer de faux messages vocaux. C'est aussi dangereux que les deepfakes vidéo, car ça peut tromper les gens et causer du tort à la réputation d'une personne !",
+    category: 'deepfake',   
+  },
+  {
+    keywords: ['securité', 'en ligne', 'protection', 'compte', 'mot de passe', 'authentification'],
+    response: "Pour protéger tes comptes en ligne,pense à utiliser des mots de passe forts et uniques pour chaque site. Active l'authentification à deux facteurs (2FA) quand c'est possible, et fais attention aux emails de phishing qui essaient de te voler tes informations de connexion. La sécurité en ligne, c'est important pour protéger ta vie privée !",
+    category: 'securite-en-ligne',
+  },
+  {
+    keywords: ['protéger', 'enfants', 'données', 'personnelles', 'contrôle parental', 'sécurité', 'en ligne'],
+    response: "Pour protéger les enfants en ligne, il est important de mettre en place un contrôle parental efficace. Cela permet de surveiller leur activité sur internet et de les aider à naviguer en toute sécurité.",
+    category: 'securite-en-ligne',
+  },
+] 
