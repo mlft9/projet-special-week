@@ -24,7 +24,7 @@ export interface SpotLevel {
 export const SPOT_LEVELS: SpotLevel[] = [
   {
     id: 1,
-    image: '/assets/spot-game/image1.png',
+    image: '/assets/spot-game/image1.webp',
     title: 'Niveau 1 — La main',
     subtitle: 'Quelque chose d\'anatomiquement impossible se cache dans cette image…',
     maxClicks: 3,
@@ -41,7 +41,7 @@ export const SPOT_LEVELS: SpotLevel[] = [
   },
   {
     id: 2,
-    image: '/assets/spot-game/image2.png',
+    image: '/assets/spot-game/image2.webp',
     title: 'Niveau 2 — L\'affiche',
     subtitle: 'Regarde bien tous les textes présents dans cette scène…',
     maxClicks: 3,
@@ -58,7 +58,7 @@ export const SPOT_LEVELS: SpotLevel[] = [
   },
   {
     id: 3,
-    image: '/assets/spot-game/image3.png',
+    image: '/assets/spot-game/image3.webp',
     title: 'Niveau 3 — Le tracteur',
     subtitle: 'Un véhicule agricole en apparence ordinaire…',
     maxClicks: 3,
@@ -75,7 +75,7 @@ export const SPOT_LEVELS: SpotLevel[] = [
   },
   {
     id: 4,
-    image: '/assets/spot-game/image4.png',
+    image: '/assets/spot-game/image4.webp',
     title: 'Niveau 4 — La chaussure',
     subtitle: 'Observe attentivement le sol autour de la personne…',
     maxClicks: 3,
@@ -92,7 +92,7 @@ export const SPOT_LEVELS: SpotLevel[] = [
   },
   {
     id: 5,
-    image: '/assets/spot-game/image5.png',
+    image: '/assets/spot-game/image5.webp',
     title: 'Niveau 5 — Le repas',
     subtitle: 'Cette scène de table semble normale… mais deux détails trahissent l\'IA.',
     maxClicks: 3,
