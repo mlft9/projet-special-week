@@ -81,15 +81,26 @@ export default function Play() {
   if (phase === 'intro') {
     return (
       <main>
-        <div className="results-hero" style={{ paddingBottom: 64 }}>
-          <div className="score-badge">
-            <span className="score-emoji">🧠</span>
-            <span className="score-value" style={{ fontSize: 'clamp(36px,8vw,56px)' }}>
-              Quiz
-            </span>
-            <span className="score-label">Détecte la désinformation</span>
-          </div>
-        </div>
+        <section className="relative z-10 shrink-0 mx-auto max-w-3xl px-6 pt-28 md:pt-32 pb-2 text-center">
+          <span
+            className="inline-block rounded-full px-4 py-1.5 text-[12px] font-medium tracking-wide text-[var(--color-secondary)] mb-4"
+            style={{
+              background: 'rgba(147, 54, 0, 0.06)',
+              border: '1px solid rgba(147, 54, 0, 0.12)',
+            }}
+          >
+            Test tes connaissances
+          </span>
+          <h1 className="font-[var(--font-display)] text-[clamp(1.8rem,4vw,2.8rem)] font-bold leading-[1.1] text-[#2a1a0e]">
+            Détecte la
+            <br />
+            <span className="italic font-medium text-[var(--color-secondary)]">désinformation</span>
+          </h1>
+          <div className="mx-auto mt-3 h-[2px] w-16 rounded-full" style={{ background: 'rgba(147, 54, 0, 0.2)' }} />
+          <p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-[#6b5c44]">
+            10 questions pour tester ton esprit critique face à l'IA.
+          </p>
+        </section>
 
         <div className="results-body">
           <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>

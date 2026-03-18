@@ -71,13 +71,29 @@ export default function Classement() {
 
   return (
     <main>
-      <div className="classement-hero">
-        <p className="classement-eyebrow">Classement · Top 10</p>
-        <h1>Les meilleurs détecteurs</h1>
-        <p>Qui peut déjouer les pièges de l'IA ?</p>
+      <section className="relative z-10 shrink-0 mx-auto max-w-3xl px-6 pt-28 md:pt-32 pb-2 text-center">
+        <span
+          className="inline-block rounded-full px-4 py-1.5 text-[12px] font-medium tracking-wide text-[var(--color-secondary)] mb-4"
+          style={{
+            background: 'rgba(147, 54, 0, 0.06)',
+            border: '1px solid rgba(147, 54, 0, 0.12)',
+          }}
+        >
+          Classement · Top 10
+        </span>
+        <h1 className="font-[var(--font-display)] text-[clamp(1.8rem,4vw,2.8rem)] font-bold leading-[1.1] text-[#2a1a0e]">
+          Les meilleurs
+          <br />
+          <span className="italic font-medium text-[var(--color-secondary)]">détecteurs</span>
+        </h1>
+        <div className="mx-auto mt-3 h-[2px] w-16 rounded-full" style={{ background: 'rgba(147, 54, 0, 0.2)' }} />
+        <p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-[#6b5c44]">
+          Qui peut déjouer les pièges de l'IA ?
+        </p>
+      </section>
 
-        {totalPlayers > 0 && (
-          <div className="classement-stats">
+      {totalPlayers > 0 && (
+        <div className="classement-stats">
             <div className="classement-stat">
               <span className="val">{totalPlayers}</span>
               <span className="lbl">Joueur{totalPlayers > 1 ? 's' : ''}</span>
@@ -94,7 +110,6 @@ export default function Classement() {
             </div>
           </div>
         )}
-      </div>
 
       <div className="classement-body">
         {entries.length === 0 ? (
