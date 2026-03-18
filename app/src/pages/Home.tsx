@@ -10,7 +10,7 @@ import Footer from '../components/Footer.tsx'
 gsap.registerPlugin(useGSAP, ScrollTrigger)
 
 const stats = [
-  { value: '10', label: 'questions' },
+  { value: '14', label: 'questions' },
   { value: '5', label: 'exemples' },
   { value: '3', label: 'modules' },
 ]
