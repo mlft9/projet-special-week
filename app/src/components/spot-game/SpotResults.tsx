@@ -2,7 +2,6 @@ import { useRef, useState } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { useNavigate } from 'react-router-dom'
-import type { SpotLeaderboardEntry } from '../../types'
 
 interface LevelResult {
   levelTitle: string
@@ -43,18 +42,13 @@ export default function SpotResults({ totalScore, maxScore, levelResults, onRepl
 
   const verdict = getVerdict(totalScore, maxScore)
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!name.trim() || saved) return
-    const entry: SpotLeaderboardEntry = {
-      name: name.trim(),
-      score: totalScore,
-      maxScore,
-      date: new Date().toLocaleDateString('fr-FR'),
-    }
-    const existing = JSON.parse(localStorage.getItem('leaderboard-spot') ?? '[]') as SpotLeaderboardEntry[]
-    existing.push(entry)
-    existing.sort((a, b) => b.score - a.score)
-    localStorage.setItem('leaderboard-spot', JSON.stringify(existing.slice(0, 20)))
+    await fetch('/api/leaderboard/spot', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: name.trim(), score: totalScore, maxScore }),
+    })
     setSaved(true)
   }
 

@@ -1,24 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import type { LeaderboardEntry, SpotLeaderboardEntry } from '../types'
 import './Classement.css'
 import Footer from '../components/Footer'
 
 const MEDALS = ['🥇', '🥈', '🥉']
-
-function getQuizEntries(): LeaderboardEntry[] {
-  try {
-    const raw = localStorage.getItem('leaderboard')
-    return raw ? (JSON.parse(raw) as LeaderboardEntry[]).sort((a, b) => b.score - a.score).slice(0, 10) : []
-  } catch { return [] }
-}
-
-function getSpotEntries(): SpotLeaderboardEntry[] {
-  try {
-    const raw = localStorage.getItem('leaderboard-spot')
-    return raw ? (JSON.parse(raw) as SpotLeaderboardEntry[]).sort((a, b) => b.score - a.score).slice(0, 10) : []
-  } catch { return [] }
-}
 
 interface QuizListProps { entries: LeaderboardEntry[] }
 function QuizList({ entries }: QuizListProps) {
@@ -118,8 +104,22 @@ function SpotList({ entries }: SpotListProps) {
 
 export default function Classement() {
   const [tab, setTab] = useState<'quiz' | 'spot'>('quiz')
-  const quizEntries = getQuizEntries()
-  const spotEntries = getSpotEntries()
+  const [quizEntries, setQuizEntries] = useState<LeaderboardEntry[]>([])
+  const [spotEntries, setSpotEntries] = useState<SpotLeaderboardEntry[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    Promise.all([
+      fetch('/api/leaderboard/quiz').then(r => r.json()),
+      fetch('/api/leaderboard/spot').then(r => r.json()),
+    ])
+      .then(([quiz, spot]) => {
+        setQuizEntries(quiz as LeaderboardEntry[])
+        setSpotEntries(spot as SpotLeaderboardEntry[])
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false))
+  }, [])
 
   return (
     <main>
@@ -139,8 +139,9 @@ export default function Classement() {
       </section>
 
       <div className="classement-body">
+        {loading && <p style={{ textAlign: 'center', color: '#6b5c44', padding: '40px 0' }}>Chargement…</p>}
         {/* Onglets */}
-        <div className="classement-tabs">
+        {!loading && <><div className="classement-tabs">
           <button
             className={`classement-tab ${tab === 'quiz' ? 'active' : ''}`}
             onClick={() => setTab('quiz')}
@@ -159,6 +160,7 @@ export default function Classement() {
           ? <QuizList entries={quizEntries} />
           : <SpotList entries={spotEntries} />
         }
+        </>}
       </div>
 
       <Footer />
