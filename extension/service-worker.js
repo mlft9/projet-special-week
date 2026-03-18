@@ -1,7 +1,7 @@
 const STATIC_SITES_FILE = 'flagged-sites.json'
-const STORAGE_KEY = 'truthsense.dynamicDomains'
-const STORAGE_LAST_SYNC_KEY = 'truthsense.lastSync'
-const ALARM_NAME = 'truthsense-sync-reports'
+const STORAGE_KEY = 'ealerte.dynamicDomains'
+const STORAGE_LAST_SYNC_KEY = 'ealerte.lastSync'
+const ALARM_NAME = 'ealerte-sync-reports'
 
 const alertedByTab = new Map()
 
@@ -106,13 +106,18 @@ async function notifyIfReported(tabId, url) {
   if (alertedByTab.get(tabId) === match) return
   alertedByTab.set(tabId, match)
 
-  await chrome.notifications.create(`truthsense-${tabId}-${Date.now()}`, {
-    type: 'basic',
-    iconUrl: 'icon-128.png',
-    title: '⚠️ Site signalé',
-    message: `Attention : ${host} a été signalé. Vérifiez bien les sources avant de partager.`,
-    priority: 2,
-  })
+  try {
+    await chrome.scripting.executeScript({
+      target: { tabId },
+      world: 'MAIN',
+      args: [host],
+      func: (domain) => {
+        alert(`⚠️ Attention : ${domain} a été signalé. Vérifiez bien les sources avant de partager.`)
+      },
+    })
+  } catch {
+    // Certains onglets spéciaux empêchent l'injection de script
+  }
 }
 
 chrome.runtime.onInstalled.addListener(async () => {
