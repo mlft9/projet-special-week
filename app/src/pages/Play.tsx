@@ -41,6 +41,7 @@ export default function Play() {
   const progress = questions.length > 0 ? (current / questions.length) * 100 : 0
 
   function handleAnswer(index: number) {
+    if (!question) return
     setAnswered(index)
     if (index === question.correct) setScore(s => s + 1)
   }
@@ -205,6 +206,8 @@ export default function Play() {
   }
 
   /* ── ÉCRAN QUIZ ── */
+  if (!question) return null
+
   return (
     <main>
       <div className="quiz-hud">
