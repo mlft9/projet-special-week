@@ -5,6 +5,8 @@ import QuizCard from '../components/QuizCard'
 import ScoreBadge from '../components/ScoreBadge'
 import './Play.css'
 import Footer from '../components/Footer'
+import { generateCertificatePdf } from '../utils/certificate'
+import logoUrl from '../assets/logo.png'
 
 type Phase = 'intro' | 'quiz' | 'results'
 
@@ -52,20 +54,39 @@ export default function Play() {
     }
   }
 
-  function handleSave() {
+  async function handleSave() {
     if (!name.trim()) return
+
+    const playerName = name.trim()
     const entry: LeaderboardEntry = {
-      name:  name.trim(),
+      name:  playerName,
       score,
       total: questions.length,
       date:  new Date().toISOString(),
     }
+
+    const earnedCertificate = questions.length === 14 && score > 11
+
     try {
       const existing: LeaderboardEntry[] = JSON.parse(localStorage.getItem('leaderboard') ?? '[]')
       localStorage.setItem('leaderboard', JSON.stringify([...existing, entry]))
     } catch {
       // localStorage indisponible ou plein — on navigue quand même
     }
+
+    if (earnedCertificate) {
+      try {
+        await generateCertificatePdf({
+          playerName,
+          score,
+          total: questions.length,
+          logoUrl,
+        })
+      } catch {
+        // échec PDF non bloquant
+      }
+    }
+
     navigate('/classement')
   }
 
