@@ -6,6 +6,7 @@ const links = [
   { to: '/comprendre',  label: 'Comprendre' },
   { to: '/jouer',       label: 'Jouer' },
   { to: '/classement',  label: 'Classement' },
+  { to: '/reperer',     label: 'Zones suspectes' },
 ]
 
 export default function BurgerMenu() {

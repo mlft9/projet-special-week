@@ -8,6 +8,7 @@ import Play from './pages/Play'
 import Classement from './pages/Classement'
 import MentionsLegales from './pages/MentionsLegales'
 import PolitiqueConfidentialite from './pages/PolitiqueConfidentialite'
+import SpotGame from './pages/SpotGame'
 import './App.css'
 
 export default function App() {
@@ -33,6 +34,7 @@ export default function App() {
         <Route path="/classement" element={<Classement />} />
         <Route path="/mentions-legales" element={<MentionsLegales />} />
         <Route path="/politique-confidentialite" element={<PolitiqueConfidentialite />} />
+        <Route path="/reperer" element={<SpotGame />} />
       </Routes>
       <ChatBot />
     </>

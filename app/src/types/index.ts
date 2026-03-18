@@ -36,3 +36,10 @@ export interface LeaderboardEntry {
   total: number
   date: string
 }
+
+export interface SpotLeaderboardEntry {
+  name: string
+  score: number
+  maxScore: number
+  date: string
+}
