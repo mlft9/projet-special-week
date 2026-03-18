@@ -274,7 +274,7 @@ export default function SpotGame() {
         </div>
       )}
 
-      {(phase === 'intro' || phase === 'final-results') && <Footer />}
+      <Footer />
     </main>
   )
 }
