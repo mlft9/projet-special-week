@@ -1,83 +1,132 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Bar } from 'react-chartjs-2'
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Tooltip,
-} from 'chart.js'
-import type { LeaderboardEntry } from '../types'
+import type { LeaderboardEntry, SpotLeaderboardEntry } from '../types'
 import './Classement.css'
 import Footer from '../components/Footer'
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip)
-
 const MEDALS = ['🥇', '🥈', '🥉']
 
-function getAllEntries(): LeaderboardEntry[] {
+function getQuizEntries(): LeaderboardEntry[] {
   try {
     const raw = localStorage.getItem('leaderboard')
-    if (!raw) return []
-    return JSON.parse(raw) as LeaderboardEntry[]
-  } catch {
-    return []
-  }
+    return raw ? (JSON.parse(raw) as LeaderboardEntry[]).sort((a, b) => b.score - a.score).slice(0, 10) : []
+  } catch { return [] }
 }
 
-function getTopEntries(all: LeaderboardEntry[]): LeaderboardEntry[] {
-  return [...all]
-    .sort((a, b) => b.score - a.score || new Date(b.date).getTime() - new Date(a.date).getTime())
-    .slice(0, 10)
+function getSpotEntries(): SpotLeaderboardEntry[] {
+  try {
+    const raw = localStorage.getItem('leaderboard-spot')
+    return raw ? (JSON.parse(raw) as SpotLeaderboardEntry[]).sort((a, b) => b.score - a.score).slice(0, 10) : []
+  } catch { return [] }
+}
+
+interface QuizListProps { entries: LeaderboardEntry[] }
+function QuizList({ entries }: QuizListProps) {
+  if (entries.length === 0) return (
+    <div className="classement-empty">
+      <p>🏆</p>
+      <p>Aucun score enregistré.<br />Sois le premier à jouer !</p>
+      <Link className="classement-cta" to="/jouer">Lancer le quiz →</Link>
+    </div>
+  )
+  const top3 = entries.slice(0, 3)
+  const rest = entries.slice(3)
+  return (
+    <>
+      <p className="classement-section-title">Podium</p>
+      <div className="podium">
+        {top3.map((e, i) => (
+          <div key={i} className={`podium-item rank-${i + 1}`}>
+            <span className="podium-medal">{MEDALS[i]}</span>
+            <span className="podium-name">{e.name}</span>
+            <span className="podium-score">{e.score}</span>
+            <span className="podium-total">/ {e.total}</span>
+          </div>
+        ))}
+      </div>
+      {rest.length > 0 && (
+        <>
+          <p className="classement-section-title">Suite du classement</p>
+          <div className="classement-list">
+            {rest.map((e, i) => (
+              <div key={i} className="classement-row">
+                <span className="row-rank">{i + 4}</span>
+                <div className="row-info">
+                  <span className="row-name">{e.name}</span>
+                  <span className="row-date">{new Date(e.date).toLocaleDateString('fr-FR')}</span>
+                </div>
+                <span className="row-score">{e.score}/{e.total}</span>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+      <div style={{ marginTop: 28, textAlign: 'center' }}>
+        <Link className="classement-cta" to="/jouer">Rejouer →</Link>
+      </div>
+    </>
+  )
+}
+
+interface SpotListProps { entries: SpotLeaderboardEntry[] }
+function SpotList({ entries }: SpotListProps) {
+  if (entries.length === 0) return (
+    <div className="classement-empty">
+      <p>🔍</p>
+      <p>Aucun score enregistré.<br />Sois le premier à jouer !</p>
+      <Link className="classement-cta" to="/reperer">Jouer →</Link>
+    </div>
+  )
+  const top3 = entries.slice(0, 3)
+  const rest = entries.slice(3)
+  return (
+    <>
+      <p className="classement-section-title">Podium</p>
+      <div className="podium">
+        {top3.map((e, i) => (
+          <div key={i} className={`podium-item rank-${i + 1}`}>
+            <span className="podium-medal">{MEDALS[i]}</span>
+            <span className="podium-name">{e.name}</span>
+            <span className="podium-score">{e.score}</span>
+            <span className="podium-total">/ {e.maxScore} pts</span>
+          </div>
+        ))}
+      </div>
+      {rest.length > 0 && (
+        <>
+          <p className="classement-section-title">Suite du classement</p>
+          <div className="classement-list">
+            {rest.map((e, i) => (
+              <div key={i} className="classement-row">
+                <span className="row-rank">{i + 4}</span>
+                <div className="row-info">
+                  <span className="row-name">{e.name}</span>
+                  <span className="row-date">{e.date}</span>
+                </div>
+                <span className="row-score">{e.score} pts</span>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+      <div style={{ marginTop: 28, textAlign: 'center' }}>
+        <Link className="classement-cta" to="/reperer">Rejouer →</Link>
+      </div>
+    </>
+  )
 }
 
 export default function Classement() {
-  const all      = getAllEntries()
-  const entries  = getTopEntries(all)
-  const top3     = entries.slice(0, 3)
-  const rest     = entries.slice(3)
-
-  const bestScore    = entries[0]?.score ?? 0
-  const totalPlayers = all.length
-
-  // Distribution des scores pour le graphique (0 à 10)
-  const maxScore = all[0]?.total ?? 10
-  const distribution = Array.from({ length: maxScore + 1 }, (_, i) =>
-    all.filter(e => e.score === i).length
-  )
-
-  const chartData = {
-    labels: Array.from({ length: maxScore + 1 }, (_, i) => `${i}/${maxScore}`),
-    datasets: [{
-      data: distribution,
-      backgroundColor: distribution.map(v =>
-        v === Math.max(...distribution) ? '#933600' : 'rgba(147, 54, 0, 0.25)'
-      ),
-      borderRadius: 8,
-      borderSkipped: false,
-    }],
-  }
-
-  const chartOptions = {
-    responsive: true,
-    plugins: { legend: { display: false }, tooltip: { callbacks: {
-      label: (ctx: { raw: unknown }) => ` ${ctx.raw} joueur${Number(ctx.raw) > 1 ? 's' : ''}`,
-    }}},
-    scales: {
-      x: { grid: { display: false }, ticks: { color: '#6b5c44', font: { size: 11 } } },
-      y: { grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { color: '#6b5c44', stepSize: 1, precision: 0 } },
-    },
-  }
+  const [tab, setTab] = useState<'quiz' | 'spot'>('quiz')
+  const quizEntries = getQuizEntries()
+  const spotEntries = getSpotEntries()
 
   return (
     <main>
       <section className="relative z-10 shrink-0 mx-auto max-w-3xl px-6 pt-28 md:pt-32 pb-2 text-center">
         <span
           className="inline-block rounded-full px-4 py-1.5 text-[12px] font-medium tracking-wide text-[var(--color-secondary)] mb-4"
-          style={{
-            background: 'rgba(147, 54, 0, 0.06)',
-            border: '1px solid rgba(147, 54, 0, 0.12)',
-          }}
+          style={{ background: 'rgba(147, 54, 0, 0.06)', border: '1px solid rgba(147, 54, 0, 0.12)' }}
         >
           Classement · Top 10
         </span>
@@ -87,91 +136,31 @@ export default function Classement() {
           <span className="italic font-medium text-[var(--color-secondary)]">détecteurs</span>
         </h1>
         <div className="mx-auto mt-3 h-[2px] w-16 rounded-full" style={{ background: 'rgba(147, 54, 0, 0.2)' }} />
-        <p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-[#6b5c44]">
-          Qui peut déjouer les pièges de l'IA ?
-        </p>
       </section>
 
-      {totalPlayers > 0 && (
-        <div className="classement-stats">
-            <div className="classement-stat">
-              <span className="val">{totalPlayers}</span>
-              <span className="lbl">Joueur{totalPlayers > 1 ? 's' : ''}</span>
-            </div>
-            <div className="classement-stat">
-              <span className="val">{bestScore}/10</span>
-              <span className="lbl">Meilleur score</span>
-            </div>
-            <div className="classement-stat">
-              <span className="val">
-                {Math.round(entries.reduce((acc, e) => acc + e.score, 0) / entries.reduce((acc, e) => acc + e.total, 0) * 100)}%
-              </span>
-              <span className="lbl">Réussite moy.</span>
-            </div>
-          </div>
-        )}
-
       <div className="classement-body">
-        {entries.length === 0 ? (
-          <div className="classement-empty">
-            <p>🏆</p>
-            <p>Aucun score enregistré pour l'instant.<br />Sois le premier à jouer !</p>
-            <Link className="classement-cta" to="/jouer">Lancer le quiz →</Link>
-          </div>
-        ) : (
-          <>
-            {/* Distribution des scores */}
-            {all.length >= 2 && (
-              <>
-                <p className="classement-section-title">Distribution des scores</p>
-                <div className="classement-chart">
-                  <Bar data={chartData} options={chartOptions} />
-                </div>
-              </>
-            )}
+        {/* Onglets */}
+        <div className="classement-tabs">
+          <button
+            className={`classement-tab ${tab === 'quiz' ? 'active' : ''}`}
+            onClick={() => setTab('quiz')}
+          >
+            ❓ Quiz
+          </button>
+          <button
+            className={`classement-tab ${tab === 'spot' ? 'active' : ''}`}
+            onClick={() => setTab('spot')}
+          >
+            🔍 Zones suspectes
+          </button>
+        </div>
 
-            {/* Podium top 3 */}
-            {top3.length > 0 && (
-              <>
-                <p className="classement-section-title">Podium</p>
-                <div className="podium">
-                  {top3.map((entry, i) => (
-                    <div key={i} className={`podium-item rank-${i + 1}`}>
-                      <span className="podium-medal">{MEDALS[i]}</span>
-                      <span className="podium-name">{entry.name}</span>
-                      <span className="podium-score">{entry.score}</span>
-                      <span className="podium-total">/ {entry.total}</span>
-                    </div>
-                  ))}
-                </div>
-              </>
-            )}
-
-            {/* Reste du classement */}
-            {rest.length > 0 && (
-              <>
-                <p className="classement-section-title">Suite du classement</p>
-                <div className="classement-list">
-                  {rest.map((entry, i) => (
-                    <div key={i} className="classement-row">
-                      <span className="row-rank">{i + 4}</span>
-                      <div className="row-info">
-                        <span className="row-name">{entry.name}</span>
-                        <span className="row-date">{new Date(entry.date).toLocaleDateString('fr-FR')}</span>
-                      </div>
-                      <span className="row-score">{entry.score}/{entry.total}</span>
-                    </div>
-                  ))}
-                </div>
-              </>
-            )}
-
-            <div style={{ marginTop: '28px', textAlign: 'center' }}>
-              <Link className="classement-cta" to="/jouer">Rejouer →</Link>
-            </div>
-          </>
-        )}
+        {tab === 'quiz'
+          ? <QuizList entries={quizEntries} />
+          : <SpotList entries={spotEntries} />
+        }
       </div>
+
       <Footer />
     </main>
   )

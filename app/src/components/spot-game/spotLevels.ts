@@ -24,7 +24,7 @@ export const SPOT_LEVELS: SpotLevel[] = [
   {
     id: 1,
     image: '/assets/spot-game/image1.webp',
-    title: 'Niveau 1 — La main',
+    title: 'Niveau 1',
     maxClicks: 3,
     hotspots: [
       {
@@ -40,7 +40,7 @@ export const SPOT_LEVELS: SpotLevel[] = [
   {
     id: 2,
     image: '/assets/spot-game/image2.webp',
-    title: 'Niveau 2 — L\'affiche',
+    title: 'Niveau 2',
     maxClicks: 3,
     hotspots: [
       {
@@ -56,7 +56,7 @@ export const SPOT_LEVELS: SpotLevel[] = [
   {
     id: 3,
     image: '/assets/spot-game/image3.webp',
-    title: 'Niveau 3 — Le tracteur',
+    title: 'Niveau 3',
     maxClicks: 3,
     hotspots: [
       {
@@ -72,7 +72,7 @@ export const SPOT_LEVELS: SpotLevel[] = [
   {
     id: 4,
     image: '/assets/spot-game/image4.webp',
-    title: 'Niveau 4 — La chaussure',
+    title: 'Niveau 4',
     maxClicks: 3,
     hotspots: [
       {
@@ -88,17 +88,9 @@ export const SPOT_LEVELS: SpotLevel[] = [
   {
     id: 5,
     image: '/assets/spot-game/image5.webp',
-    title: 'Niveau 5 — Le repas',
+    title: 'Niveau 5',
     maxClicks: 3,
     hotspots: [
-      {
-        id: 'h1',
-        x: 21.6,
-        y: 59.4,
-        radius: 5,
-        label: 'Double verre',
-        description: "La personne la plus à gauche tient un verre dans ses mains ET en a un autre posé devant son assiette. L'IA a dupliqué l'objet sans cohérence narrative — une personne ne peut pas tenir et poser le même verre simultanément.",
-      },
       {
         id: 'h2',
         x: 32.1,
