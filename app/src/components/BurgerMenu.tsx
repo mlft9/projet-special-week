@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
 const links = [
@@ -39,13 +40,27 @@ const links = [
 ]
 
 export default function BurgerMenu() {
+  const [mobileOpen, setMobileOpen] = useState(false)
+
   return (
-    <aside className="side-nav-shell" aria-label="Navigation principale">
+    <aside className={`side-nav-shell${mobileOpen ? ' is-open' : ''}`} aria-label="Navigation principale">
+      <button
+        type="button"
+        className="side-nav-mobile-toggle"
+        aria-label="Ouvrir le menu"
+        aria-expanded={mobileOpen}
+        onClick={() => setMobileOpen(prev => !prev)}
+      >
+        <span />
+        <span />
+        <span />
+      </button>
+
       <nav className="side-nav-drawer" aria-label="Menu de navigation">
         <ul>
           {links.map(link => (
             <li key={link.to}>
-              <NavLink to={link.to} end={link.to === '/'}>
+              <NavLink to={link.to} end={link.to === '/'} onClick={() => setMobileOpen(false)}>
                 <span className="side-nav-link-label">{link.label}</span>
                 <svg
                   className="side-nav-link-icon"
