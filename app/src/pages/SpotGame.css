@@ -34,7 +34,7 @@
   align-items: center;
   justify-content: flex-start;
   min-height: 100vh;
-  padding: 5rem 1.5rem 3rem;
+  padding: 7rem 1.5rem 3rem;
   text-align: center;
   gap: 1.5rem;
 }
@@ -682,7 +682,7 @@
 @media (max-width: 640px) {
   .spot-hud { gap: 12px; padding: 10px 14px; }
   .spot-playing__content { padding: 1rem 1rem 2rem; }
-  .spot-intro { padding: 4rem 1rem 2rem; }
+  .spot-intro { padding: 7rem 1rem 2rem; }
   .spot-results__verdict { padding: 60px 20px 32px; }
   .spot-results__body { padding: 24px 16px 48px; }
   .spot-intro__rules { grid-template-columns: 1fr; }

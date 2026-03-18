@@ -1,4 +1,5 @@
 import { useState, useCallback, useRef } from 'react'
+import Footer from '../components/Footer'
 import SpotCanvas from '../components/spot-game/SpotCanvas'
 import SpotHUD from '../components/spot-game/SpotHUD'
 import SpotResults from '../components/spot-game/SpotResults'
@@ -272,6 +273,8 @@ export default function SpotGame() {
           />
         </div>
       )}
+
+      {(phase === 'intro' || phase === 'final-results') && <Footer />}
     </main>
   )
 }

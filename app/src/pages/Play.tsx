@@ -98,52 +98,72 @@ export default function Play() {
     setName('')
   }
 
-  /* ── ÉCRAN INTRO ── */
+  /* ── ÉCRAN INTRO / HUB ── */
   if (phase === 'intro') {
     return (
       <main>
         <section className="relative z-10 shrink-0 mx-auto max-w-3xl px-6 pt-28 md:pt-32 pb-2 text-center">
-          <span
-            className="inline-block rounded-full px-4 py-1.5 text-[12px] font-medium tracking-wide text-[var(--color-secondary)] mb-4"
-            style={{
-              background: 'rgba(147, 54, 0, 0.06)',
-              border: '1px solid rgba(147, 54, 0, 0.12)',
-            }}
-          >
-            Test tes connaissances
-          </span>
           <h1 className="font-[var(--font-display)] text-[clamp(1.8rem,4vw,2.8rem)] font-bold leading-[1.1] text-[#2a1a0e]">
-            Détecte la
-            <br />
-            <span className="italic font-medium text-[var(--color-secondary)]">désinformation</span>
+            À toi de jouer
           </h1>
           <div className="mx-auto mt-3 h-[2px] w-16 rounded-full" style={{ background: 'rgba(147, 54, 0, 0.2)' }} />
           <p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-[#6b5c44]">
-            10 questions pour tester ton esprit critique face à l'IA.
+            Deux façons de tester ton esprit critique face à l'IA.
           </p>
         </section>
 
-        <div className="results-body">
-          <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
-            {[
-              { icon: '❓', text: `${questions.length} questions` },
-              { icon: '🖼️', text: 'Analyse d\'images réelles vs IA' },
-              { icon: '🏆', text: 'Score enregistré dans le classement' },
-            ].map(item => (
-              <li key={item.text} style={{
-                display: 'flex', alignItems: 'center', gap: 14,
-                background: '#fff8e8', border: '1px solid #e6d4a8',
-                borderRadius: 12, padding: '14px 18px',
-                fontSize: '0.92rem', fontWeight: 500, color: '#1a1a1a',
-              }}>
-                <span style={{ fontSize: '1.2rem' }}>{item.icon}</span>
-                {item.text}
-              </li>
-            ))}
-          </ul>
+        <div className="results-body" style={{ maxWidth: 640, gap: 16 }}>
+          {/* Carte Quiz */}
+          <button
+            onClick={() => setPhase('quiz')}
+            disabled={!dataReady || questions.length === 0}
+            style={{
+              display: 'flex', alignItems: 'flex-start', gap: 16, textAlign: 'left',
+              background: '#ffffff', border: '2px solid #e6d4a8', borderRadius: 16,
+              padding: '20px 22px', cursor: 'pointer', transition: 'border-color 0.15s, box-shadow 0.15s',
+              width: '100%', fontFamily: 'var(--font-body)',
+            }}
+            onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = '#933600'; (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 4px 16px rgba(147,54,0,0.12)' }}
+            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = '#e6d4a8'; (e.currentTarget as HTMLButtonElement).style.boxShadow = 'none' }}
+          >
+            <span style={{ fontSize: '2rem', lineHeight: 1, flexShrink: 0 }}>❓</span>
+            <div>
+              <div style={{ fontWeight: 700, fontSize: '1.05rem', color: '#2a1a0e', marginBottom: 4 }}>
+                Quiz — Détecte la désinformation
+              </div>
+              <div style={{ fontSize: '0.85rem', color: '#6b5c44', lineHeight: 1.5 }}>
+                {questions.length > 0 ? `${questions.length} questions` : '…'} · Images réelles vs IA · Score classement
+              </div>
+              <div style={{ marginTop: 12, display: 'inline-block', background: '#933600', color: '#fff', borderRadius: 999, padding: '6px 16px', fontSize: '0.82rem', fontWeight: 700 }}>
+                {dataReady ? 'Jouer →' : 'Chargement…'}
+              </div>
+            </div>
+          </button>
 
-          <button className="results-save-btn" onClick={() => setPhase('quiz')} disabled={!dataReady || questions.length === 0}>
-            {dataReady ? "C'est parti →" : 'Chargement…'}
+          {/* Carte Zones suspectes */}
+          <button
+            onClick={() => navigate('/reperer')}
+            style={{
+              display: 'flex', alignItems: 'flex-start', gap: 16, textAlign: 'left',
+              background: '#ffffff', border: '2px solid #e6d4a8', borderRadius: 16,
+              padding: '20px 22px', cursor: 'pointer', transition: 'border-color 0.15s, box-shadow 0.15s',
+              width: '100%', fontFamily: 'var(--font-body)',
+            }}
+            onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = '#933600'; (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 4px 16px rgba(147,54,0,0.12)' }}
+            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = '#e6d4a8'; (e.currentTarget as HTMLButtonElement).style.boxShadow = 'none' }}
+          >
+            <span style={{ fontSize: '2rem', lineHeight: 1, flexShrink: 0 }}>🔍</span>
+            <div>
+              <div style={{ fontWeight: 700, fontSize: '1.05rem', color: '#2a1a0e', marginBottom: 4 }}>
+                Zones suspectes — Repère les artefacts IA
+              </div>
+              <div style={{ fontSize: '0.85rem', color: '#6b5c44', lineHeight: 1.5 }}>
+                5 images · Clique sur les zones générées par IA · 3 clics par image
+              </div>
+              <div style={{ marginTop: 12, display: 'inline-block', background: '#933600', color: '#fff', borderRadius: 999, padding: '6px 16px', fontSize: '0.82rem', fontWeight: 700 }}>
+                Jouer →
+              </div>
+            </div>
           </button>
         </div>
 
