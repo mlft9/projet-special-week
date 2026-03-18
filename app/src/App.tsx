@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import BurgerMenu from './components/BurgerMenu'
+import ChatBot from './components/ChatBot'
 import Home from './pages/Home.tsx'
 import Learn from './pages/Learn'
 import Play from './pages/Play'
@@ -33,6 +34,7 @@ export default function App() {
         <Route path="/mentions-legales" element={<MentionsLegales />} />
         <Route path="/politique-confidentialite" element={<PolitiqueConfidentialite />} />
       </Routes>
+      <ChatBot />
     </>
   )
 }

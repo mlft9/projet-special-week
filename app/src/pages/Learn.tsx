@@ -1,18 +1,12 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
-import examples from '../data/examples.json'
 import ExampleCard from '../components/ExampleCard'
 import type { Example } from '../types'
 import Footer from '../components/Footer'
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
-
-const typedExamples = examples as Example[]
-const textExamples = typedExamples.filter(e => e.type !== 'comparison')
-const comparisonExamples = typedExamples.filter(e => e.type === 'comparison')
-const lastTextIsOdd = textExamples.length % 2 !== 0
 
 const sections = [
   {
@@ -39,9 +33,21 @@ const sections = [
 ]
 
 export default function Learn() {
+  const [examples, setExamples] = useState<Example[]>([])
   const [revealedIds, setRevealedIds] = useState<Set<number>>(new Set())
   const galleryRef = useRef<HTMLDivElement | null>(null)
   const heroRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    fetch('/api/examples')
+      .then(r => r.json())
+      .then((data: Example[]) => setExamples(data))
+      .catch(() => {})
+  }, [])
+
+  const textExamples = examples.filter(e => e.type !== 'comparison')
+  const comparisonExamples = examples.filter(e => e.type === 'comparison')
+  const lastTextIsOdd = textExamples.length % 2 !== 0
 
   const handleReveal = (id: number) => {
     setRevealedIds(prev => new Set(prev).add(id))

@@ -105,16 +105,16 @@ export default function Home() {
           <div className="blob absolute -bottom-24 -left-24 h-[460px] w-[460px] rounded-full bg-[#FFE0B0]/25 blur-[120px]" />
         </div>
 
-        <div className="absolute top-3 left-5 z-10">
+        <div className="absolute top-3 left-5 z-50">
           <BurgerMenu />
         </div>
 
-        <div className="relative z-10 flex w-full max-w-5xl flex-col items-center justify-center px-4 text-center">
+        <div className="relative z-10 flex w-full max-w-5xl flex-col items-center justify-center px-4 pb-36 text-center">
           <div className="animate-in bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-1 text-[10px] tracking-widest uppercase">
             CAPGEMINI x SUP DE VINCI 2026
           </div>
 
-          <h1 className="animate-in mt-8 mb-4 max-w-2xl text-center text-6xl font-display font-bold leading-[1.05] text-[#FFF8EF]">
+          <h1 className="animate-in mt-8 mb-4 max-w-2xl text-center text-[clamp(2.2rem,8vw,3.75rem)] font-display font-bold leading-[1.05] text-[#FFF8EF]">
             T&apos;as le niveau pour détecter le{' '}
             <span className="font-serif italic font-medium text-amber-100">fake</span> ?
           </h1>
@@ -123,9 +123,9 @@ export default function Home() {
             Le portail de sensibilisation à la désinformation par l&apos;IA
           </p>
 
-          <div className="animate-in my-10 flex items-center gap-12">
+          <div className="animate-in my-10 flex items-center gap-6 sm:gap-12">
             {stats.map((stat, index) => (
-              <div key={stat.label} className="flex items-center gap-12">
+              <div key={stat.label} className="flex items-center gap-6 sm:gap-12">
                 <div className="flex flex-col items-center">
                   <span className="text-2xl font-bold">{stat.value}</span>
                   <span className="text-[10px] uppercase tracking-tighter opacity-60">
@@ -259,6 +259,7 @@ export default function Home() {
 
               <button
                 type="button"
+                onClick={() => navigate(card.link)}
                 className="mt-auto inline-flex items-center gap-2 text-sm font-extrabold text-[#7C3218]"
               >
                 {card.cta}

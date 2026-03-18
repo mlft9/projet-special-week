@@ -2,7 +2,6 @@ import { useRef } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import ruban from '../assets/ruban.png'
 import stars from '../assets/stars.png'
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
@@ -59,9 +58,7 @@ export default function UserJourney() {
             className="journey-stars pointer-events-none absolute left-1/2 top-[34%] z-10 w-[220px] max-w-none -translate-x-1/2 -translate-y-1/2 opacity-85 sm:top-[36%] sm:w-[280px] md:left-[14%] md:top-[42%] md:w-[320px] md:-translate-x-0 lg:left-10 lg:top-1/2 lg:w-[420px]"
           />
 
-          <img
-            src={ruban}
-            alt=""
+          <svg
             aria-hidden="true"
             className="journey-ribbon pointer-events-none absolute left-1/2 top-[58%] z-0 w-[260%] max-w-none -translate-x-1/2 -translate-y-1/2 opacity-90 sm:top-[57%] sm:w-[200%] md:top-[54%] md:w-[160%] lg:top-1/2 lg:w-[115%]"
           />

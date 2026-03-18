@@ -368,11 +368,27 @@
     padding: 16px 16px 40px;
   }
 
+  .quiz-card {
+    padding: 20px 16px;
+  }
+
   .quiz-images {
     grid-template-columns: 1fr;
   }
 
   .quiz-question {
     font-size: 1rem;
+  }
+
+  .results-hero {
+    padding: 48px 20px 32px;
+  }
+
+  .score-value {
+    font-size: clamp(44px, 12vw, 60px);
+  }
+
+  .results-body {
+    padding: 24px 16px 48px;
   }
 }

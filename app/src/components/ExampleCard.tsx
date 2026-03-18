@@ -23,7 +23,7 @@ export default function ExampleCard({ example, revealed, onReveal }: Props) {
 function TextCard({ example, revealed, onReveal }: Props) {
   return (
     <div
-      className="rounded-3xl backdrop-blur-sm p-8 flex flex-col gap-5 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+      className="rounded-3xl backdrop-blur-sm p-5 md:p-8 flex flex-col gap-5 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
       style={{ background: 'rgba(255, 255, 255, 0.4)', border: '1px solid rgba(255, 255, 255, 0.5)' }}
     >
       <div className="flex items-center gap-3">
@@ -94,7 +94,7 @@ function ComparisonCard({ example, revealed, onReveal }: Props) {
 
   return (
     <div
-      className="rounded-3xl backdrop-blur-sm p-9 flex flex-col gap-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+      className="rounded-3xl backdrop-blur-sm p-5 md:p-9 flex flex-col gap-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
       style={{ background: 'rgba(255, 255, 255, 0.4)', border: '1px solid rgba(255, 255, 255, 0.5)' }}
     >
       {modalSrc && createPortal(
