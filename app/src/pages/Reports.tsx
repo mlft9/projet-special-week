@@ -39,6 +39,8 @@ const EMPTY_FORM = {
   evidenceNotes: '',
 }
 
+const EXTENSION_REPO_URL = 'https://github.com/mlft9/projet-special-week/tree/main/extension'
+
 export default function Reports() {
   const [store, setStore] = useState<ReportsStore>({ schemaVersion: '1.0.0', updatedAt: '', reports: [] })
   const [loading, setLoading] = useState(true)
@@ -98,7 +100,7 @@ export default function Reports() {
 
   return (
     <main className="bg-[var(--color-primary)] min-h-screen">
-      <section className="mx-auto max-w-5xl px-6 pt-24 pb-10">
+      <section className="relative z-10 shrink-0 mx-auto max-w-3xl px-6 pt-28 md:pt-32 pb-10 text-center">
         <span
           className="inline-block rounded-full px-4 py-1.5 text-[12px] font-medium tracking-wide text-[var(--color-secondary)] mb-4"
           style={{
@@ -113,9 +115,20 @@ export default function Reports() {
           <br />
           <span className="italic font-medium text-[var(--color-secondary)]">assisté par l’IA</span>
         </h1>
-        <p className="mt-4 max-w-2xl text-sm leading-relaxed text-[#6b5c44]">
+        <div className="mx-auto mt-3 h-[2px] w-16 rounded-full" style={{ background: 'rgba(147, 54, 0, 0.2)' }} />
+        <p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-[#6b5c44]">
           Cette page permet de centraliser les contenus suspects pour aider les autres visiteurs à rester vigilants.
         </p>
+        <div className="mt-5">
+          <a
+            href={EXTENSION_REPO_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center rounded-full bg-[var(--color-secondary)] px-5 py-2.5 text-sm font-bold text-white hover:opacity-90"
+          >
+            Ajouter l’extension Chrome
+          </a>
+        </div>
       </section>
 
       <section className="mx-auto grid max-w-5xl gap-7 px-6 pb-20 lg:grid-cols-2">
