@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
 const links = [
@@ -41,9 +41,24 @@ const links = [
 
 export default function BurgerMenu() {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const navRef = useRef<HTMLElement>(null)
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (navRef.current && !navRef.current.contains(event.target as Node)) {
+        setMobileOpen(false)
+      }
+    }
+
+    if (mobileOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+      return () => document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [mobileOpen])
 
   return (
-    <aside className={`side-nav-shell${mobileOpen ? ' is-open' : ''}`} aria-label="Navigation principale">
+    <aside ref={navRef} className={`side-nav-shell${mobileOpen ? ' is-open' : ''}`} aria-label="Navigation principale">
       <button
         type="button"
         className="side-nav-mobile-toggle"
