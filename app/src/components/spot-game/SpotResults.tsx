@@ -61,7 +61,7 @@ export default function SpotResults({ totalScore, maxScore, levelResults, onRepl
   return (
     <div ref={containerRef} className="spot-results">
       {/* Verdict */}
-      <div className="spot-results__verdict" style={{ color: verdict.color }}>
+      <div className="spot-results__verdict">
         <span className="spot-results__verdict-emoji">{verdict.emoji}</span>
         <h2 className="spot-results__verdict-label">{verdict.label}</h2>
         <p className="spot-results__score-total">
@@ -69,6 +69,7 @@ export default function SpotResults({ totalScore, maxScore, levelResults, onRepl
         </p>
       </div>
 
+      <div className="spot-results__body">
       {/* Détail par niveau */}
       <div className="spot-results__table">
         {levelResults.map((r, i) => (
@@ -77,10 +78,7 @@ export default function SpotResults({ totalScore, maxScore, levelResults, onRepl
             <span className="spot-results__row-detail">
               {r.found}/{r.total} zones · {r.wrongClicks} erreur{r.wrongClicks > 1 ? 's' : ''}
             </span>
-            <span
-              className="spot-results__row-pts"
-              style={{ color: r.points > 0 ? '#4aaeff' : '#ff3b3b' }}
-            >
+            <span className="spot-results__row-pts">
               {r.points > 0 ? '+' : ''}{r.points} pts
             </span>
           </div>
@@ -121,6 +119,7 @@ export default function SpotResults({ totalScore, maxScore, levelResults, onRepl
         >
           Classement
         </button>
+      </div>
       </div>
     </div>
   )

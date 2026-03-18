@@ -32,7 +32,6 @@ export default function SpotGame() {
   const [totalScore, setTotalScore] = useState(0)
   const [levelResults, setLevelResults] = useState<LevelResult[]>([])
   const [revealAll, setRevealAll] = useState(false)
-  const [calibrate, setCalibrate] = useState(false)
   const [activeHotspot, setActiveHotspot] = useState<HotspotZone | null>(null)
   const introRef = useRef<HTMLDivElement>(null)
 
@@ -67,6 +66,7 @@ export default function SpotGame() {
       setFoundIds(new Set())
       setWrongClicks(0)
       setRevealAll(false)
+      setActiveHotspot(null)
       setPhase('playing')
     }
   }, [levelIndex])
@@ -173,7 +173,12 @@ export default function SpotGame() {
           <div className="spot-playing__content">
             <div className="spot-playing__header">
               <h2 className="spot-playing__title">{currentLevel.title}</h2>
-              <p className="spot-playing__subtitle">{currentLevel.subtitle}</p>
+              <button
+                className="spot-mode-btn"
+                onClick={() => window.open(currentLevel.image, '_blank')}
+              >
+                🔍 Analyser l'image
+              </button>
             </div>
 
             <SpotCanvas
@@ -184,8 +189,8 @@ export default function SpotGame() {
               clicksLeft={Math.max(0, clicksLeft)}
               onHit={handleHit}
               onMiss={handleMiss}
-              calibrate={calibrate}
               onZoneClick={setActiveHotspot}
+              analyzeMode={false}
             />
 
             {/* Info zone trouvée — sous l'image */}
@@ -199,16 +204,8 @@ export default function SpotGame() {
               </div>
             )}
 
-            {/* Bouton calibration */}
-            <button
-              className={`spot-playing__calib-btn ${calibrate ? 'active' : ''}`}
-              onClick={() => setCalibrate(c => !c)}
-            >
-              {calibrate ? '🎯 Mode calibration ON — clique sur la zone suspecte' : '⚙️ Calibrer les zones'}
-            </button>
-
             {/* Bouton fin de niveau manuel (visible si clics épuisés ou toutes zones trouvées) */}
-            {!calibrate && (clicksLeft <= 0 || foundIds.size >= currentLevel.hotspots.length) && (
+            {(clicksLeft <= 0 || foundIds.size >= currentLevel.hotspots.length) && (
               <button className="spot-playing__next-btn" onClick={handleEndLevel}>
                 {foundIds.size >= currentLevel.hotspots.length
                   ? '✅ Toutes les zones trouvées ! Continuer →'
