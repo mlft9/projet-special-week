@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "TruthSense - Alerte sites signalés",
+  "description": "Affiche une alerte quand vous visitez un site déjà signalé comme potentiellement problématique.",
+  "version": "1.0.0",
+  "permissions": ["tabs", "storage", "notifications", "alarms"],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*",
+    "http://localhost:3001/*",
+    "http://127.0.0.1:3001/*"
+  ],
+  "background": {
+    "service_worker": "service-worker.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "TruthSense - Surveillance"
+  }
+}
