@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import BurgerMenu from '../components/BurgerMenu'
 import UserJourney from '../components/UserJourney'
 import Footer from '../components/Footer.tsx'
 
@@ -103,10 +102,6 @@ export default function Home() {
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
           <div className="blob absolute -right-24 -top-24 h-[520px] w-[520px] rounded-full bg-[#FF9A3C]/30 blur-[100px]" />
           <div className="blob absolute -bottom-24 -left-24 h-[460px] w-[460px] rounded-full bg-[#FFE0B0]/25 blur-[120px]" />
-        </div>
-
-        <div className="absolute top-3 left-5 z-50">
-          <BurgerMenu />
         </div>
 
         <div className="relative z-10 flex w-full max-w-5xl flex-col items-center justify-center px-4 pb-36 text-center">

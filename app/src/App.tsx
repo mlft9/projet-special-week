@@ -14,7 +14,6 @@ import './App.css'
 
 export default function App() {
   const location = useLocation()
-  const showHeader = location.pathname !== '/'
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -22,11 +21,9 @@ export default function App() {
 
   return (
     <>
-      {showHeader && (
-        <header className="app-header">
-          <BurgerMenu />
-        </header>
-      )}
+      <header className="app-header">
+        <BurgerMenu />
+      </header>
 
       <Routes>
         <Route path="/"           element={<Home />} />
