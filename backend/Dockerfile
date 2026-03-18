@@ -34,4 +34,4 @@ ENV PORT=3001
 EXPOSE 3001
 
 # Seed puis démarrage
-CMD ["sh", "-c", "node dist/db/seed.js && node dist/index.js"]
+CMD ["node", "dist/index.js"]
