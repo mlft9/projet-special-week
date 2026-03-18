@@ -25,6 +25,7 @@ export default function App() {
         <BurgerMenu />
       </header>
 
+      <main className="main-content">
       <Routes>
         <Route path="/"           element={<Home />} />
         <Route path="/comprendre" element={<Learn />} />
@@ -35,6 +36,7 @@ export default function App() {
         <Route path="/reperer" element={<SpotGame />} />
         <Route path="/signaler" element={<Reports />} />
       </Routes>
+      </main>
       <ChatBot />
     </>
   )
