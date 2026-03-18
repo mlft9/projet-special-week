@@ -135,4 +135,9 @@ export const responses: ResponseRow[] = [
     response: "Pour protéger les enfants en ligne, il est important de mettre en place un contrôle parental efficace. Cela permet de surveiller leur activité sur internet et de les aider à naviguer en toute sécurité.",
     category: 'securite-en-ligne',
   },
+  {
+    keywords: ['transparence', 'algorithme', 'ia', 'intelligence artificielle', 'fonctionnement', 'explication'],
+    response: "La transparence des algorithmes d'IA est essentielle pour comprendre comment ils prennent des décisions. Les entreprises devraient expliquer clairement comment leurs IA fonctionnent, quelles données elles utilisent, et quels biais elles peuvent avoir. Cela permettrait aux utilisateurs de faire des choix éclairés et de mieux se protéger contre les manipulations !",
+    category: 'ia-generative',
+  }
 ] 
