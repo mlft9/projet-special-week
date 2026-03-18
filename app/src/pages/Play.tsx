@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import type { QuizQuestion, LeaderboardEntry } from '../types'
+import type { QuizQuestion } from '../types'
 import QuizCard from '../components/QuizCard'
 import ScoreBadge from '../components/ScoreBadge'
 import './Play.css'
@@ -58,20 +58,16 @@ export default function Play() {
     if (!name.trim()) return
 
     const playerName = name.trim()
-    const entry: LeaderboardEntry = {
-      name:  playerName,
-      score,
-      total: questions.length,
-      date:  new Date().toISOString(),
-    }
-
     const earnedCertificate = questions.length === 14 && score > 11
 
     try {
-      const existing: LeaderboardEntry[] = JSON.parse(localStorage.getItem('leaderboard') ?? '[]')
-      localStorage.setItem('leaderboard', JSON.stringify([...existing, entry]))
+      await fetch('/api/leaderboard/quiz', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: playerName, score, total: questions.length }),
+      })
     } catch {
-      // localStorage indisponible ou plein — on navigue quand même
+      // échec réseau non bloquant
     }
 
     if (earnedCertificate) {

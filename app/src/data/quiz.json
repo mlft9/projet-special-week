@@ -165,7 +165,7 @@
       "Première image.",
       "Deuxième image."
     ],
-    "correct": 0,
+    "correct": 1,
     "explanation": "Comme tu peux le voir, les images générées par IA ont tendance à avoir des couleurs trop saturées ou des détails surexagérés (par exemple, un brillant excessif sur un capot de voiture). Ces petits « extras » peuvent être utilisés pour reconnaître une vraie image d'une fausse.",
     "images": {
       "a": "/assets/quiz/q14-burgerA.jpg",

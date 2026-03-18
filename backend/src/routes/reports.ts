@@ -34,7 +34,7 @@ type IncomingReport = {
 }
 
 const router = Router()
-const SOURCE_FILE_PATH = path.resolve(process.cwd(), 'src/data/reports.json')
+const SOURCE_FILE_PATH = path.resolve(process.cwd(), 'data/reports.json')
 
 function isNonEmptyString(value: unknown): value is string {
   return typeof value === 'string' && value.trim().length > 0

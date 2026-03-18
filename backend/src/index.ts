@@ -5,6 +5,7 @@ import chatRouter from './routes/chat'
 import quizRouter from './routes/quiz'
 import examplesRouter from './routes/examples'
 import reportsRouter from './routes/reports'
+import leaderboardRouter from './routes/leaderboard'
 
 const app = express()
 const PORT = process.env.PORT ?? 3001
@@ -21,6 +22,7 @@ app.use('/api/chat', chatRouter)
 app.use('/api/quiz', quizRouter)
 app.use('/api/examples', examplesRouter)
 app.use('/api/reports', reportsRouter)
+app.use('/api/leaderboard', leaderboardRouter)
 
 app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() })
