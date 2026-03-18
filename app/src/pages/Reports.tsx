@@ -70,6 +70,21 @@ export default function Reports() {
     void loadReports()
   }, [])
 
+  // Pre-fill form from URL parameters (from extension context menu)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const url = params.get('url')
+    const site = params.get('site')
+    
+    if (url || site) {
+      setForm(prev => ({
+        ...prev,
+        articleUrl: url || prev.articleUrl,
+        siteName: site || prev.siteName,
+      }))
+    }
+  }, [])
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setSaving(true)

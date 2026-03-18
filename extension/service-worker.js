@@ -123,6 +123,13 @@ async function notifyIfReported(tabId, url) {
 chrome.runtime.onInstalled.addListener(async () => {
   chrome.alarms.create(ALARM_NAME, { periodInMinutes: 5 })
   await syncReportsFromApi()
+  
+  // Create context menu for reporting
+  chrome.contextMenus.create({
+    id: 'report-ai',
+    title: 'Signaler IA',
+    contexts: ['page', 'selection']
+  })
 })
 
 chrome.runtime.onStartup.addListener(async () => {
@@ -149,4 +156,32 @@ chrome.tabs.onActivated.addListener(async ({ tabId }) => {
 
 chrome.tabs.onRemoved.addListener((tabId) => {
   alertedByTab.delete(tabId)
+})
+
+chrome.contextMenus.onClicked.addListener(async (info, tab) => {
+  if (info.menuItemId !== 'report-ai') return
+  
+  const url = tab.url
+  
+  // Only process valid HTTP(S) URLs
+  if (!url || (!url.startsWith('http://') && !url.startsWith('https://'))) {
+    return
+  }
+  
+  const siteName = normalizeDomain(url) || url
+  
+  // Store the URL and selected text for the popup to use
+  const storageData = {
+    'ealerte.contextMenuUrl': url,
+    'ealerte.contextMenuSite': siteName,
+  }
+  
+  if (info.selectionText) {
+    storageData['ealerte.contextMenuSelection'] = info.selectionText.substring(0, 180)
+  }
+  
+  await chrome.storage.local.set(storageData)
+  
+  // Open the popup
+  chrome.action.openPopup()
 })
