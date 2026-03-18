@@ -3,7 +3,7 @@
   "short_name": "TruthSense",
   "description": "Apprends à repérer la désinformation et les contenus générés par l'IA.",
   "start_url": "/",
-  "display": "standalone",
+  "display": "portrait-primary",
   "background_color": "#FFF0CC",
   "theme_color": "#933600",
   "lang": "fr",
@@ -23,5 +23,5 @@
     }
   ],
   "screenshots": [],
-  "categories": ["education", "games"]
+  "categories": ["education", "games", "ia"]
 }
