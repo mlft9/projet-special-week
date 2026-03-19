@@ -136,6 +136,14 @@ export default function Play() {
           <p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-[#6b5c44]">
             Deux façons de tester ton esprit critique face à l'IA.
           </p>
+          <button
+            type="button"
+            onClick={() => navigate('/comprendre')}
+            className="mt-6 inline-flex items-center gap-2 rounded-full border border-[var(--color-secondary)] px-6 py-2.5 text-sm font-bold text-[var(--color-secondary)] transition-all duration-300 hover:-translate-y-1 hover:bg-[var(--color-secondary)] hover:text-white"
+          >
+            Comprendre les IA
+            <span aria-hidden="true">→</span>
+          </button>
         </section>
 
         <div ref={hubRef} className="results-body" style={{ maxWidth: 640, gap: 16 }}>
