@@ -1,6 +1,6 @@
 {
-  "name": "TruthSense — Détecte la désinformation",
-  "short_name": "TruthSense",
+  "name": "E-alertés — Détecte la désinformation",
+  "short_name": "E-alertés",
   "description": "Apprends à repérer la désinformation et les contenus générés par l'IA.",
   "start_url": "/",
   "display": "portrait-primary",
