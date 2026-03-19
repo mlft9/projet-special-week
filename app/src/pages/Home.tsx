@@ -92,6 +92,7 @@ export default function Home() {
           start: 'top 82%',
         },
       })
+
     },
     { scope: containerRef },
   )
@@ -139,7 +140,7 @@ export default function Home() {
             <button
               type="button"
               onClick={() => navigate('/jouer')}
-              className="animate-in bg-[#FFF2DA] text-[#7C3218] px-10 py-4 rounded-full font-bold flex items-center gap-3"
+              className="cta-shine animate-in bg-[#FFF2DA] text-[#7C3218] px-10 py-4 rounded-full font-bold flex items-center gap-3"
             >
               <svg
                 aria-hidden="true"
