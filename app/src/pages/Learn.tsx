@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
+import { Link } from 'react-router-dom'
 import ExampleCard from '../components/ExampleCard'
 import type { Example } from '../types'
 import Footer from '../components/Footer'
@@ -269,6 +270,15 @@ export default function Learn() {
               </div>
             ))}
           </div>
+        </div>
+
+        <div className="mt-16 text-center">
+          <Link
+            to="/jouer"
+            className="cta-shine inline-block rounded-full bg-[var(--color-secondary)] px-12 py-4 text-lg font-bold text-white transition-all duration-200 hover:brightness-110 active:scale-95"
+          >
+            Prêt pour le défi ? Lancer le Quiz
+          </Link>
         </div>
       </section>
 
