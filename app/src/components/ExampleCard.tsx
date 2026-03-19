@@ -124,7 +124,7 @@ function ComparisonCard({ example, revealed, onReveal }: Props) {
       <p className="text-[15px] leading-[1.7] text-[var(--color-text)]">{example.content}</p>
 
       {/* Duel d'images */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 items-start gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 items-start gap-8">
         <ImagePanel
           src={leftImage}
           label="Image A"
@@ -221,7 +221,7 @@ function ImagePanel({ src, label, selected, onClick, onZoom, revealed, isAi, clu
       style={{ border: `2px solid ${borderColor}`, background: bgColor }}
     >
       {/* Image — aspect ratio fixe, jamais de saut */}
-      <div className="relative overflow-hidden aspect-[4/3]">
+      <div className="relative overflow-hidden aspect-[4/3] transition-all duration-500 ease-out hover:scale-[1.03] hover:shadow-lg hover:shadow-[var(--color-secondary)]/25 rounded-t-2xl">
         <img
           src={src}
           alt={label}
@@ -244,7 +244,7 @@ function ImagePanel({ src, label, selected, onClick, onZoom, revealed, isAi, clu
       {/* Indices après reveal — animation fluide */}
       {revealed && clues && clues.length > 0 && (
         <AnimatedReveal>
-          <div className="p-4 flex flex-col gap-2">
+          <div className="p-4 pt-5 flex flex-col gap-3">
             {clues.map((clue, i) => (
               <p key={i} className="flex items-start gap-2 text-[13px] leading-[1.6] text-[var(--color-text)]">
                 <span

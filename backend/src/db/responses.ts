@@ -131,8 +131,8 @@ export const responses: ResponseRow[] = [
     category: 'securite-en-ligne',
   },
   {
-    keywords: ['proteger enfants', 'controle parental', 'enfants en ligne', 'securite enfants', 'donnees enfants'],
-    response: "Pour protéger les plus jeunes en ligne : activer le contrôle parental, fixer des règles claires (temps d'écran, applis autorisées), et discuter des risques (arnaques, faux profils, cyberharcèlement). L'objectif est d'apprendre à se protéger, pas seulement de bloquer.",
+    keywords: ['protéger', 'enfants', 'données', 'personnelles', 'sécurité', 'en ligne'],
+    response: "Pour ce protéger en ligne, il est important de mettre en place des mots de passe forts et uniques. Cela permet de s'assurer que tes informations de connexion sont sécurisées.",
     category: 'securite-en-ligne',
   },
   {
