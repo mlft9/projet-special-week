@@ -7,7 +7,7 @@ export interface ResponseRow {
 export const responses: ResponseRow[] = [
   {
     keywords: ['bonjour', 'salut', 'hello', 'hey', 'coucou', 'bonsoir'],
-    response: "Salut ! Je suis l'assistant TruthSense 👋 Tu peux me poser des questions sur les deepfakes, les IA qui inventent des infos, les fake news... Je suis là pour t'aider à décrypter tout ça !",
+    response: "Salut ! Je suis l'assistant E-alertés 👋 Tu peux me poser des questions sur les deepfakes, les IA qui inventent des infos, les fake news... Je suis là pour t'aider à décrypter tout ça !",
     category: 'navigation',
   },
   {
@@ -81,8 +81,8 @@ export const responses: ResponseRow[] = [
     category: 'quiz',
   },
   {
-    keywords: ['site', 'truthsense', 'apprendre', 'comprendre', 'module', 'page', 'section'],
-    response: "TruthSense c'est un portail en 3 étapes : 1) Comprendre → des explications sur l'IA et la désinformation, 2) Jouer → un quiz pour tester tes réflexes, 3) Classement → compare-toi aux autres. Commence par \"Comprendre\" si tu es nouveau ici !",
+    keywords: ['site', 'E-alertés', 'alertés', 'apprendre', 'comprendre', 'module', 'page', 'section'],
+    response: "E-alertés c'est un portail en 3 étapes : 1) Comprendre → des explications sur l'IA et la désinformation, 2) Jouer → un quiz pour tester tes réflexes, 3) Classement → compare-toi aux autres. Commence par \"Comprendre\" si tu es nouveau ici !",
     category: 'navigation',
   },
   {
@@ -112,7 +112,7 @@ export const responses: ResponseRow[] = [
   },
   {
     keywords: ['but', 'mission', 'objectif', 'pourquoi', 'raison', 'intention'],
-    response: "La mission de TruthSense, c'est de t'aider à comprendre et à combattre la désinformation à l'ère de l'IA. On veut te donner les clés pour repérer les fake news, les deepfakes, et les hallucinations d'IA, afin que tu puisses naviguer sur internet en toute confiance !",
+    response: "La mission de E-alertés, c'est de t'aider à comprendre et à combattre la désinformation à l'ère de l'IA. On veut te donner les clés pour repérer les fake news, les deepfakes, et les hallucinations d'IA, afin que tu puisses naviguer sur internet en toute confiance !",
     category: 'navigation',
   },
   {

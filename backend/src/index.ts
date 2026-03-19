@@ -33,6 +33,6 @@ app.use((_req, res) => {
 })
 
 app.listen(PORT, () => {
-  console.log(`TruthSense backend running on port ${PORT}`)
+  console.log(`E-alertés backend running on port ${PORT}`)
   console.log(`DB prête: ${responses.length} réponses disponibles`)
 })
