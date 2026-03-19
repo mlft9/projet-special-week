@@ -22,16 +22,19 @@ app.use(cors({
   methods: ['GET', 'POST', 'DELETE'],
 }))
 
-const loginLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 5, standardHeaders: true, legacyHeaders: false })
-const leaderboardLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 10, standardHeaders: true, legacyHeaders: false })
-const reportsLimiter = rateLimit({ windowMs: 60 * 60 * 1000, max: 5, standardHeaders: true, legacyHeaders: false })
-const chatLimiter = rateLimit({ windowMs: 60 * 1000, max: 30, standardHeaders: true, legacyHeaders: false })
+const loginLimiter      = rateLimit({ windowMs: 15 * 60 * 1000, max: 5,  standardHeaders: true, legacyHeaders: false })
+const leaderboardPost   = rateLimit({ windowMs: 15 * 60 * 1000, max: 10, standardHeaders: true, legacyHeaders: false })
+const reportsLimiter    = rateLimit({ windowMs: 60 * 60 * 1000, max: 5,  standardHeaders: true, legacyHeaders: false })
+const chatLimiter       = rateLimit({ windowMs: 60 * 1000,       max: 30, standardHeaders: true, legacyHeaders: false })
 
 app.use('/api/chat', chatLimiter, chatRouter)
 app.use('/api/quiz', quizRouter)
 app.use('/api/examples', examplesRouter)
-app.use('/api/reports', reportsLimiter, reportsRouter)
-app.use('/api/leaderboard', leaderboardLimiter, leaderboardRouter)
+app.post('/api/reports', reportsLimiter)
+app.use('/api/reports', reportsRouter)
+app.post('/api/leaderboard/quiz', leaderboardPost)
+app.post('/api/leaderboard/spot', leaderboardPost)
+app.use('/api/leaderboard', leaderboardRouter)
 app.use('/api/admin/login', loginLimiter)
 app.use('/api/admin', adminRouter)
 
