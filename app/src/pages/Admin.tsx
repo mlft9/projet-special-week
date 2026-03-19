@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './Admin.css'
 
 type Stats = {
@@ -56,6 +57,7 @@ function StatCard({ icon, label, value }: { icon: string; label: string; value: 
 }
 
 export default function Admin() {
+  const navigate = useNavigate()
   const [token, setToken]             = useState<string | null>(getToken())
   const [username, setUsername]       = useState('')
   const [password, setPassword]       = useState('')
@@ -113,6 +115,7 @@ export default function Admin() {
     await authFetch('/logout', { method: 'POST' })
     clearToken()
     setToken(null)
+    navigate('/')
   }
 
   async function deleteQuiz(id: string) {
