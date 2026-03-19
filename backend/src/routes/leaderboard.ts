@@ -47,10 +47,6 @@ function isNonEmptyString(v: unknown): v is string {
   return typeof v === 'string' && v.trim().length > 0
 }
 
-function isPositiveNumber(v: unknown): v is number {
-  return typeof v === 'number' && v >= 0
-}
-
 function isFiniteInteger(v: unknown): v is number {
   return typeof v === 'number' && Number.isFinite(v) && Number.isInteger(v)
 }
