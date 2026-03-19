@@ -18,26 +18,26 @@ const cards = [
   {
     step: 'ÉTAPE 01',
     icon: '🧠',
-    title: 'Comprendre le contexte',
-    description: 'Identifie la source, la date et l’intention du contenu avant de juger sa crédibilité.',
+    title: 'Comprendre les bases',
+    description: 'Découvre comment l’IA, les deepfakes et les fake news fonctionnent pour mieux reconnaître les pièges.',
     link: '/comprendre',
-    cta: 'Explorer',
+    cta: 'Commencer',
   },
   {
     step: 'ÉTAPE 02',
     icon: '🔍',
-    title: 'Vérifier les indices',
-    description: 'Recoupe les faits, compare plusieurs médias et repère les incohérences visuelles ou textuelles.',
+    title: 'S’entraîner en pratique',
+    description: 'Teste tes réflexes avec le quiz et le mode repérage pour apprendre à vérifier vite et bien.',
     link: '/jouer',
-    cta: 'Analyser',
+    cta: 'S’entraîner',
   },
   {
     step: 'ÉTAPE 03',
     icon: '⚡',
-    title: 'Réagir avec méthode',
-    description: 'Décide rapidement si l’information est fiable, douteuse ou manipulée puis justifie ton choix.',
-    link: '/classement',
-    cta: 'Passer à l’action',
+    title: 'Contribuer à la vigilance',
+    description: 'Signale les contenus suspects pour aider la communauté à rester vigilante et mieux informée.',
+    link: '/signaler',
+    cta: 'Signaler',
   },
 ]
 
@@ -92,6 +92,7 @@ export default function Home() {
           start: 'top 82%',
         },
       })
+
     },
     { scope: containerRef },
   )
@@ -139,7 +140,7 @@ export default function Home() {
             <button
               type="button"
               onClick={() => navigate('/jouer')}
-              className="animate-in bg-[#FFF2DA] text-[#7C3218] px-10 py-4 rounded-full font-bold flex items-center gap-3"
+              className="cta-shine animate-in bg-[#FFF2DA] text-[#7C3218] px-10 py-4 rounded-full font-bold flex items-center gap-3"
             >
               <svg
                 aria-hidden="true"

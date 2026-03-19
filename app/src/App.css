@@ -515,15 +515,27 @@ footer {
 
 @media (max-width: 440px) {
   .chatbot-window {
-    right: 0;
-    bottom: 80px;
-    width: 100vw;
-    max-width: 100vw;
-    border-radius: 20px 20px 0 0;
+    inset: 0;
+    width: 100%;
+    max-width: 100%;
+    height: 100dvh;
+    max-height: 100dvh;
+    border-radius: 0;
+    bottom: unset;
+    right: unset;
+    transform-origin: bottom center;
+  }
+
+  .chatbot-input-row {
+    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .chatbot-input {
+    font-size: 1rem;
   }
 
   .chatbot-bubble {
-    bottom: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
     right: 16px;
   }
 }

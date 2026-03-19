@@ -49,6 +49,11 @@ export default function Footer() {
                 Politique de confidentialité
               </Link>
             </li>
+            <li>
+              <Link to="/admin" className="text-[#F7EAD8]/40 transition-colors hover:text-[#F7EAD8]/75 text-xs">
+                🛡️ Espace admin
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
