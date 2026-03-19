@@ -63,7 +63,7 @@ export default function UserJourney() {
             src={ruban}
             alt=""
             aria-hidden="true"
-            className="journey-ribbon pointer-events-none absolute left-1/2 top-[58%] z-0 w-[260%] max-w-none -translate-x-1/2 -translate-y-1/2 opacity-90 sm:top-[57%] sm:w-[200%] md:top-[54%] md:w-[160%] lg:top-1/2 lg:w-[115%]"
+            className="journey-ribbon pointer-events-none absolute left-1/2 top-[58%] z-[1] w-[260%] max-w-none -translate-x-1/2 -translate-y-1/2 opacity-100 sm:top-[57%] sm:w-[200%] md:top-[54%] md:w-[165%] lg:top-1/2 lg:w-[120%]"
           />
 
           <div className="relative z-10 max-w-sm">
