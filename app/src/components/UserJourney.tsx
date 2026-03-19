@@ -14,9 +14,9 @@ export default function UserJourney() {
     () => {
       gsap.from('.journey-ribbon', {
         scale: 0.96,
-        opacity: 0,
         duration: 1,
         ease: 'power2.out',
+        clearProps: 'transform',
         scrollTrigger: {
           trigger: '.journey-shell',
           start: 'top 80%',
