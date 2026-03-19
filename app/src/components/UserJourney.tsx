@@ -2,8 +2,8 @@ import { useRef } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import stars from '../assets/stars.png'
-import ruban from '../assets/ruban.png'
+import stars from '../assets/stars.png?format=webp&quality=80'
+import ruban from '../assets/ruban.png?format=webp&quality=75'
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
 
