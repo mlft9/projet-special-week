@@ -1,5 +1,6 @@
 import { Router, Request, Response } from 'express'
 import { responses } from '../db/responses'
+import { incrementStat } from '../db/stats'
 
 const router = Router()
 
@@ -106,6 +107,7 @@ router.post('/', (req: Request, res: Response) => {
     }
   }
 
+  incrementStat('chatMessages').catch(() => {})
   res.json({ reply: bestReply })
 })
 
