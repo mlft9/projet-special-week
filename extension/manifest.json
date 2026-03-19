@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "E-Alerte - Alerte sites signalés",
   "description": "Affiche une alerte quand vous visitez un site déjà signalé comme potentiellement problématique.",
-  "version": "1.1.4",
+  "version": "1.1.8",
   "icons": {
     "192": "icon-192x192.png"
   },

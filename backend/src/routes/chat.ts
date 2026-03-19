@@ -22,6 +22,50 @@ function tokenize(text: string): Set<string> {
 const DEFAULT_REPLY =
   "Je ne suis pas sûr de comprendre ta question 🤔 Essaie de me demander quelque chose sur les deepfakes, les IA, les fake news, ou comment vérifier une information. Tu peux aussi utiliser le menu pour explorer le site !"
 
+const SENSITIVE_OPINION_REPLY =
+  "Je ne peux pas me prononcer sur ce sujet. Je peux en revanche t'aider à vérifier des faits et des sources de manière neutre."
+
+const OPINION_REQUEST_PATTERNS = [
+  'tu penses',
+  'vous pensez',
+  'ton avis',
+  'votre avis',
+  'opinion',
+  'pour ou contre',
+  'tu crois',
+  'vous croyez',
+  'se prononcer',
+]
+
+const SENSITIVE_TOPIC_PATTERNS = [
+  'limite',
+  'controverse',
+  'tabou',
+  'racisme',
+  'raciste',
+  'sexisme',
+  'sexiste',
+  'religion',
+  'politique',
+  'terrorisme',
+  'violence',
+  'suicide',
+  'drogue',
+  'pornographie',
+  'sexe',
+  'mineur',
+  'illegal',
+  'harcelement',
+]
+
+function shouldRefuseSensitiveOpinion(message: string): boolean {
+  const normalizedMessage = normalize(message)
+  const asksOpinion = OPINION_REQUEST_PATTERNS.some((pattern) => normalizedMessage.includes(pattern))
+  const isSensitiveTopic = SENSITIVE_TOPIC_PATTERNS.some((pattern) => normalizedMessage.includes(pattern))
+
+  return asksOpinion && isSensitiveTopic
+}
+
 router.post('/', (req: Request, res: Response) => {
   const { message } = req.body as { message?: unknown }
 
@@ -32,6 +76,11 @@ router.post('/', (req: Request, res: Response) => {
 
   if (message.length > 500) {
     res.status(400).json({ error: 'message trop long (max 500 chars)' })
+    return
+  }
+
+  if (shouldRefuseSensitiveOpinion(message)) {
+    res.json({ reply: SENSITIVE_OPINION_REPLY })
     return
   }
 
