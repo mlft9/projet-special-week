@@ -131,7 +131,7 @@ export const responses: ResponseRow[] = [
     category: 'securite-en-ligne',
   },
   {
-    keywords: ['protéger', 'enfants', 'données', 'personnelles', 'contrôle parental', 'sécurité', 'en ligne'],
+    keywords: ['protéger', 'enfants', 'données', 'personnelles', 'sécurité', 'en ligne'],
     response: "Pour ce protéger en ligne, il est important de mettre en place des mots de passe forts et uniques. Cela permet de s'assurer que tes informations de connexion sont sécurisées.",
     category: 'securite-en-ligne',
   },
