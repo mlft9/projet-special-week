@@ -86,7 +86,7 @@ export default function UserJourney() {
 
           {/* Titre */}
           <div className="relative z-10">
-            <h2 className="mb-6 text-center text-2xl font-display font-bold text-[#F8F3FF] sm:text-3xl lg:mb-0 lg:ml-8 lg:text-left">
+            <h2 className="mb-6 text-center text-3xl font-display font-bold text-[#F8F3FF] sm:text-4xl lg:mb-0 lg:ml-8 lg:text-left lg:text-5xl">
               Ton parcours en 3 étapes
             </h2>
           </div>
@@ -101,20 +101,20 @@ export default function UserJourney() {
                 <span className="mb-1 block text-[11px] font-bold uppercase tracking-widest text-white/55">
                   {step.label}
                 </span>
-                <p className="text-sm leading-relaxed text-white/95 sm:text-base">{step.text}</p>
+                <p className="text-base leading-relaxed text-white/95 sm:text-lg">{step.text}</p>
               </div>
             ))}
           </div>
 
           {/* Layout desktop (lg+) : positions absolues sur le ruban */}
           <div className="relative z-10 mt-8 hidden min-h-[440px] lg:block">
-            <p className="journey-step absolute right-10 top-3 max-w-xs text-sm leading-relaxed lg:text-base">
+            <p className="journey-step absolute right-10 top-3 max-w-sm text-lg leading-relaxed lg:text-xl">
               1. Découvre comment fonctionne l'IA et pourquoi elle peut être utilisée pour désinformer.
             </p>
-            <p className="journey-step absolute left-[50%] top-[30%] max-w-xs text-sm leading-relaxed lg:text-base">
+            <p className="journey-step absolute left-[50%] top-[30%] max-w-sm text-lg leading-relaxed lg:text-xl">
               2. Analyse des exemples concrets d'images, vidéos ou articles générés par l'IA.
             </p>
-            <p className="journey-step absolute bottom-4 right-6 max-w-xs text-sm leading-relaxed lg:text-base">
+            <p className="journey-step absolute bottom-4 right-6 max-w-sm text-lg leading-relaxed lg:text-xl">
               3. Mets tes connaissances à l'épreuve avec des quiz et des défis interactifs.
             </p>
           </div>
