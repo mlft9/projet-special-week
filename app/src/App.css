@@ -458,6 +458,31 @@ footer {
   40%            { transform: scale(1);   opacity: 1;   }
 }
 
+.chatbot-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0 12px 10px;
+}
+
+.chatbot-suggestion {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  padding: 5px 11px;
+  border-radius: 20px;
+  border: 1.5px solid var(--color-secondary);
+  background: transparent;
+  color: var(--color-secondary);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  text-align: left;
+}
+
+.chatbot-suggestion:hover {
+  background: var(--color-secondary);
+  color: #fff;
+}
+
 .chatbot-input-row {
   display: flex;
   gap: 8px;
