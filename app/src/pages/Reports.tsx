@@ -1,4 +1,6 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
 import Footer from '../components/Footer'
 
 type AiUsageType = 'suspected' | 'declared' | 'generated' | 'unknown'
@@ -48,8 +50,24 @@ export default function Reports() {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
   const [form, setForm] = useState(EMPTY_FORM)
+  const submitBtnRef = useRef<HTMLButtonElement>(null)
+  const reportsListRef = useRef<HTMLDivElement>(null)
 
   const latestReports = useMemo(() => store.reports.slice(0, 12), [store.reports])
+
+  useGSAP(() => {
+    if (!reportsListRef.current) return
+    const items = reportsListRef.current.querySelectorAll('.report-item')
+    if (items.length === 0) return
+    gsap.from(items, {
+      y: 15,
+      opacity: 0,
+      duration: 0.4,
+      stagger: 0.08,
+      ease: 'power2.out',
+      clearProps: 'transform,opacity',
+    })
+  }, { scope: reportsListRef, dependencies: [latestReports] })
 
   async function loadReports() {
     setLoading(true)
@@ -87,6 +105,18 @@ export default function Reports() {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
+
+    // Shake si champs obligatoires vides
+    if (!form.siteName.trim() || !form.articleTitle.trim() || !form.articleUrl.trim() || !form.reportReason.trim()) {
+      if (submitBtnRef.current) {
+        gsap.fromTo(submitBtnRef.current,
+          { x: 0 },
+          { x: 6, duration: 0.06, repeat: 5, yoyo: true, ease: 'power2.inOut', clearProps: 'x' }
+        )
+      }
+      return
+    }
+
     setSaving(true)
     setError('')
     setSuccess('')
@@ -155,7 +185,7 @@ export default function Reports() {
               maxLength={120}
               value={form.siteName}
               onChange={event => setForm(prev => ({ ...prev, siteName: event.target.value }))}
-              className="w-full rounded-xl border border-[#e6d4a8] bg-white px-4 py-3 text-sm"
+              className="w-full rounded-xl border border-[#e6d4a8] bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-[var(--color-secondary)]"
               placeholder="Nom du site (ex: actualites-x.com)"
             />
             <input
@@ -163,7 +193,7 @@ export default function Reports() {
               maxLength={180}
               value={form.articleTitle}
               onChange={event => setForm(prev => ({ ...prev, articleTitle: event.target.value }))}
-              className="w-full rounded-xl border border-[#e6d4a8] bg-white px-4 py-3 text-sm"
+              className="w-full rounded-xl border border-[#e6d4a8] bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-[var(--color-secondary)]"
               placeholder="Titre de l'article"
             />
             <input
@@ -171,14 +201,14 @@ export default function Reports() {
               type="url"
               value={form.articleUrl}
               onChange={event => setForm(prev => ({ ...prev, articleUrl: event.target.value }))}
-              className="w-full rounded-xl border border-[#e6d4a8] bg-white px-4 py-3 text-sm"
+              className="w-full rounded-xl border border-[#e6d4a8] bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-[var(--color-secondary)]"
               placeholder="https://..."
             />
 
             <select
               value={form.aiUsageType}
               onChange={event => setForm(prev => ({ ...prev, aiUsageType: event.target.value as AiUsageType }))}
-              className="w-full rounded-xl border border-[#e6d4a8] bg-white px-4 py-3 text-sm"
+              className="w-full rounded-xl border border-[#e6d4a8] bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-[var(--color-secondary)]"
             >
               <option value="suspected">IA suspectée</option>
               <option value="declared">IA déclarée par le site</option>
@@ -191,7 +221,7 @@ export default function Reports() {
               maxLength={500}
               value={form.reportReason}
               onChange={event => setForm(prev => ({ ...prev, reportReason: event.target.value }))}
-              className="min-h-[110px] w-full rounded-xl border border-[#e6d4a8] bg-white px-4 py-3 text-sm"
+              className="min-h-[100px] w-full rounded-xl border border-[#e6d4a8] bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-[var(--color-secondary)]"
               placeholder="Pourquoi ce contenu te semble problématique ?"
             />
 
@@ -199,7 +229,7 @@ export default function Reports() {
               maxLength={1000}
               value={form.evidenceNotes}
               onChange={event => setForm(prev => ({ ...prev, evidenceNotes: event.target.value }))}
-              className="min-h-[96px] w-full rounded-xl border border-[#e6d4a8] bg-white px-4 py-3 text-sm"
+              className="min-h-[80px] w-full rounded-xl border border-[#e6d4a8] bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-[var(--color-secondary)]"
               placeholder="Indices observés (optionnel)"
             />
 
@@ -207,7 +237,7 @@ export default function Reports() {
               maxLength={80}
               value={form.reporterName}
               onChange={event => setForm(prev => ({ ...prev, reporterName: event.target.value }))}
-              className="w-full rounded-xl border border-[#e6d4a8] bg-white px-4 py-3 text-sm"
+              className="w-full rounded-xl border border-[#e6d4a8] bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-[var(--color-secondary)]"
               placeholder="Ton prénom (optionnel)"
             />
 
@@ -215,9 +245,10 @@ export default function Reports() {
             {success && <p className="text-sm font-medium text-[#296b2e]">{success}</p>}
 
             <button
+              ref={submitBtnRef}
               type="submit"
               disabled={saving}
-              className="w-full rounded-full bg-[var(--color-secondary)] px-6 py-3 text-sm font-bold text-white disabled:opacity-70"
+              className="w-full rounded-full bg-[var(--color-secondary)] px-6 py-3 text-sm font-bold text-white disabled:opacity-70 transition-colors hover:brightness-110"
             >
               {saving ? 'Envoi en cours…' : 'Envoyer le signalement'}
             </button>
@@ -225,17 +256,16 @@ export default function Reports() {
         </article>
 
         <article className="rounded-3xl border border-[#e6d4a8] bg-[#fff8e8] p-6">
-          <h2 className="mb-1 font-[var(--font-display)] text-2xl text-[#2a1a0e]">Signalements récents</h2>
-          <p className="mb-4 text-sm text-[#6b5c44]">JSON v{store.schemaVersion} · {store.reports.length} entrée{store.reports.length > 1 ? 's' : ''}</p>
+          <h2 className="mb-4 font-[var(--font-display)] text-2xl text-[#2a1a0e]">Signalements récents</h2>
 
           {loading ? (
             <p className="text-sm text-[#6b5c44]">Chargement…</p>
           ) : latestReports.length === 0 ? (
-            <p className="text-sm text-[#6b5c44]">Aucun signalement pour le moment.</p>
+            <p className="text-sm text-[#6b5c44] leading-relaxed">Ta vigilance compte ! Sois le premier à signaler un contenu suspect aujourd'hui.</p>
           ) : (
-            <div className="space-y-3">
+            <div ref={reportsListRef} className="space-y-3">
               {latestReports.map(report => (
-                <div key={report.id} className="rounded-2xl border border-[#e6d4a8] bg-white px-4 py-3">
+                <div key={report.id} className="report-item rounded-2xl border border-[#e6d4a8] bg-white px-4 py-3">
                   <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-secondary)]">{usageLabels[report.aiUsageType]}</p>
                   <a
                     href={report.articleUrl}

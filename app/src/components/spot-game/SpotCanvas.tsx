@@ -17,6 +17,7 @@ interface Props {
   onMiss: () => void
   onZoneClick?: (hotspot: HotspotZone) => void
   analyzeMode: boolean
+  scanning?: boolean
 }
 
 let missCounter = 0
@@ -30,6 +31,7 @@ export default function SpotCanvas({
   onHit,
   onMiss,
   onZoneClick,
+  scanning = false,
 }: Props) {
   const [missMarkers, setMissMarkers] = useState<MissMarker[]>([])
 
@@ -60,9 +62,10 @@ export default function SpotCanvas({
 
   return (
     <div
-      className={`spot-canvas ${clicksLeft <= 0 ? 'no-pointer' : ''}`}
+      className={`spot-canvas ${clicksLeft <= 0 ? 'no-pointer' : ''} ${scanning ? 'is-scanning' : ''}`}
       onClick={handleClick}
     >
+      <div className="spot-scanner-line" />
       <img src={image} alt="Image à analyser" className="spot-canvas__img" draggable={false} />
 
       {hotspots.map(h => {

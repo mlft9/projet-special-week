@@ -1,4 +1,5 @@
 import { useState, useCallback, useRef } from 'react'
+import gsap from 'gsap'
 import Footer from '../components/Footer'
 import SpotCanvas from '../components/spot-game/SpotCanvas'
 import SpotHUD from '../components/spot-game/SpotHUD'
@@ -34,6 +35,7 @@ export default function SpotGame() {
   const [levelResults, setLevelResults] = useState<LevelResult[]>([])
   const [revealAll, setRevealAll] = useState(false)
   const [activeHotspot, setActiveHotspot] = useState<HotspotZone | null>(null)
+  const [scanning, setScanning] = useState(false)
   const introRef = useRef<HTMLDivElement>(null)
 
 
@@ -44,6 +46,22 @@ export default function SpotGame() {
   const handleHit = useCallback((hotspot: HotspotZone) => {
     setFoundIds(prev => new Set([...prev, hotspot.id]))
     setActiveHotspot(hotspot)
+
+    // Pulse le score dans le HUD
+    const scoreEl = document.querySelector('.spot-hud__score')
+    if (scoreEl) {
+      gsap.fromTo(scoreEl, {
+        scale: 1,
+        filter: 'drop-shadow(0 0 0px transparent)',
+      }, {
+        scale: 1.2,
+        filter: 'drop-shadow(0 0 10px rgba(255, 200, 50, 0.8))',
+        duration: 0.2,
+        ease: 'power2.out',
+        yoyo: true,
+        repeat: 1,
+      })
+    }
   }, [])
 
   const handleMiss = useCallback(() => {
@@ -177,6 +195,8 @@ export default function SpotGame() {
               <button
                 className="spot-mode-btn"
                 onClick={() => window.open(currentLevel.image, '_blank')}
+                onMouseEnter={() => setScanning(true)}
+                onMouseLeave={() => setScanning(false)}
               >
                 🔍 Analyser l'image
               </button>
@@ -192,6 +212,7 @@ export default function SpotGame() {
               onMiss={handleMiss}
               onZoneClick={setActiveHotspot}
               analyzeMode={false}
+              scanning={scanning}
             />
 
             {/* Info zone trouvée — sous l'image */}
