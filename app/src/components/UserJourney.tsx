@@ -7,6 +7,21 @@ import ruban from '../assets/ruban.png?format=webp&quality=75'
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
 
+const steps = [
+  {
+    label: 'Étape 1',
+    text: "Découvre comment fonctionne l'IA et pourquoi elle peut être utilisée pour désinformer.",
+  },
+  {
+    label: 'Étape 2',
+    text: "Analyse des exemples concrets d'images, vidéos ou articles générés par l'IA.",
+  },
+  {
+    label: 'Étape 3',
+    text: "Mets tes connaissances à l'épreuve avec des quiz et des défis interactifs.",
+  },
+]
+
 export default function UserJourney() {
   const sectionRef = useRef<HTMLElement | null>(null)
 
@@ -51,40 +66,59 @@ export default function UserJourney() {
   return (
     <section ref={sectionRef} className="bg-[#FCF4E4] px-3 pb-16 sm:px-4 sm:pb-24">
       <div className="mx-auto w-[97%] max-w-none">
-        <div className="journey-shell relative min-h-[620px] overflow-hidden rounded-[2rem] bg-[#6A62E4] px-5 py-8 text-white sm:min-h-[650px] sm:rounded-[2.5rem] sm:px-8 sm:py-10 md:min-h-[700px] lg:min-h-[600px] lg:rounded-[3rem] lg:p-12">
+        <div className="journey-shell relative overflow-hidden rounded-[2rem] bg-[#6A62E4] px-5 py-8 text-white sm:rounded-[2.5rem] sm:px-8 sm:py-10 lg:min-h-[600px] lg:rounded-[3rem] lg:p-12">
+
+          {/* Stars — visibles uniquement sur grand écran */}
           <img
             src={stars}
             alt=""
             aria-hidden="true"
-            className="journey-stars pointer-events-none absolute left-1/2 top-[34%] z-10 w-[220px] max-w-none -translate-x-1/2 -translate-y-1/2 opacity-85 sm:top-[36%] sm:w-[280px] md:left-[14%] md:top-[42%] md:w-[320px] md:-translate-x-0 lg:left-10 lg:top-1/2 lg:w-[420px]"
+            className="journey-stars pointer-events-none absolute hidden lg:block left-10 top-1/2 z-10 w-[420px] max-w-none opacity-85"
           />
 
+          {/* Ruban — masqué sur mobile/tablette, plein sur lg+ */}
           <img
             src={ruban}
             alt=""
             aria-hidden="true"
-            className="journey-ribbon pointer-events-none absolute left-1/2 top-[58%] z-[1] w-[260%] max-w-none -translate-x-1/2 -translate-y-1/2 opacity-100 sm:top-[57%] sm:w-[200%] md:top-[54%] md:w-[165%] lg:top-1/2 lg:w-[120%]"
+            className="journey-ribbon pointer-events-none absolute left-1/2 -translate-x-1/2 z-[1] max-w-none hidden lg:block lg:top-1/2 lg:w-[120%] lg:-translate-y-1/2"
           />
 
-          <div className="relative z-10 max-w-sm">
-            <h2 className="mb-6 text-center text-2xl font-display font-bold text-[#F8F3FF] sm:mb-8 sm:text-3xl md:ml-8 md:text-left">
+          {/* Titre */}
+          <div className="relative z-10">
+            <h2 className="mb-6 text-center text-2xl font-display font-bold text-[#F8F3FF] sm:text-3xl lg:mb-0 lg:ml-8 lg:text-left">
               Ton parcours en 3 étapes
             </h2>
           </div>
 
-          <div className="relative z-10 mt-12 grid gap-24 sm:mt-14 sm:gap-28 md:grid-cols-2 lg:mt-8 lg:block lg:min-h-[440px] lg:gap-0">
-            <p className="journey-step mx-auto max-w-xs text-sm leading-relaxed sm:text-base md:col-start-2 md:mx-0 md:justify-self-end lg:absolute lg:right-10 lg:top-3">
-              1. Découvre comment fonctionne l’IA et pourquoi elle peut être utilisée pour désinformer.
-            </p>
+          {/* Layout mobile + tablette (< lg) : cartes empilées */}
+          <div className="relative z-10 flex flex-col gap-3 pb-6 lg:hidden">
+            {steps.map((step) => (
+              <div
+                key={step.label}
+                className="journey-step rounded-2xl border border-white/20 bg-white/15 p-4 backdrop-blur-sm"
+              >
+                <span className="mb-1 block text-[11px] font-bold uppercase tracking-widest text-white/55">
+                  {step.label}
+                </span>
+                <p className="text-sm leading-relaxed text-white/95 sm:text-base">{step.text}</p>
+              </div>
+            ))}
+          </div>
 
-            <p className="journey-step mx-auto max-w-xs text-sm leading-relaxed sm:text-base md:col-span-2 md:max-w-sm md:justify-self-center lg:absolute lg:left-[50%] lg:top-[30%] lg:max-w-xs lg:translate-x-0">
-              2. Analyse des exemples concrets d’images, vidéos ou articles générés par l’IA.
+          {/* Layout desktop (lg+) : positions absolues sur le ruban */}
+          <div className="relative z-10 mt-8 hidden min-h-[440px] lg:block">
+            <p className="journey-step absolute right-10 top-3 max-w-xs text-sm leading-relaxed lg:text-base">
+              1. Découvre comment fonctionne l'IA et pourquoi elle peut être utilisée pour désinformer.
             </p>
-
-            <p className="journey-step mt-6 sm:mt-8 md:mt-10 lg:mt-0 mx-auto max-w-xs text-sm leading-relaxed sm:text-base md:col-start-2 md:mx-0 md:justify-self-end lg:absolute lg:right-6 lg:bottom-4">
-              3. Mets tes connaissances à l’épreuve avec des quiz et des défis interactifs.
+            <p className="journey-step absolute left-[50%] top-[30%] max-w-xs text-sm leading-relaxed lg:text-base">
+              2. Analyse des exemples concrets d'images, vidéos ou articles générés par l'IA.
+            </p>
+            <p className="journey-step absolute bottom-4 right-6 max-w-xs text-sm leading-relaxed lg:text-base">
+              3. Mets tes connaissances à l'épreuve avec des quiz et des défis interactifs.
             </p>
           </div>
+
         </div>
       </div>
     </section>

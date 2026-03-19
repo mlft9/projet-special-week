@@ -1,6 +1,12 @@
 {
+<<<<<<< HEAD
   "quizPlays": 0,
   "spotPlays": 0,
   "reportsSubmitted": 1,
+=======
+  "quizPlays": 1,
+  "spotPlays": 1,
+  "reportsSubmitted": 0,
+>>>>>>> 49b326112a2038a85b323d948a1b82813565f261
   "chatMessages": 0
 }

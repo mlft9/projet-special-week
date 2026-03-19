@@ -1,5 +1,7 @@
+import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
+import rateLimit from 'express-rate-limit'
 import { responses } from './db/responses'
 import chatRouter from './routes/chat'
 import quizRouter from './routes/quiz'
@@ -11,6 +13,7 @@ import adminRouter from './routes/admin'
 const app = express()
 const PORT = process.env.PORT ?? 3001
 
+app.set('trust proxy', 1)
 app.use(express.json({ limit: '10kb' }))
 app.use(cors({
   origin: process.env.NODE_ENV === 'production'
@@ -19,11 +22,20 @@ app.use(cors({
   methods: ['GET', 'POST', 'DELETE'],
 }))
 
-app.use('/api/chat', chatRouter)
+const loginLimiter      = rateLimit({ windowMs: 15 * 60 * 1000, max: 5,  standardHeaders: true, legacyHeaders: false })
+const leaderboardPost   = rateLimit({ windowMs: 15 * 60 * 1000, max: 10, standardHeaders: true, legacyHeaders: false })
+const reportsLimiter    = rateLimit({ windowMs: 60 * 60 * 1000, max: 5,  standardHeaders: true, legacyHeaders: false })
+const chatLimiter       = rateLimit({ windowMs: 60 * 1000,       max: 30, standardHeaders: true, legacyHeaders: false })
+
+app.use('/api/chat', chatLimiter, chatRouter)
 app.use('/api/quiz', quizRouter)
 app.use('/api/examples', examplesRouter)
+app.post('/api/reports', reportsLimiter)
 app.use('/api/reports', reportsRouter)
+app.post('/api/leaderboard/quiz', leaderboardPost)
+app.post('/api/leaderboard/spot', leaderboardPost)
 app.use('/api/leaderboard', leaderboardRouter)
+app.use('/api/admin/login', loginLimiter)
 app.use('/api/admin', adminRouter)
 
 app.get('/api/health', (_req, res) => {

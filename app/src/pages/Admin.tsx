@@ -112,7 +112,7 @@ export default function Admin() {
   }
 
   async function logout() {
-    await authFetch('/logout', { method: 'POST' })
+    try { await authFetch('/logout', { method: 'POST' }) } catch { /* ignore */ }
     clearToken()
     setToken(null)
     navigate('/')

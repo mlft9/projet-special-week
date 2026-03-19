@@ -1,0 +1,20 @@
+{
+  "quiz": [
+    {
+      "id": "0971583c-bc71-486d-a00c-ade2b61704bf",
+      "name": "ftufyigoy",
+      "score": 5,
+      "total": 14,
+      "date": "2026-03-19T10:00:29.242Z"
+    }
+  ],
+  "spot": [
+    {
+      "id": "647e3245-b860-4db9-8f95-95b118a8eec2",
+      "name": "gilhmo",
+      "score": 89,
+      "maxScore": 125,
+      "date": "19/03/2026"
+    }
+  ]
+}
