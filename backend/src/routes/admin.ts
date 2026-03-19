@@ -3,12 +3,18 @@ import { createHmac, randomUUID } from 'crypto'
 import { promises as fs } from 'fs'
 import path from 'path'
 import { readStats } from '../db/stats'
+import { getLock } from '../db/fileLock'
+
+// ── Validation des variables d'environnement obligatoires ────────────────────
+const ADMIN_USER     = process.env.ADMIN_USER
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD
+const SECRET         = process.env.ADMIN_SECRET
+
+if (!ADMIN_PASSWORD || !SECRET) {
+  throw new Error('[admin] ADMIN_PASSWORD et ADMIN_SECRET doivent être définis dans les variables d\'environnement')
+}
 
 const router = Router()
-
-const ADMIN_USER     = process.env.ADMIN_USER     ?? 'admin'
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? 'ealertes2026'
-const SECRET         = process.env.ADMIN_SECRET   ?? 'e-alertes-dev-secret-2026'
 
 // Sessions en mémoire : token → expiry
 const sessions = new Map<string, number>()
@@ -16,7 +22,7 @@ const SESSION_MS = 8 * 60 * 60 * 1000 // 8 h
 
 function generateToken(): string {
   const raw = `${randomUUID()}:${Date.now()}`
-  return createHmac('sha256', SECRET).update(raw).digest('hex')
+  return createHmac('sha256', SECRET!).update(raw).digest('hex')
 }
 
 export function requireAuth(req: Request, res: Response, next: NextFunction): void {
@@ -139,31 +145,37 @@ router.get('/reports', requireAuth, async (_req: Request, res: Response) => {
 // ── Suppressions ──────────────────────────────────────────────────────────────
 
 router.delete('/leaderboard/quiz/:id', requireAuth, async (req: Request, res: Response) => {
-  const lb = await readLeaderboard()
-  const before = lb.quiz.length
-  lb.quiz = lb.quiz.filter(e => e.id !== req.params['id'])
-  if (lb.quiz.length === before) { res.status(404).json({ error: 'Entrée introuvable' }); return }
-  await writeLeaderboard(lb)
-  res.json({ ok: true })
+  await getLock('leaderboard').runExclusive(async () => {
+    const lb = await readLeaderboard()
+    const before = lb.quiz.length
+    lb.quiz = lb.quiz.filter(e => e.id !== req.params['id'])
+    if (lb.quiz.length === before) { res.status(404).json({ error: 'Entrée introuvable' }); return }
+    await writeLeaderboard(lb)
+    res.json({ ok: true })
+  })
 })
 
 router.delete('/leaderboard/spot/:id', requireAuth, async (req: Request, res: Response) => {
-  const lb = await readLeaderboard()
-  const before = lb.spot.length
-  lb.spot = lb.spot.filter(e => e.id !== req.params['id'])
-  if (lb.spot.length === before) { res.status(404).json({ error: 'Entrée introuvable' }); return }
-  await writeLeaderboard(lb)
-  res.json({ ok: true })
+  await getLock('leaderboard').runExclusive(async () => {
+    const lb = await readLeaderboard()
+    const before = lb.spot.length
+    lb.spot = lb.spot.filter(e => e.id !== req.params['id'])
+    if (lb.spot.length === before) { res.status(404).json({ error: 'Entrée introuvable' }); return }
+    await writeLeaderboard(lb)
+    res.json({ ok: true })
+  })
 })
 
 router.delete('/reports/:id', requireAuth, async (req: Request, res: Response) => {
-  const store = await readReports()
-  const before = store.reports.length
-  store.reports = store.reports.filter(r => r.id !== req.params['id'])
-  if (store.reports.length === before) { res.status(404).json({ error: 'Rapport introuvable' }); return }
-  store.updatedAt = new Date().toISOString()
-  await writeReports(store)
-  res.json({ ok: true })
+  await getLock('reports').runExclusive(async () => {
+    const store = await readReports()
+    const before = store.reports.length
+    store.reports = store.reports.filter(r => r.id !== req.params['id'])
+    if (store.reports.length === before) { res.status(404).json({ error: 'Rapport introuvable' }); return }
+    store.updatedAt = new Date().toISOString()
+    await writeReports(store)
+    res.json({ ok: true })
+  })
 })
 
 export default router

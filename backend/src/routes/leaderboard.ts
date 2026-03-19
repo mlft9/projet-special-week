@@ -3,6 +3,7 @@ import { promises as fs } from 'fs'
 import { randomUUID } from 'crypto'
 import path from 'path'
 import { incrementStat } from '../db/stats'
+import { getLock } from '../db/fileLock'
 
 type QuizEntry = {
   id: string
@@ -50,6 +51,13 @@ function isPositiveNumber(v: unknown): v is number {
   return typeof v === 'number' && v >= 0
 }
 
+function isFiniteInteger(v: unknown): v is number {
+  return typeof v === 'number' && Number.isFinite(v) && Number.isInteger(v)
+}
+
+const QUIZ_TOTAL   = 14
+const SPOT_MAX     = 125
+
 // ── Quiz ──────────────────────────────────────────────
 
 router.get('/quiz', async (_req, res) => {
@@ -65,22 +73,26 @@ router.post('/quiz', async (req, res) => {
 
   if (!isNonEmptyString(name) || name.trim().length > 30)
     return res.status(400).json({ error: 'Nom invalide' })
-  if (!isPositiveNumber(score) || !isPositiveNumber(total) || score > total)
+  if (!isFiniteInteger(score) || score < 0 || score > QUIZ_TOTAL)
     return res.status(400).json({ error: 'Score invalide' })
+  if (total !== QUIZ_TOTAL)
+    return res.status(400).json({ error: 'Total invalide' })
 
   const entry: QuizEntry = {
     id: randomUUID(),
     name: name.trim(),
     score,
-    total,
+    total: QUIZ_TOTAL,
     date: new Date().toISOString(),
   }
 
-  const store = await readStore()
-  store.quiz.push(entry)
-  store.quiz.sort((a, b) => b.score - a.score)
-  if (store.quiz.length > 200) store.quiz = store.quiz.slice(0, 200)
-  await writeStore(store)
+  await getLock('leaderboard').runExclusive(async () => {
+    const store = await readStore()
+    store.quiz.push(entry)
+    store.quiz.sort((a, b) => b.score - a.score)
+    if (store.quiz.length > 200) store.quiz = store.quiz.slice(0, 200)
+    await writeStore(store)
+  })
   incrementStat('quizPlays').catch(() => {})
 
   res.status(201).json(entry)
@@ -101,22 +113,26 @@ router.post('/spot', async (req, res) => {
 
   if (!isNonEmptyString(name) || name.trim().length > 30)
     return res.status(400).json({ error: 'Nom invalide' })
-  if (!isPositiveNumber(score) || !isPositiveNumber(maxScore) || score > maxScore)
+  if (!isFiniteInteger(score) || score < 0 || score > SPOT_MAX)
     return res.status(400).json({ error: 'Score invalide' })
+  if (maxScore !== SPOT_MAX)
+    return res.status(400).json({ error: 'maxScore invalide' })
 
   const entry: SpotEntry = {
     id: randomUUID(),
     name: name.trim(),
     score,
-    maxScore,
+    maxScore: SPOT_MAX,
     date: new Date().toLocaleDateString('fr-FR'),
   }
 
-  const store = await readStore()
-  store.spot.push(entry)
-  store.spot.sort((a, b) => b.score - a.score)
-  if (store.spot.length > 200) store.spot = store.spot.slice(0, 200)
-  await writeStore(store)
+  await getLock('leaderboard').runExclusive(async () => {
+    const store = await readStore()
+    store.spot.push(entry)
+    store.spot.sort((a, b) => b.score - a.score)
+    if (store.spot.length > 200) store.spot = store.spot.slice(0, 200)
+    await writeStore(store)
+  })
   incrementStat('spotPlays').catch(() => {})
 
   res.status(201).json(entry)
