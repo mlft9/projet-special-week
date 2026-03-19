@@ -117,7 +117,7 @@ export const responses: ResponseRow[] = [
   },
   {
     keywords: ['contact', 'support', 'equipe', 'email', 'contacter'],
-    response: "Pour contacter l'équipe, écris à contact@truthsense.fr. Tu peux envoyer une question, un retour d'expérience ou une suggestion pour améliorer les contenus pédagogiques.",
+    response: "Pour contacter l'équipe, écris à contact@e-alerte.fr. Tu peux envoyer une question, un retour d'expérience ou une suggestion pour améliorer les contenus pédagogiques.",
     category: 'navigation',
   },
   {

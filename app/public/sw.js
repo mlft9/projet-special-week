@@ -1,4 +1,4 @@
-const CACHE = 'truthsense-v1'
+const CACHE = 'e-alerte-v1'
 
 const APP_SHELL = [
   '/',

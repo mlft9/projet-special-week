@@ -1,5 +1,5 @@
 {
-  "name": "truthsense-backend",
+  "name": "e-alerte-backend",
   "version": "1.0.0",
   "description": "Backend chatbot E-alertés",
   "main": "dist/index.js",

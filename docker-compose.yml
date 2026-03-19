@@ -1,7 +1,7 @@
 services:
   app:
     build: .
-    container_name: truthsense
+    container_name: e-alerte
     restart: unless-stopped
     ports:
       - "5000:80"
@@ -12,7 +12,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: truthsense-backend
+    container_name: e-alerte-backend
     restart: unless-stopped
     env_file:
       - ./backend/.env
