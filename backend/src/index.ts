@@ -6,6 +6,7 @@ import quizRouter from './routes/quiz'
 import examplesRouter from './routes/examples'
 import reportsRouter from './routes/reports'
 import leaderboardRouter from './routes/leaderboard'
+import adminRouter from './routes/admin'
 
 const app = express()
 const PORT = process.env.PORT ?? 3001
@@ -15,7 +16,7 @@ app.use(cors({
   origin: process.env.NODE_ENV === 'production'
     ? false
     : ['http://localhost:5173', 'http://127.0.0.1:5173'],
-  methods: ['GET', 'POST'],
+  methods: ['GET', 'POST', 'DELETE'],
 }))
 
 app.use('/api/chat', chatRouter)
@@ -23,6 +24,7 @@ app.use('/api/quiz', quizRouter)
 app.use('/api/examples', examplesRouter)
 app.use('/api/reports', reportsRouter)
 app.use('/api/leaderboard', leaderboardRouter)
+app.use('/api/admin', adminRouter)
 
 app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() })

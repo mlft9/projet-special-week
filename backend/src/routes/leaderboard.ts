@@ -1,8 +1,11 @@
 import { Router } from 'express'
 import { promises as fs } from 'fs'
+import { randomUUID } from 'crypto'
 import path from 'path'
+import { incrementStat } from '../db/stats'
 
 type QuizEntry = {
+  id: string
   name: string
   score: number
   total: number
@@ -10,6 +13,7 @@ type QuizEntry = {
 }
 
 type SpotEntry = {
+  id: string
   name: string
   score: number
   maxScore: number
@@ -65,6 +69,7 @@ router.post('/quiz', async (req, res) => {
     return res.status(400).json({ error: 'Score invalide' })
 
   const entry: QuizEntry = {
+    id: randomUUID(),
     name: name.trim(),
     score,
     total,
@@ -76,6 +81,7 @@ router.post('/quiz', async (req, res) => {
   store.quiz.sort((a, b) => b.score - a.score)
   if (store.quiz.length > 200) store.quiz = store.quiz.slice(0, 200)
   await writeStore(store)
+  incrementStat('quizPlays').catch(() => {})
 
   res.status(201).json(entry)
 })
@@ -99,6 +105,7 @@ router.post('/spot', async (req, res) => {
     return res.status(400).json({ error: 'Score invalide' })
 
   const entry: SpotEntry = {
+    id: randomUUID(),
     name: name.trim(),
     score,
     maxScore,
@@ -110,6 +117,7 @@ router.post('/spot', async (req, res) => {
   store.spot.sort((a, b) => b.score - a.score)
   if (store.spot.length > 200) store.spot = store.spot.slice(0, 200)
   await writeStore(store)
+  incrementStat('spotPlays').catch(() => {})
 
   res.status(201).json(entry)
 })

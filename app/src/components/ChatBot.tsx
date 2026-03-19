@@ -18,12 +18,17 @@ export default function ChatBot() {
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
-  // Fermeture par Escape
+  // Fermeture par Escape + lock scroll sur mobile
   useEffect(() => {
     if (!open) return
     const handleKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false) }
     window.addEventListener('keydown', handleKey)
-    return () => window.removeEventListener('keydown', handleKey)
+    const isMobile = window.innerWidth <= 440
+    if (isMobile) document.body.style.overflow = 'hidden'
+    return () => {
+      window.removeEventListener('keydown', handleKey)
+      document.body.style.overflow = ''
+    }
   }, [open])
 
   // Auto-scroll vers le dernier message
@@ -119,6 +124,7 @@ export default function ChatBot() {
             onKeyDown={handleKeyDown}
             maxLength={500}
             disabled={loading}
+            inputMode="text"
             aria-label="Message pour l'assistant"
           />
           <button

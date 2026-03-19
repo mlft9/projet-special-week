@@ -10,10 +10,12 @@ import MentionsLegales from './pages/MentionsLegales'
 import PolitiqueConfidentialite from './pages/PolitiqueConfidentialite'
 import SpotGame from './pages/SpotGame'
 import Reports from './pages/Reports'
+import Admin from './pages/Admin'
 import './App.css'
 
 export default function App() {
   const location = useLocation()
+  const isAdmin = location.pathname === '/admin'
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -21,9 +23,11 @@ export default function App() {
 
   return (
     <>
-      <header className="app-header">
-        <BurgerMenu />
-      </header>
+      {!isAdmin && (
+        <header className="app-header">
+          <BurgerMenu />
+        </header>
+      )}
 
       <main className="main-content">
       <Routes>
@@ -35,9 +39,10 @@ export default function App() {
         <Route path="/politique-confidentialite" element={<PolitiqueConfidentialite />} />
         <Route path="/reperer" element={<SpotGame />} />
         <Route path="/signaler" element={<Reports />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
       </main>
-      <ChatBot />
+      {!isAdmin && <ChatBot />}
     </>
   )
 }

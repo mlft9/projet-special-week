@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express'
 import { promises as fs } from 'fs'
 import path from 'path'
+import { incrementStat } from '../db/stats'
 
 type AiUsageType = 'suspected' | 'declared' | 'generated' | 'unknown'
 
@@ -141,6 +142,7 @@ router.post('/', async (req: Request, res: Response) => {
   }
 
   await writeStore(nextStore)
+  incrementStat('reportsSubmitted').catch(() => {})
   res.status(201).json({ report })
 })
 
