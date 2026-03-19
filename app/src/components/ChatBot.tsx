@@ -7,7 +7,7 @@ interface Message {
 
 const WELCOME: Message = {
   role: 'bot',
-  text: "Bonjour ! Je suis l'assistant TruthSense 🤖 Pose-moi une question sur les deepfakes, les IA, ou la vérification d'infos !",
+  text: "Bonjour ! Je suis l'assistant E-alertés 🤖 Pose-moi une question sur les deepfakes, les IA, ou la vérification d'infos !",
 }
 
 export default function ChatBot() {
@@ -85,10 +85,10 @@ export default function ChatBot() {
         className={`chatbot-window${open ? ' is-open' : ''}`}
         role="dialog"
         aria-modal="true"
-        aria-label="Assistant TruthSense"
+        aria-label="Assistant E-alertés"
       >
         <div className="chatbot-header">
-          <span className="chatbot-title">Assistant TruthSense</span>
+          <span className="chatbot-title">Assistant E-alertés</span>
           <button className="chatbot-close" aria-label="Fermer" onClick={() => setOpen(false)}>
             ✕
           </button>
