@@ -146,7 +146,7 @@ footer {
 
 .side-nav-shell {
   position: fixed;
-  top: 16px;
+  top: 40px;
   left: 0;
   z-index: 12000;
   transform: translateX(calc(-100% + 54px));
@@ -231,7 +231,7 @@ footer {
 
 @media (max-width: 768px) {
   .side-nav-shell {
-    top: 14px;
+    top: 38px;
     left: 12px;
     transform: none;
   }
@@ -261,7 +261,7 @@ footer {
 
   .side-nav-drawer {
     position: fixed;
-    top: 64px;
+    top: 88px;
     left: 12px;
     width: 190px;
     border-radius: 14px;
