@@ -10,6 +10,13 @@ const WELCOME: Message = {
   text: "Bonjour ! Je suis l'assistant E-alertés 🤖 Pose-moi une question sur les deepfakes, les IA, ou la vérification d'infos !",
 }
 
+const SUGGESTIONS = [
+  "C'est quoi une deepfake ?",
+  "Comment détecter une image IA ?",
+  "Qu'est-ce qu'une hallucination d'IA ?",
+  "Comment vérifier une info ?",
+]
+
 export default function ChatBot() {
   const [open, setOpen] = useState(false)
   const [messages, setMessages] = useState<Message[]>([WELCOME])
@@ -23,11 +30,8 @@ export default function ChatBot() {
     if (!open) return
     const handleKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false) }
     window.addEventListener('keydown', handleKey)
-    const isMobile = window.innerWidth <= 440
-    if (isMobile) document.body.style.overflow = 'hidden'
     return () => {
       window.removeEventListener('keydown', handleKey)
-      document.body.style.overflow = ''
     }
   }, [open])
 
@@ -65,6 +69,7 @@ export default function ChatBot() {
       ])
     } finally {
       setLoading(false)
+      inputRef.current?.focus()
     }
   }
 
@@ -112,6 +117,20 @@ export default function ChatBot() {
           )}
           <div ref={messagesEndRef} />
         </div>
+
+        {messages.length === 1 && (
+          <div className="chatbot-suggestions">
+            {SUGGESTIONS.map(s => (
+              <button
+                key={s}
+                className="chatbot-suggestion"
+                onClick={() => { setInput(s); setTimeout(() => inputRef.current?.focus(), 0) }}
+              >
+                {s}
+              </button>
+            ))}
+          </div>
+        )}
 
         <div className="chatbot-input-row">
           <input
