@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
 import type { QuizQuestion } from '../types'
 import QuizCard from '../components/QuizCard'
 import ScoreBadge from '../components/ScoreBadge'
@@ -95,6 +97,33 @@ export default function Play() {
     setName('')
   }
 
+  const hubRef = useRef<HTMLDivElement | null>(null)
+
+  useGSAP(
+    () => {
+      if (!hubRef.current) return
+
+      gsap.from('.hub-card', {
+        y: 20,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.15,
+        ease: 'power3.out',
+        clearProps: 'transform,opacity',
+      })
+
+      gsap.to('.hub-card', {
+        y: -4,
+        duration: 2.5,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+        stagger: 0.3,
+      })
+    },
+    { scope: hubRef, dependencies: [phase] },
+  )
+
   /* ── ÉCRAN INTRO / HUB ── */
   if (phase === 'intro') {
     return (
@@ -109,29 +138,22 @@ export default function Play() {
           </p>
         </section>
 
-        <div className="results-body" style={{ maxWidth: 640, gap: 16 }}>
+        <div ref={hubRef} className="results-body" style={{ maxWidth: 640, gap: 16 }}>
           {/* Carte Quiz */}
           <button
             onClick={() => setPhase('quiz')}
             disabled={!dataReady || questions.length === 0}
-            style={{
-              display: 'flex', alignItems: 'flex-start', gap: 16, textAlign: 'left',
-              background: '#ffffff', border: '2px solid #e6d4a8', borderRadius: 16,
-              padding: '20px 22px', cursor: 'pointer', transition: 'border-color 0.15s, box-shadow 0.15s',
-              width: '100%', fontFamily: 'var(--font-body)',
-            }}
-            onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = '#933600'; (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 4px 16px rgba(147,54,0,0.12)' }}
-            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = '#e6d4a8'; (e.currentTarget as HTMLButtonElement).style.boxShadow = 'none' }}
+            className="hub-card flex items-start gap-4 text-left bg-white/40 backdrop-blur-md rounded-3xl border border-white/50 shadow-sm p-5 w-full cursor-pointer transition-all duration-200 hover:shadow-lg hover:border-[var(--color-secondary)]"
           >
-            <span style={{ fontSize: '2rem', lineHeight: 1, flexShrink: 0 }}>❓</span>
+            <span className="text-[2rem] leading-none shrink-0">❓</span>
             <div>
-              <div style={{ fontWeight: 700, fontSize: '1.05rem', color: '#2a1a0e', marginBottom: 4 }}>
+              <div className="font-bold text-[1.05rem] text-[#2a1a0e] mb-1">
                 Quiz — Détecte la désinformation
               </div>
-              <div style={{ fontSize: '0.85rem', color: '#6b5c44', lineHeight: 1.5 }}>
+              <div className="text-[0.85rem] text-[#6b5c44] leading-relaxed">
                 {questions.length > 0 ? `${questions.length} questions` : '…'} · Images réelles vs IA · Score classement
               </div>
-              <div style={{ marginTop: 12, display: 'inline-block', background: '#933600', color: '#fff', borderRadius: 999, padding: '6px 16px', fontSize: '0.82rem', fontWeight: 700 }}>
+              <div className="mt-3 inline-block bg-[var(--color-secondary)] text-white rounded-full px-4 py-1.5 text-[0.82rem] font-bold">
                 {dataReady ? 'Jouer →' : 'Chargement…'}
               </div>
             </div>
@@ -140,24 +162,17 @@ export default function Play() {
           {/* Carte Zones suspectes */}
           <button
             onClick={() => navigate('/reperer')}
-            style={{
-              display: 'flex', alignItems: 'flex-start', gap: 16, textAlign: 'left',
-              background: '#ffffff', border: '2px solid #e6d4a8', borderRadius: 16,
-              padding: '20px 22px', cursor: 'pointer', transition: 'border-color 0.15s, box-shadow 0.15s',
-              width: '100%', fontFamily: 'var(--font-body)',
-            }}
-            onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = '#933600'; (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 4px 16px rgba(147,54,0,0.12)' }}
-            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = '#e6d4a8'; (e.currentTarget as HTMLButtonElement).style.boxShadow = 'none' }}
+            className="hub-card flex items-start gap-4 text-left bg-white/40 backdrop-blur-md rounded-3xl border border-white/50 shadow-sm p-5 w-full cursor-pointer transition-all duration-200 hover:shadow-lg hover:border-[var(--color-secondary)]"
           >
-            <span style={{ fontSize: '2rem', lineHeight: 1, flexShrink: 0 }}>🔍</span>
+            <span className="text-[2rem] leading-none shrink-0">🔍</span>
             <div>
-              <div style={{ fontWeight: 700, fontSize: '1.05rem', color: '#2a1a0e', marginBottom: 4 }}>
+              <div className="font-bold text-[1.05rem] text-[#2a1a0e] mb-1">
                 Zones suspectes — Repère les artefacts IA
               </div>
-              <div style={{ fontSize: '0.85rem', color: '#6b5c44', lineHeight: 1.5 }}>
+              <div className="text-[0.85rem] text-[#6b5c44] leading-relaxed">
                 5 images · Clique sur les zones générées par IA · 3 clics par image
               </div>
-              <div style={{ marginTop: 12, display: 'inline-block', background: '#933600', color: '#fff', borderRadius: 999, padding: '6px 16px', fontSize: '0.82rem', fontWeight: 700 }}>
+              <div className="mt-3 inline-block bg-[var(--color-secondary)] text-white rounded-full px-4 py-1.5 text-[0.82rem] font-bold">
                 Jouer →
               </div>
             </div>

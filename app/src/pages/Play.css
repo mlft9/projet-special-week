@@ -137,10 +137,17 @@
   color: #1a1a1a;
   text-align: left;
   cursor: pointer;
-  transition: border-color 0.15s, background 0.15s;
+  transition: border-color 0.15s, background 0.15s, transform 0.12s ease, box-shadow 0.15s;
   display: flex;
   align-items: center;
   gap: 12px;
+}
+
+.quiz-option:not(:disabled):active {
+  transform: scale(0.95);
+  border-color: #933600;
+  background: rgba(147, 54, 0, 0.08);
+  box-shadow: 0 0 0 3px rgba(147, 54, 0, 0.15);
 }
 
 /* Badge lettre A/B/C/D */
