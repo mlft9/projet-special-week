@@ -48,6 +48,11 @@ export default function Footer() {
                 Politique de confidentialité
               </Link>
             </li>
+            <li>
+              <Link to="/signaler" className="text-[#F7EAD8]/85 transition-colors hover:text-white">
+                Signaler un site
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
