@@ -6,6 +6,7 @@ const pageLinks = [
   { to: '/comprendre', label: 'Comprendre' },
   { to: '/jouer', label: 'Jouer' },
   { to: '/classement', label: 'Classement' },
+  { to: '/signaler', label: 'Signaler un site' },
 ]
 
 export default function Footer() {

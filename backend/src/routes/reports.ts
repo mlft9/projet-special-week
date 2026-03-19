@@ -24,6 +24,12 @@ type ReportsStore = {
   reports: ReportRecord[]
 }
 
+type FlaggedSitesStore = {
+  schemaVersion: '1.0.0'
+  updatedAt: string
+  domains: string[]
+}
+
 type IncomingReport = {
   siteName?: unknown
   articleTitle?: unknown
@@ -36,6 +42,7 @@ type IncomingReport = {
 
 const router = Router()
 const SOURCE_FILE_PATH = path.resolve(process.cwd(), 'data/reports.json')
+const FLAGGED_SITES_FILE_PATH = path.resolve(process.cwd(), '../extension/flagged-sites.json')
 
 function isNonEmptyString(value: unknown): value is string {
   return typeof value === 'string' && value.trim().length > 0
@@ -55,6 +62,72 @@ function sanitizeOptionalText(value: unknown, maxLength: number): string | undef
   const clean = value.trim()
   if (!clean) return undefined
   return clean.slice(0, maxLength)
+}
+
+function normalizeDomain(value: string): string {
+  const trimmed = value.trim().toLowerCase()
+  if (!trimmed) return ''
+
+  try {
+    const parsed = new URL(trimmed)
+    return parsed.hostname.replace(/^www\./, '')
+  } catch {
+    return trimmed
+      .replace(/^https?:\/\//, '')
+      .replace(/^www\./, '')
+      .split('/')[0]
+      .split(':')[0]
+  }
+}
+
+async function readFlaggedSitesStore(): Promise<FlaggedSitesStore> {
+  try {
+    const raw = await fs.readFile(FLAGGED_SITES_FILE_PATH, 'utf-8')
+    const parsed = JSON.parse(raw) as FlaggedSitesStore
+    if (!Array.isArray(parsed.domains)) {
+      return {
+        schemaVersion: '1.0.0',
+        updatedAt: new Date().toISOString(),
+        domains: [],
+      }
+    }
+
+    return {
+      schemaVersion: '1.0.0',
+      updatedAt: parsed.updatedAt ?? new Date().toISOString(),
+      domains: parsed.domains.map((domain) => normalizeDomain(domain)).filter(Boolean),
+    }
+  } catch {
+    return {
+      schemaVersion: '1.0.0',
+      updatedAt: new Date().toISOString(),
+      domains: [],
+    }
+  }
+}
+
+async function writeFlaggedSitesStore(store: FlaggedSitesStore): Promise<void> {
+  await fs.mkdir(path.dirname(FLAGGED_SITES_FILE_PATH), { recursive: true })
+  await fs.writeFile(FLAGGED_SITES_FILE_PATH, JSON.stringify(store, null, 2), 'utf-8')
+}
+
+async function syncFlaggedSites(report: ReportRecord): Promise<void> {
+  const urlDomain = normalizeDomain(report.articleUrl)
+  const siteDomain = normalizeDomain(report.siteName)
+  const domainToAdd = urlDomain || siteDomain
+  if (!domainToAdd) return
+
+  const flaggedStore = await readFlaggedSitesStore()
+  const domains = new Set(flaggedStore.domains)
+  domains.add(domainToAdd)
+
+  const nextFlaggedStore: FlaggedSitesStore = {
+    schemaVersion: '1.0.0',
+    updatedAt: new Date().toISOString(),
+    domains: [...domains],
+  }
+
+  await writeFlaggedSitesStore(nextFlaggedStore)
 }
 
 async function readStore(): Promise<ReportsStore> {
@@ -143,6 +216,7 @@ router.post('/', async (req: Request, res: Response) => {
 
   await writeStore(nextStore)
   incrementStat('reportsSubmitted').catch(() => {})
+  await syncFlaggedSites(report)
   res.status(201).json({ report })
 })
 
