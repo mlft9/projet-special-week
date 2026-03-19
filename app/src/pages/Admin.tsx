@@ -1,6 +1,14 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Bar, Doughnut } from 'react-chartjs-2'
+import {
+  Chart as ChartJS,
+  CategoryScale, LinearScale, BarElement,
+  ArcElement, Tooltip, Legend,
+} from 'chart.js'
 import './Admin.css'
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend)
 
 type Stats = {
   quizPlays: number
@@ -199,6 +207,52 @@ export default function Admin() {
           <StatCard icon="📋" label="Entrées classement quiz" value={stats.quizEntriesInLeaderboard} />
           <StatCard icon="📋" label="Entrées classement Spot" value={stats.spotEntriesInLeaderboard} />
           <StatCard icon="⏳" label="Signalements en attente" value={stats.pendingReports} />
+        </section>
+      )}
+
+      {quizEntries.length > 0 && (
+        <section className="admin-charts">
+          <div className="admin-chart-box">
+            <h3>Distribution des scores quiz</h3>
+            <Bar
+              data={{
+                labels: ['0–4', '5–8', '9–11', '12–14'],
+                datasets: [{
+                  label: 'Joueurs',
+                  data: [
+                    quizEntries.filter(e => e.score <= 4).length,
+                    quizEntries.filter(e => e.score >= 5 && e.score <= 8).length,
+                    quizEntries.filter(e => e.score >= 9 && e.score <= 11).length,
+                    quizEntries.filter(e => e.score >= 12).length,
+                  ],
+                  backgroundColor: ['#f87171', '#fb923c', '#facc15', '#4ade80'],
+                  borderRadius: 6,
+                }],
+              }}
+              options={{ responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } }}
+            />
+          </div>
+
+          {reports.length > 0 && (
+            <div className="admin-chart-box">
+              <h3>Types de signalements</h3>
+              <Doughnut
+                data={{
+                  labels: ['Suspicieux', 'Déclaré', 'Généré', 'Inconnu'],
+                  datasets: [{
+                    data: [
+                      reports.filter(r => r.aiUsageType === 'suspected').length,
+                      reports.filter(r => r.aiUsageType === 'declared').length,
+                      reports.filter(r => r.aiUsageType === 'generated').length,
+                      reports.filter(r => r.aiUsageType === 'unknown').length,
+                    ],
+                    backgroundColor: ['#818cf8', '#34d399', '#f472b6', '#94a3b8'],
+                  }],
+                }}
+                options={{ responsive: true, plugins: { legend: { position: 'bottom' } } }}
+              />
+            </div>
+          )}
         </section>
       )}
 

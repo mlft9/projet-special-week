@@ -186,6 +186,29 @@
   font-weight: 500;
 }
 
+/* ── Charts ──────────────────────────────────────────────────────────────────── */
+
+.admin-charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  margin: 0 32px 28px;
+}
+
+.admin-chart-box {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 2px 12px rgba(147, 54, 0, 0.07);
+}
+
+.admin-chart-box h3 {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--color-secondary);
+  margin: 0 0 16px;
+}
+
 /* ── Section + tabs ──────────────────────────────────────────────────────────── */
 
 .admin-section {
