@@ -79,6 +79,34 @@ a:hover {
   box-sizing: border-box;
 }
 
+/* ── Bouton CTA Shine ── */
+@keyframes btn-shine {
+  0%   { transform: translateX(-100%) skewX(-15deg); }
+  100% { transform: translateX(250%) skewX(-15deg); }
+}
+
+.cta-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-shine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.5) 50%,
+    transparent 80%
+  );
+  animation: btn-shine 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
 /* ── Animations CSS ── */
 @keyframes fadeSlideUp {
   from {
