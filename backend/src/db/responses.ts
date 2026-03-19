@@ -132,7 +132,7 @@ export const responses: ResponseRow[] = [
   },
   {
     keywords: ['protéger', 'enfants', 'données', 'personnelles', 'contrôle parental', 'sécurité', 'en ligne'],
-    response: "Pour protéger les enfants en ligne, il est important de mettre en place un contrôle parental efficace. Cela permet de surveiller leur activité sur internet et de les aider à naviguer en toute sécurité.",
+    response: "Pour ce protéger en ligne, il est important de mettre en place des mots de passe forts et uniques. Cela permet de s'assurer que tes informations de connexion sont sécurisées.",
     category: 'securite-en-ligne',
   },
   {
