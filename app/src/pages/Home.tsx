@@ -11,7 +11,7 @@ gsap.registerPlugin(useGSAP, ScrollTrigger)
 const stats = [
   { value: '14', label: 'questions' },
   { value: '5', label: 'exemples' },
-  { value: '3', label: 'modules' },
+  { value: '3', label: 'étapes' },
 ]
 
 const cards = [
@@ -19,7 +19,7 @@ const cards = [
     step: 'ÉTAPE 01',
     icon: '🧠',
     title: 'Comprendre les bases',
-    description: 'Découvre comment l’IA, les deepfakes et les fake news fonctionnent pour mieux reconnaître les pièges.',
+    description: 'Apprends simplement comment l’IA peut tromper, avec des exemples faciles à repérer.',
     link: '/comprendre',
     cta: 'Commencer',
   },
@@ -27,7 +27,7 @@ const cards = [
     step: 'ÉTAPE 02',
     icon: '🔍',
     title: 'S’entraîner en pratique',
-    description: 'Teste tes réflexes avec le quiz et le mode repérage pour apprendre à vérifier vite et bien.',
+    description: 'Fais le quiz et le mode repérage pour t’entraîner comme un vrai détective du web.',
     link: '/jouer',
     cta: 'S’entraîner',
   },
@@ -35,7 +35,7 @@ const cards = [
     step: 'ÉTAPE 03',
     icon: '⚡',
     title: 'Contribuer à la vigilance',
-    description: 'Signale les contenus suspects pour aider la communauté à rester vigilante et mieux informée.',
+    description: 'Si tu vois un contenu douteux, signale-le pour aider les autres à éviter les pièges.',
     link: '/signaler',
     cta: 'Signaler',
   },
@@ -116,7 +116,7 @@ export default function Home() {
           </h1>
 
           <p className="animate-in max-w-md text-center text-sm leading-relaxed text-[#F7DFC2]/90">
-            Le portail de sensibilisation à la désinformation par l&apos;IA
+            Un parcours simple pour apprendre, s&apos;entraîner et devenir plus fort face à la désinformation.
           </p>
 
           <div className="animate-in my-10 flex items-center gap-6 sm:gap-12">
@@ -136,10 +136,10 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="mt-2 flex flex-col items-center gap-4 sm:flex-row">
+          <div className="mt-6 flex flex-col items-center gap-4 sm:flex-row">
             <button
               type="button"
-              onClick={() => navigate('/jouer')}
+              onClick={() => navigate('/comprendre')}
               className="cta-shine animate-in bg-[#FFF2DA] text-[#7C3218] px-10 py-4 rounded-full font-bold flex items-center gap-3 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_12px_30px_rgba(0,0,0,0.18)] active:scale-[0.98]"
             >
               <svg
@@ -158,15 +158,15 @@ export default function Home() {
                 <path d="M16.5 12.75h.01" />
                 <path d="M18.5 14.75h.01" />
               </svg>
-              Jouer
+              Commencer mon parcours
             </button>
 
             <button
               type="button"
-              onClick={() => navigate('/comprendre')}
+              onClick={() => navigate('/jouer')}
               className="animate-in border border-white/30 px-10 py-4 rounded-full font-medium transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:bg-white/10 hover:shadow-[0_10px_24px_rgba(0,0,0,0.16)] active:scale-[0.98]"
             >
-              Comprendre
+              Jouer directement
             </button>
           </div>
         </div>
@@ -192,11 +192,11 @@ export default function Home() {
       <section className="content-section bg-[#FCF4E4] py-20">
         <div className="mx-auto max-w-6xl px-4 text-center">
           <h2 className="content-animate mb-4 text-4xl font-display font-bold text-[#2A1A0F]">
-            Comment ça marche ?
+            Ton parcours en 3 étapes
           </h2>
 
           <p className="content-animate mb-16 text-lg text-gray-500">
-            Trois étapes pour devenir un expert de l&apos;esprit critique
+            Commence par apprendre, entraîne-toi ensuite, puis aide les autres.
           </p>
         </div>
 
