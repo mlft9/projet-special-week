@@ -6,6 +6,7 @@ const pageLinks = [
   { to: '/comprendre', label: 'Comprendre' },
   { to: '/jouer', label: 'Jouer' },
   { to: '/classement', label: 'Classement' },
+  { to: '/signaler', label: 'Signaler un site' },
 ]
 
 export default function Footer() {
@@ -46,11 +47,6 @@ export default function Footer() {
             <li>
               <Link to="/politique-confidentialite" className="text-[#F7EAD8]/85 transition-colors hover:text-white">
                 Politique de confidentialité
-              </Link>
-            </li>
-            <li>
-              <Link to="/signaler" className="text-[#F7EAD8]/85 transition-colors hover:text-white">
-                Signaler un site
               </Link>
             </li>
           </ul>
