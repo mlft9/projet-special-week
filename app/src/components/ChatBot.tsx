@@ -23,11 +23,8 @@ export default function ChatBot() {
     if (!open) return
     const handleKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false) }
     window.addEventListener('keydown', handleKey)
-    const isMobile = window.innerWidth <= 440
-    if (isMobile) document.body.style.overflow = 'hidden'
     return () => {
       window.removeEventListener('keydown', handleKey)
-      document.body.style.overflow = ''
     }
   }, [open])
 
