@@ -68,7 +68,7 @@ document.getElementById('reportForm').addEventListener('submit', async (e) => {
       reporterName: document.getElementById('reporterName').value || undefined,
     }
 
-    const response = await fetch('http://localhost:3001/api/reports', {
+    const response = await fetch('https://e-alerte.com/api/reports', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(reportData),
