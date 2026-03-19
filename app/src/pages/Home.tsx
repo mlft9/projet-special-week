@@ -140,7 +140,7 @@ export default function Home() {
             <button
               type="button"
               onClick={() => navigate('/jouer')}
-              className="cta-shine animate-in bg-[#FFF2DA] text-[#7C3218] px-10 py-4 rounded-full font-bold flex items-center gap-3"
+              className="cta-shine animate-in bg-[#FFF2DA] text-[#7C3218] px-10 py-4 rounded-full font-bold flex items-center gap-3 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_12px_30px_rgba(0,0,0,0.18)] active:scale-[0.98]"
             >
               <svg
                 aria-hidden="true"
@@ -164,7 +164,7 @@ export default function Home() {
             <button
               type="button"
               onClick={() => navigate('/comprendre')}
-              className="animate-in border border-white/30 px-10 py-4 rounded-full font-medium"
+              className="animate-in border border-white/30 px-10 py-4 rounded-full font-medium transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:bg-white/10 hover:shadow-[0_10px_24px_rgba(0,0,0,0.16)] active:scale-[0.98]"
             >
               Comprendre
             </button>
@@ -256,7 +256,7 @@ export default function Home() {
               <button
                 type="button"
                 onClick={() => navigate(card.link)}
-                className="mt-auto inline-flex items-center gap-2 text-sm font-extrabold text-[#7C3218]"
+                className="mt-auto inline-flex items-center gap-2 text-sm font-extrabold text-[#7C3218] transition-all duration-300 hover:translate-x-1 hover:scale-[1.03] hover:text-[#933600] active:scale-[0.98]"
               >
                 {card.cta}
                 <span className="font-bold">→</span>
