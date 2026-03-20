@@ -3,7 +3,7 @@
   "short_name": "E-alertés",
   "description": "Apprends à repérer la désinformation et les contenus générés par l'IA.",
   "start_url": "/",
-  "display": "portrait-primary",
+  "display": "standalone",
   "background_color": "#FFF0CC",
   "theme_color": "#933600",
   "lang": "fr",
