@@ -1,18 +1,1 @@
-{
-  "schemaVersion": "1.0.0",
-  "updatedAt": "2026-03-18T12:36:30.870Z",
-  "reports": [
-    {
-      "id": "8993cdc5-c74b-4aa3-b897-26dc3bbbc65b",
-      "submittedAt": "2026-03-18T12:36:30.868Z",
-      "siteName": "lemonde.com",
-      "articleTitle": "Israel",
-      "articleUrl": "https://www.lemonde.fr/international/live/2026/03/18/en-direct-guerre-au-moyen-orient-nouvelles-attaques-israeliennes-sur-beyrouth-l-armee-iranienne-promet-de-venger-la-mort-d-ali-larijani_6671147_3210.html",
-      "reportReason": "Je ne sais pas",
-      "aiUsageType": "suspected",
-      "reporterName": "Adam",
-      "evidenceNotes": "Je ne sais pas",
-      "status": "pending"
-    }
-  ]
-}
+{}
