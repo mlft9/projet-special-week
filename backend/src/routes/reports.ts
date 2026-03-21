@@ -15,7 +15,7 @@ type ReportRecord = {
   aiUsageType: AiUsageType
   reporterName?: string
   evidenceNotes?: string
-  status: 'pending'
+  status: 'pending' | 'approved' | 'rejected'
 }
 
 type ReportsStore = {
@@ -89,7 +89,8 @@ async function writeStore(store: ReportsStore): Promise<void> {
 
 router.get('/', async (_req: Request, res: Response) => {
   const store = await readStore()
-  res.json(store)
+  const approvedReports = store.reports.filter(r => r.status === 'approved')
+  res.json({ ...store, reports: approvedReports })
 })
 
 router.post('/', async (req: Request, res: Response) => {

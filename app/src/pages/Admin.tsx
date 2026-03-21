@@ -85,11 +85,9 @@ export default function Admin() {
     })
   }, [])
 
-  // Charge les données après connexion
-  useEffect(() => {
-    if (!token) return
+  async function fetchAll() {
     setLoading(true)
-    Promise.all([
+    return Promise.all([
       authFetch('/stats').then(r => r.json()),
       authFetch('/leaderboard').then(r => r.json()),
       authFetch('/reports').then(r => r.json()),
@@ -100,6 +98,12 @@ export default function Admin() {
       setReports(rep as ReportEntry[])
       setLoading(false)
     }).catch(() => setLoading(false))
+  }
+
+  // Charge les données après connexion
+  useEffect(() => {
+    if (!token) return
+    fetchAll()
   }, [token])
 
   async function login(e: React.FormEvent) {
@@ -126,25 +130,39 @@ export default function Admin() {
     navigate('/')
   }
 
+  async function refreshStats() {
+    const s = await authFetch('/stats').then(r => r.json())
+    setStats(s as Stats)
+  }
+
   async function deleteQuiz(id: string) {
     if (!confirm('Supprimer cette entrée ?')) return
     await authFetch(`/leaderboard/quiz/${id}`, { method: 'DELETE' })
     setQuizEntries(prev => prev.filter(e => e.id !== id))
-    setStats(prev => prev ? { ...prev, quizEntriesInLeaderboard: prev.quizEntriesInLeaderboard - 1 } : prev)
+    refreshStats()
   }
 
   async function deleteSpot(id: string) {
     if (!confirm('Supprimer cette entrée ?')) return
     await authFetch(`/leaderboard/spot/${id}`, { method: 'DELETE' })
     setSpotEntries(prev => prev.filter(e => e.id !== id))
-    setStats(prev => prev ? { ...prev, spotEntriesInLeaderboard: prev.spotEntriesInLeaderboard - 1 } : prev)
+    refreshStats()
   }
 
   async function deleteReport(id: string) {
     if (!confirm('Supprimer ce signalement ?')) return
     await authFetch(`/reports/${id}`, { method: 'DELETE' })
     setReports(prev => prev.filter(e => e.id !== id))
-    setStats(prev => prev ? { ...prev, pendingReports: Math.max(0, prev.pendingReports - 1), reportsSubmitted: Math.max(0, prev.reportsSubmitted - 1) } : prev)
+    refreshStats()
+  }
+
+  async function updateReportStatus(id: string, status: 'approved' | 'rejected') {
+    await authFetch(`/reports/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ status }),
+    })
+    setReports(prev => prev.map(r => r.id === id ? { ...r, status } : r))
+    refreshStats()
   }
 
   // ── Page login ──────────────────────────────────────────────────────────────
@@ -338,12 +356,12 @@ export default function Admin() {
           <table className="admin-table">
             <thead>
               <tr>
-                <th>Site</th><th>Titre</th><th>Type IA</th><th>Date</th><th>Rapporteur</th><th></th>
+                <th>Site</th><th>Titre</th><th>Type IA</th><th>Statut</th><th>Date</th><th>Rapporteur</th><th></th>
               </tr>
             </thead>
             <tbody>
               {reports.length === 0 && (
-                <tr><td colSpan={6} style={{ textAlign: 'center', color: '#aaa', padding: '32px' }}>Aucun signalement</td></tr>
+                <tr><td colSpan={7} style={{ textAlign: 'center', color: '#aaa', padding: '32px' }}>Aucun signalement</td></tr>
               )}
               {reports.map(e => (
                 <tr key={e.id}>
@@ -352,9 +370,22 @@ export default function Admin() {
                   <td>
                     <span className={`admin-badge admin-badge--${e.aiUsageType}`}>{e.aiUsageType}</span>
                   </td>
+                  <td>
+                    <span className={`admin-badge admin-badge--status-${e.status}`}>{e.status}</span>
+                  </td>
                   <td>{new Date(e.submittedAt).toLocaleDateString('fr-FR')}</td>
                   <td>{e.reporterName ?? '—'}</td>
-                  <td>
+                  <td className="admin-td-actions">
+                    {e.status !== 'approved' && (
+                      <button className="admin-btn-approve" onClick={() => updateReportStatus(e.id, 'approved')}>
+                        Approuver
+                      </button>
+                    )}
+                    {e.status !== 'rejected' && (
+                      <button className="admin-btn-reject" onClick={() => updateReportStatus(e.id, 'rejected')}>
+                        Rejeter
+                      </button>
+                    )}
                     <button className="admin-btn-delete" onClick={() => deleteReport(e.id)}>
                       Supprimer
                     </button>

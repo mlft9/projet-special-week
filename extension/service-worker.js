@@ -83,6 +83,7 @@ async function syncReportsFromApi() {
 }
 
 async function notifyIfReported(tabId, url) {
+  try {
   if (!url || !isHttpUrl(url)) {
     await chrome.action.setBadgeText({ text: '', tabId })
     return
@@ -118,6 +119,9 @@ async function notifyIfReported(tabId, url) {
   } catch {
     // Certains onglets spéciaux empêchent l'injection de script
   }
+  } catch {
+    // L'onglet a été fermé avant la fin des opérations asynchrones
+  }
 }
 
 chrome.runtime.onInstalled.addListener(async () => {
@@ -143,15 +147,23 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
 })
 
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-  const nextUrl = changeInfo.url ?? tab.url
-  if (!nextUrl) return
-  await notifyIfReported(tabId, nextUrl)
+  try {
+    const nextUrl = changeInfo.url ?? tab.url
+    if (!nextUrl) return
+    await notifyIfReported(tabId, nextUrl)
+  } catch {
+    // Onglet fermé avant la fin
+  }
 })
 
 chrome.tabs.onActivated.addListener(async ({ tabId }) => {
-  const tab = await chrome.tabs.get(tabId)
-  if (!tab.url) return
-  await notifyIfReported(tabId, tab.url)
+  try {
+    const tab = await chrome.tabs.get(tabId)
+    if (!tab.url) return
+    await notifyIfReported(tabId, tab.url)
+  } catch {
+    // Onglet fermé avant la fin
+  }
 })
 
 chrome.tabs.onRemoved.addListener((tabId) => {

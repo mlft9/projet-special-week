@@ -38,7 +38,8 @@
       "Bash(find /c/Users/maxime/Desktop/Projet-cap -type d -not -path */node_modules* -not -path */.git*)",
       "Bash(find /c/Users/maxime/Desktop/Projet-cap/backend/src -type f -name *.ts)",
       "Bash(grep -E \"\\\\.tsx$\")",
-      "Bash(find /c/Users/maxime/Desktop/Projet-cap -maxdepth 3 -not -path */node_modules/* -not -path */.git/* -not -path */dist/* -type d)"
+      "Bash(find /c/Users/maxime/Desktop/Projet-cap -maxdepth 3 -not -path */node_modules/* -not -path */.git/* -not -path */dist/* -type d)",
+      "Bash(find /c/Users/maxime/Desktop/Projet-cap/backend/src -type f -name *.ts -o -name *.js)"
     ]
   }
 }

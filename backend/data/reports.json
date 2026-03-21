@@ -1,16 +1,16 @@
 {
   "schemaVersion": "1.0.0",
-  "updatedAt": "2026-03-19T08:14:01.664Z",
+  "updatedAt": "2026-03-21T14:52:18.027Z",
   "reports": [
     {
-      "id": "2210fe69-68fc-4134-846f-a4ce6d5c9626",
-      "submittedAt": "2026-03-19T08:14:01.664Z",
-      "siteName": "liberation.fr",
-      "articleTitle": "Analyse «Le changement que vous proposez Madame Chikirou, c’est de faire élire Rachida Dati» : en débat, Emmanuel Grégoire pris entre deux feux",
-      "articleUrl": "https://www.liberation.fr/politique/elections/le-changement-que-vous-proposez-madame-chikirou-cest-de-faire-elire-rachida-dati-en-debat-emmanuel-gregoire-pris-entre-deux-feux-20260319_OMYKN3P2BBAUHB4ZF4CGHDXMPQ/",
-      "reportReason": "dzadzdza",
+      "id": "6f25247e-8e8d-4710-8ce3-be1bca841340",
+      "submittedAt": "2026-03-21T14:49:53.983Z",
+      "siteName": "cesar.emineo-informatique.fr",
+      "articleTitle": "ngfderfgbv",
+      "articleUrl": "https://cesar.emineo-informatique.fr/connexion",
+      "reportReason": "bhgfrfgbnbgf",
       "aiUsageType": "suspected",
-      "status": "pending"
+      "status": "approved"
     }
   ]
 }

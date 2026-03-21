@@ -319,6 +319,55 @@
 .admin-badge--generated  { background: #f8d7da; color: #721c24; }
 .admin-badge--unknown    { background: #e2e3e5; color: #383d41; }
 
+.admin-badge--status-pending  { background: #fff3cd; color: #856404; }
+.admin-badge--status-approved { background: #d4edda; color: #155724; }
+.admin-badge--status-rejected { background: #f8d7da; color: #721c24; }
+
+.admin-td-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.admin-btn-approve {
+  background: none;
+  border: 1px solid #27ae60;
+  color: #27ae60;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
+}
+
+.admin-btn-approve:hover {
+  background: #27ae60;
+  color: #fff;
+}
+
+.admin-btn-reject {
+  background: none;
+  border: 1px solid #e67e22;
+  color: #e67e22;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
+}
+
+.admin-btn-reject:hover {
+  background: #e67e22;
+  color: #fff;
+}
+
 /* ── Responsive ──────────────────────────────────────────────────────────────── */
 
 @media (max-width: 600px) {

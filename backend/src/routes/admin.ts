@@ -116,7 +116,7 @@ router.get('/stats', requireAuth, async (_req: Request, res: Response) => {
     chatMessages:            stats.chatMessages,
     quizEntriesInLeaderboard: lb.quiz.length,
     spotEntriesInLeaderboard: lb.spot.length,
-    pendingReports:          reports.reports.filter(r => r.status === 'pending').length,
+    pendingReports:          (reports.reports ?? []).filter(r => r.status === 'pending').length,
     avgQuizScore:            avg(quizScores),
     avgSpotScore:            avg(spotScores),
     bestQuizScore:           quizScores.length ? Math.max(...quizScores) : 0,
@@ -163,6 +163,23 @@ router.delete('/leaderboard/spot/:id', requireAuth, async (req: Request, res: Re
     if (lb.spot.length === before) { res.status(404).json({ error: 'Entrée introuvable' }); return }
     await writeLeaderboard(lb)
     res.json({ ok: true })
+  })
+})
+
+router.patch('/reports/:id', requireAuth, async (req: Request, res: Response) => {
+  const { status } = req.body as { status?: unknown }
+  if (status !== 'approved' && status !== 'rejected' && status !== 'pending') {
+    res.status(400).json({ error: 'status invalide (pending | approved | rejected)' })
+    return
+  }
+  await getLock('reports').runExclusive(async () => {
+    const store = await readReports()
+    const report = store.reports.find(r => r.id === req.params['id'])
+    if (!report) { res.status(404).json({ error: 'Rapport introuvable' }); return }
+    report.status = status
+    store.updatedAt = new Date().toISOString()
+    await writeReports(store)
+    res.json({ ok: true, status })
   })
 })
 
