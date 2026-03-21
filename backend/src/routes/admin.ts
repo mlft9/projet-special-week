@@ -1,11 +1,8 @@
 import { Router, Request, Response, NextFunction } from 'express'
 import { createHmac, randomUUID } from 'crypto'
-import { promises as fs } from 'fs'
-import path from 'path'
+import db from '../db/database'
 import { readStats } from '../db/stats'
-import { getLock } from '../db/fileLock'
 
-// ── Validation des variables d'environnement obligatoires ────────────────────
 const ADMIN_USER     = process.env.ADMIN_USER
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD
 const SECRET         = process.env.ADMIN_SECRET
@@ -16,9 +13,8 @@ if (!ADMIN_PASSWORD || !SECRET) {
 
 const router = Router()
 
-// Sessions en mémoire : token → expiry
 const sessions = new Map<string, number>()
-const SESSION_MS = 8 * 60 * 60 * 1000 // 8 h
+const SESSION_MS = 8 * 60 * 60 * 1000
 
 function generateToken(): string {
   const raw = `${randomUUID()}:${Date.now()}`
@@ -27,63 +23,19 @@ function generateToken(): string {
 
 export function requireAuth(req: Request, res: Response, next: NextFunction): void {
   const auth = req.headers['authorization']
-  if (!auth?.startsWith('Bearer ')) {
-    res.status(401).json({ error: 'Non autorisé' })
-    return
-  }
+  if (!auth?.startsWith('Bearer ')) { res.status(401).json({ error: 'Non autorisé' }); return }
   const token = auth.slice(7)
   const expiry = sessions.get(token)
-  if (!expiry || Date.now() > expiry) {
-    sessions.delete(token)
-    res.status(401).json({ error: 'Session expirée' })
-    return
-  }
+  if (!expiry || Date.now() > expiry) { sessions.delete(token); res.status(401).json({ error: 'Session expirée' }); return }
   next()
 }
 
-// Chemins des données
-const LEADERBOARD_PATH = path.resolve(process.cwd(), 'data/leaderboard.json')
-const REPORTS_PATH     = path.resolve(process.cwd(), 'data/reports.json')
-
-type QuizEntry = { id?: string; name: string; score: number; total: number; date: string }
-type SpotEntry = { id?: string; name: string; score: number; maxScore: number; date: string }
-type LeaderboardStore = { quiz: QuizEntry[]; spot: SpotEntry[] }
-type ReportEntry = { id: string; submittedAt: string; status: string; [key: string]: unknown }
-type ReportsStore  = { schemaVersion: string; updatedAt: string; reports: ReportEntry[] }
-
-async function readLeaderboard(): Promise<LeaderboardStore> {
-  try {
-    const raw = await fs.readFile(LEADERBOARD_PATH, 'utf-8')
-    return JSON.parse(raw) as LeaderboardStore
-  } catch {
-    return { quiz: [], spot: [] }
-  }
-}
-
-async function writeLeaderboard(store: LeaderboardStore): Promise<void> {
-  await fs.writeFile(LEADERBOARD_PATH, JSON.stringify(store, null, 2), 'utf-8')
-}
-
-async function readReports(): Promise<ReportsStore> {
-  try {
-    const raw = await fs.readFile(REPORTS_PATH, 'utf-8')
-    return JSON.parse(raw) as ReportsStore
-  } catch {
-    return { schemaVersion: '1.0.0', updatedAt: new Date().toISOString(), reports: [] }
-  }
-}
-
-async function writeReports(store: ReportsStore): Promise<void> {
-  await fs.writeFile(REPORTS_PATH, JSON.stringify(store, null, 2), 'utf-8')
-}
-
-// ── Auth ──────────────────────────────────────────────────────────────────────
+// ── Auth ───────────────────────────────────────────────────────────────────────
 
 router.post('/login', (req: Request, res: Response) => {
   const { username, password } = req.body as { username?: unknown; password?: unknown }
   if (username !== ADMIN_USER || password !== ADMIN_PASSWORD) {
-    res.status(401).json({ error: 'Identifiants incorrects' })
-    return
+    res.status(401).json({ error: 'Identifiants incorrects' }); return
   }
   const token = generateToken()
   sessions.set(token, Date.now() + SESSION_MS)
@@ -95,104 +47,82 @@ router.post('/logout', requireAuth, (req: Request, res: Response) => {
   res.json({ ok: true })
 })
 
-// ── Stats ─────────────────────────────────────────────────────────────────────
+// ── Stats ──────────────────────────────────────────────────────────────────────
 
-router.get('/stats', requireAuth, async (_req: Request, res: Response) => {
-  const [lb, reports, stats] = await Promise.all([
-    readLeaderboard(),
-    readReports(),
-    readStats(),
-  ])
+router.get('/stats', requireAuth, (_req: Request, res: Response) => {
+  const stats = readStats()
 
-  const quizScores = lb.quiz.map(e => e.score)
-  const spotScores = lb.spot.map(e => e.score)
-  const avg = (arr: number[]) =>
-    arr.length ? Math.round((arr.reduce((a, b) => a + b, 0) / arr.length) * 10) / 10 : 0
+  const quizScores = (db.prepare('SELECT score FROM leaderboard_quiz').all() as { score: number }[]).map(r => r.score)
+  const spotScores = (db.prepare('SELECT score FROM leaderboard_spot').all() as { score: number }[]).map(r => r.score)
+  const avg = (arr: number[]) => arr.length ? Math.round((arr.reduce((a, b) => a + b, 0) / arr.length) * 10) / 10 : 0
+
+  const pendingReports = (db.prepare("SELECT COUNT(*) AS n FROM reports WHERE status = 'pending'").get() as { n: number }).n
+  const quizCount      = (db.prepare('SELECT COUNT(*) AS n FROM leaderboard_quiz').get() as { n: number }).n
+  const spotCount      = (db.prepare('SELECT COUNT(*) AS n FROM leaderboard_spot').get() as { n: number }).n
 
   res.json({
-    quizPlays:               stats.quizPlays,
-    spotPlays:               stats.spotPlays,
-    reportsSubmitted:        stats.reportsSubmitted,
-    chatMessages:            stats.chatMessages,
-    quizEntriesInLeaderboard: lb.quiz.length,
-    spotEntriesInLeaderboard: lb.spot.length,
-    pendingReports:          (reports.reports ?? []).filter(r => r.status === 'pending').length,
-    avgQuizScore:            avg(quizScores),
-    avgSpotScore:            avg(spotScores),
-    bestQuizScore:           quizScores.length ? Math.max(...quizScores) : 0,
-    bestSpotScore:           spotScores.length ? Math.max(...spotScores) : 0,
+    quizPlays:                stats.quizPlays,
+    spotPlays:                stats.spotPlays,
+    reportsSubmitted:         stats.reportsSubmitted,
+    chatMessages:             stats.chatMessages,
+    quizEntriesInLeaderboard: quizCount,
+    spotEntriesInLeaderboard: spotCount,
+    pendingReports,
+    avgQuizScore:             avg(quizScores),
+    avgSpotScore:             avg(spotScores),
+    bestQuizScore:            quizScores.length ? Math.max(...quizScores) : 0,
+    bestSpotScore:            spotScores.length ? Math.max(...spotScores) : 0,
   })
 })
 
-// ── Données complètes ─────────────────────────────────────────────────────────
+// ── Données complètes ──────────────────────────────────────────────────────────
 
-router.get('/leaderboard', requireAuth, async (_req: Request, res: Response) => {
-  const lb = await readLeaderboard()
-  // Migration : ajouter un id aux entrées qui n'en ont pas
-  let changed = false
-  for (const e of [...lb.quiz, ...lb.spot]) {
-    if (!e.id) { e.id = randomUUID(); changed = true }
-  }
-  if (changed) await writeLeaderboard(lb)
-  res.json(lb)
+router.get('/leaderboard', requireAuth, (_req: Request, res: Response) => {
+  const quiz = db.prepare('SELECT id, name, score, total, date FROM leaderboard_quiz ORDER BY score DESC').all()
+  const spot = db.prepare('SELECT id, name, score, max_score AS maxScore, date FROM leaderboard_spot ORDER BY score DESC').all()
+  res.json({ quiz, spot })
 })
 
-router.get('/reports', requireAuth, async (_req: Request, res: Response) => {
-  const store = await readReports()
-  res.json(store.reports)
+router.get('/reports', requireAuth, (_req: Request, res: Response) => {
+  const reports = db.prepare(`
+    SELECT id, submitted_at AS submittedAt, site_name AS siteName,
+           article_title AS articleTitle, article_url AS articleUrl,
+           ai_usage_type AS aiUsageType, reporter_name AS reporterName, status
+    FROM reports ORDER BY submitted_at DESC
+  `).all()
+  res.json(reports)
 })
 
-// ── Suppressions ──────────────────────────────────────────────────────────────
+// ── Modifications ──────────────────────────────────────────────────────────────
 
-router.delete('/leaderboard/quiz/:id', requireAuth, async (req: Request, res: Response) => {
-  await getLock('leaderboard').runExclusive(async () => {
-    const lb = await readLeaderboard()
-    const before = lb.quiz.length
-    lb.quiz = lb.quiz.filter(e => e.id !== req.params['id'])
-    if (lb.quiz.length === before) { res.status(404).json({ error: 'Entrée introuvable' }); return }
-    await writeLeaderboard(lb)
-    res.json({ ok: true })
-  })
-})
-
-router.delete('/leaderboard/spot/:id', requireAuth, async (req: Request, res: Response) => {
-  await getLock('leaderboard').runExclusive(async () => {
-    const lb = await readLeaderboard()
-    const before = lb.spot.length
-    lb.spot = lb.spot.filter(e => e.id !== req.params['id'])
-    if (lb.spot.length === before) { res.status(404).json({ error: 'Entrée introuvable' }); return }
-    await writeLeaderboard(lb)
-    res.json({ ok: true })
-  })
-})
-
-router.patch('/reports/:id', requireAuth, async (req: Request, res: Response) => {
+router.patch('/reports/:id', requireAuth, (req: Request, res: Response) => {
   const { status } = req.body as { status?: unknown }
   if (status !== 'approved' && status !== 'rejected' && status !== 'pending') {
-    res.status(400).json({ error: 'status invalide (pending | approved | rejected)' })
-    return
+    res.status(400).json({ error: 'status invalide (pending | approved | rejected)' }); return
   }
-  await getLock('reports').runExclusive(async () => {
-    const store = await readReports()
-    const report = store.reports.find(r => r.id === req.params['id'])
-    if (!report) { res.status(404).json({ error: 'Rapport introuvable' }); return }
-    report.status = status
-    store.updatedAt = new Date().toISOString()
-    await writeReports(store)
-    res.json({ ok: true, status })
-  })
+  const result = db.prepare('UPDATE reports SET status = ? WHERE id = ?').run(status, req.params['id'])
+  if (result.changes === 0) { res.status(404).json({ error: 'Rapport introuvable' }); return }
+  res.json({ ok: true, status })
 })
 
-router.delete('/reports/:id', requireAuth, async (req: Request, res: Response) => {
-  await getLock('reports').runExclusive(async () => {
-    const store = await readReports()
-    const before = store.reports.length
-    store.reports = store.reports.filter(r => r.id !== req.params['id'])
-    if (store.reports.length === before) { res.status(404).json({ error: 'Rapport introuvable' }); return }
-    store.updatedAt = new Date().toISOString()
-    await writeReports(store)
-    res.json({ ok: true })
-  })
+// ── Suppressions ───────────────────────────────────────────────────────────────
+
+router.delete('/leaderboard/quiz/:id', requireAuth, (req: Request, res: Response) => {
+  const result = db.prepare('DELETE FROM leaderboard_quiz WHERE id = ?').run(req.params['id'])
+  if (result.changes === 0) { res.status(404).json({ error: 'Entrée introuvable' }); return }
+  res.json({ ok: true })
+})
+
+router.delete('/leaderboard/spot/:id', requireAuth, (req: Request, res: Response) => {
+  const result = db.prepare('DELETE FROM leaderboard_spot WHERE id = ?').run(req.params['id'])
+  if (result.changes === 0) { res.status(404).json({ error: 'Entrée introuvable' }); return }
+  res.json({ ok: true })
+})
+
+router.delete('/reports/:id', requireAuth, (req: Request, res: Response) => {
+  const result = db.prepare('DELETE FROM reports WHERE id = ?').run(req.params['id'])
+  if (result.changes === 0) { res.status(404).json({ error: 'Rapport introuvable' }); return }
+  res.json({ ok: true })
 })
 
 export default router

@@ -107,7 +107,7 @@ router.post('/', (req: Request, res: Response) => {
     }
   }
 
-  incrementStat('chatMessages').catch(() => {})
+  incrementStat('chatMessages')
   res.json({ reply: bestReply })
 })
 
