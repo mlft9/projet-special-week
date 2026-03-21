@@ -9,7 +9,6 @@ lerna-debug.log*
 
 node_modules
 dist
-CLAUDE.md
 dist-ssr
 *.local
 *.env
@@ -20,12 +19,10 @@ dist-ssr
 .idea
 .DS_Store
 *.suo
-.claude
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
-tasks/
 
 analyse-sujet.md
 solutions-existantes.md
