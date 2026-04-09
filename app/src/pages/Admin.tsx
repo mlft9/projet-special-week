@@ -165,6 +165,31 @@ export default function Admin() {
     refreshStats()
   }
 
+  const quizDistribution = [0, 0, 0, 0]
+  for (const entry of quizEntries) {
+    if (entry.score <= 4) quizDistribution[0]++
+    else if (entry.score <= 8) quizDistribution[1]++
+    else if (entry.score <= 11) quizDistribution[2]++
+    else quizDistribution[3]++
+  }
+
+  const topQuizEntries = [...quizEntries]
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 10)
+
+  const reportStatusCounts = {
+    pending: reports.filter(r => r.status === 'pending').length,
+    approved: reports.filter(r => r.status === 'approved').length,
+    rejected: reports.filter(r => r.status === 'rejected').length,
+  }
+
+  const reportTypeCounts = {
+    suspected: reports.filter(r => r.aiUsageType === 'suspected').length,
+    declared: reports.filter(r => r.aiUsageType === 'declared').length,
+    generated: reports.filter(r => r.aiUsageType === 'generated').length,
+    unknown: reports.filter(r => r.aiUsageType === 'unknown').length,
+  }
+
   // ── Page login ──────────────────────────────────────────────────────────────
   if (!token) {
     return (
@@ -228,47 +253,126 @@ export default function Admin() {
         </section>
       )}
 
-      {quizEntries.length > 0 && (
+      {stats && (
         <section className="admin-charts">
           <div className="admin-chart-box">
+            <h3>Activité globale</h3>
+            <div className="admin-chart-canvas">
+              <Bar
+                data={{
+                  labels: ['Parties quiz', 'Parties spot', 'Signalements', 'Messages chat'],
+                  datasets: [{
+                    label: 'Volume',
+                    data: [stats.quizPlays, stats.spotPlays, stats.reportsSubmitted, stats.chatMessages],
+                    backgroundColor: ['#f59e0b', '#0ea5e9', '#ef4444', '#10b981'],
+                    borderRadius: 8,
+                  }],
+                }}
+                options={{
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  plugins: { legend: { display: false } },
+                  scales: { y: { beginAtZero: true, ticks: { precision: 0 } } },
+                }}
+              />
+            </div>
+          </div>
+
+          <div className="admin-chart-box">
             <h3>Distribution des scores quiz</h3>
-            <Bar
-              data={{
-                labels: ['0–4', '5–8', '9–11', '12–14'],
-                datasets: [{
-                  label: 'Joueurs',
-                  data: [
-                    quizEntries.filter(e => e.score <= 4).length,
-                    quizEntries.filter(e => e.score >= 5 && e.score <= 8).length,
-                    quizEntries.filter(e => e.score >= 9 && e.score <= 11).length,
-                    quizEntries.filter(e => e.score >= 12).length,
-                  ],
-                  backgroundColor: ['#f87171', '#fb923c', '#facc15', '#4ade80'],
-                  borderRadius: 6,
-                }],
-              }}
-              options={{ responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } }}
-            />
+            {quizEntries.length === 0 ? (
+              <p className="admin-chart-empty">Aucune entrée quiz pour l'instant.</p>
+            ) : (
+              <div className="admin-chart-canvas">
+                <Bar
+                  data={{
+                    labels: ['0–4', '5–8', '9–11', '12–14'],
+                    datasets: [{
+                      label: 'Joueurs',
+                      data: quizDistribution,
+                      backgroundColor: ['#f87171', '#fb923c', '#facc15', '#4ade80'],
+                      borderRadius: 6,
+                    }],
+                  }}
+                  options={{
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } },
+                  }}
+                />
+              </div>
+            )}
+          </div>
+
+          <div className="admin-chart-box">
+            <h3>Top 10 quiz</h3>
+            {topQuizEntries.length === 0 ? (
+              <p className="admin-chart-empty">Le top 10 sera affiché après les premières parties.</p>
+            ) : (
+              <div className="admin-chart-canvas admin-chart-canvas--tall">
+                <Bar
+                  data={{
+                    labels: topQuizEntries.map((entry, idx) => `${idx + 1}. ${entry.name}`),
+                    datasets: [{
+                      label: 'Score',
+                      data: topQuizEntries.map(entry => entry.score),
+                      backgroundColor: '#a855f7',
+                      borderRadius: 6,
+                    }],
+                  }}
+                  options={{
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { x: { beginAtZero: true, suggestedMax: 14, ticks: { stepSize: 1 } } },
+                  }}
+                />
+              </div>
+            )}
+          </div>
+
+          <div className="admin-chart-box">
+            <h3>Statut des signalements</h3>
+            {reports.length === 0 ? (
+              <p className="admin-chart-empty">Aucun signalement pour l'instant.</p>
+            ) : (
+              <div className="admin-chart-canvas">
+                <Doughnut
+                  data={{
+                    labels: ['En attente', 'Approuvés', 'Rejetés'],
+                    datasets: [{
+                      data: [reportStatusCounts.pending, reportStatusCounts.approved, reportStatusCounts.rejected],
+                      backgroundColor: ['#f59e0b', '#22c55e', '#ef4444'],
+                    }],
+                  }}
+                  options={{ responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }}
+                />
+              </div>
+            )}
           </div>
 
           {reports.length > 0 && (
             <div className="admin-chart-box">
               <h3>Types de signalements</h3>
+              <div className="admin-chart-canvas">
               <Doughnut
                 data={{
                   labels: ['Suspicieux', 'Déclaré', 'Généré', 'Inconnu'],
                   datasets: [{
                     data: [
-                      reports.filter(r => r.aiUsageType === 'suspected').length,
-                      reports.filter(r => r.aiUsageType === 'declared').length,
-                      reports.filter(r => r.aiUsageType === 'generated').length,
-                      reports.filter(r => r.aiUsageType === 'unknown').length,
+                      reportTypeCounts.suspected,
+                      reportTypeCounts.declared,
+                      reportTypeCounts.generated,
+                      reportTypeCounts.unknown,
                     ],
                     backgroundColor: ['#818cf8', '#34d399', '#f472b6', '#94a3b8'],
                   }],
                 }}
-                options={{ responsive: true, plugins: { legend: { position: 'bottom' } } }}
+                options={{ responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }}
               />
+              </div>
             </div>
           )}
         </section>

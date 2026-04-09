@@ -209,6 +209,26 @@
   margin: 0 0 16px;
 }
 
+.admin-chart-canvas {
+  position: relative;
+  height: 280px;
+}
+
+.admin-chart-canvas--tall {
+  height: 340px;
+}
+
+.admin-chart-empty {
+  margin: 0;
+  padding: 24px 12px;
+  border: 1px dashed #e6d4a8;
+  border-radius: 10px;
+  text-align: center;
+  color: #8b7e68;
+  font-size: 0.9rem;
+  background: #fdf8ef;
+}
+
 /* ── Section + tabs ──────────────────────────────────────────────────────────── */
 
 .admin-section {
@@ -374,6 +394,9 @@
   .admin-topbar  { padding: 0 16px; }
   .admin-stats   { padding: 16px 16px 0; gap: 12px; }
   .admin-section { margin: 16px 16px 32px; }
+  .admin-charts  { margin: 16px; gap: 16px; }
+  .admin-chart-canvas { height: 240px; }
+  .admin-chart-canvas--tall { height: 280px; }
 
   .admin-table th,
   .admin-table td { padding: 10px 10px; }

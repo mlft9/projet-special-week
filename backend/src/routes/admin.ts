@@ -7,8 +7,8 @@ const ADMIN_USER     = process.env.ADMIN_USER
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD
 const SECRET         = process.env.ADMIN_SECRET
 
-if (!ADMIN_PASSWORD || !SECRET) {
-  throw new Error('[admin] ADMIN_PASSWORD et ADMIN_SECRET doivent être définis dans les variables d\'environnement')
+if (!ADMIN_USER || !ADMIN_PASSWORD || !SECRET) {
+  throw new Error('[admin] ADMIN_USER, ADMIN_PASSWORD et ADMIN_SECRET doivent être définis dans les variables d\'environnement')
 }
 
 const router = Router()

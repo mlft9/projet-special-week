@@ -19,3 +19,6 @@ Quand l'objectif est d'agrandir une image au clic, rendre l'image elle-même cli
 - Écrire le plan dans `tasks/todo.md` et le valider avant d'implémenter
 - Mettre à jour ce fichier après chaque correction utilisateur
 - Déléguer l'exploration de code aux subagents pour garder le contexte propre
+
+## 6. Après une correction backend, retester les parcours front critiques
+Quand un utilisateur signale une régression fonctionnelle (ex: quiz cassé), vérifier immédiatement la chaîne complète front -> proxy Vite -> route backend concernée (`/api/quiz`, `/api/leaderboard/*`) avant d'ajouter d'autres changements.
